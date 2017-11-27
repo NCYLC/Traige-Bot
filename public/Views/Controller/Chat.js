@@ -5,20 +5,12 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     var serverurl=location.absUrl();
     console.log(serverurl);
     scope.sendData={};
-<<<<<<< HEAD
     scope.Text;
-=======
-    scope.Text='';
->>>>>>> Adding to ncylc
     scope.regions=["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"];
     scope.showButtons=false;
     scope.TextSent='';
     scope.OpenFeedback=false;
-<<<<<<< HEAD
     scope.rating;
-=======
-    scope.rating='';
->>>>>>> Adding to ncylc
     scope.ratingText=["Hated it","Disliked it","It's OK","Liked it","Loved it"];
     var StartofConv=false;
     if(!StartofConv){
@@ -29,57 +21,34 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
          console.log("success",JSON.stringify(request.data));
          scope.message.push(request.data);
          var old='';
-<<<<<<< HEAD
          location.hash(scope.message.length-1)
       
                anchorScroll();
                timeout(function(){location.hash(old)},100);
-=======
-         location.hash(scope.message.length-1);
-      
-               anchorScroll();
-               timeout(function(){location.hash(old);},100);
->>>>>>> Adding to ncylc
        }),function error(response){
            
            console.log(response);
       
-<<<<<<< HEAD
        }
       
       
-=======
-       };  
->>>>>>> Adding to ncylc
     }
     //rating
     scope.storeRating=function(rating){
       scope.OpenFeedback=true;
       scope.rating=rating+1;
     
-<<<<<<< HEAD
     }
-=======
-    };
->>>>>>> Adding to ncylc
 //.unloacking Chats
   scope.UnlockChat=function(){
     scope.isChatOpenFlag=true;
 
-<<<<<<< HEAD
 }
-=======
-};
->>>>>>> Adding to ncylc
 //Locking Chat
 scope.LockChat=function(){
   scope.isChatOpenFlag=false;
 
-<<<<<<< HEAD
 }
-=======
-};
->>>>>>> Adding to ncylc
 // scope.Feedback=function(data){
 //     scope.showButtons=false;
 //    var data1=data;
@@ -128,11 +97,7 @@ scope.LockChat=function(){
   var date=new Date();
   Timestamp=date.toString();
   var password = "Secret Password";// Will be edited later
-<<<<<<< HEAD
   scope.sendData={"Type":"Sent","Author":"Sandip","Text":scope.Text,"Time":Timestamp}
-=======
-  scope.sendData={"Type":"Sent","Author":"Sandip","Text":scope.Text,"Time":Timestamp};
->>>>>>> Adding to ncylc
   // var Type = encrypt(scope.sendData.Type, password);
   message.Type=scope.sendData.Type;
   // var Text = encrypt(scope.sendData.Text, password);
@@ -143,25 +108,16 @@ scope.LockChat=function(){
   message.Time=date;
   scope.message.push(message);
   var old='';
-<<<<<<< HEAD
   location.hash(scope.message.length-1)
 
         anchorScroll();
         timeout(function(){location.hash(old)},100);
 scope.Text=''
-=======
-  location.hash(scope.message.length-1);
-
-        anchorScroll();
-        timeout(function(){location.hash(old);},100);
-scope.Text='';
->>>>>>> Adding to ncylc
     http.post(serverurl+"watson?m="+false+"&y="+message.Text+"&z="+message.Author+"&t="+message.Time).then(function(request,response){
        
       console.log("success",JSON.stringify(request.data));
       scope.message.push(request.data);
       var old='';
-<<<<<<< HEAD
       location.hash(scope.message.length-1)
    
             anchorScroll();
@@ -173,17 +129,6 @@ scope.Text='';
     }
     }
 }
-=======
-      location.hash(scope.message.length-1);
-   
-            anchorScroll();
-            timeout(function(){location.hash(old);},100);
-    }),function error(response){
-        console.log(response);  
-      };
-    }
-};
->>>>>>> Adding to ncylc
 
 }]);
 

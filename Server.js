@@ -5,20 +5,6 @@ var app=express();
 var path = require('path');
 var watson=require('.//app.js');
 var Sync = require('sync');//synchronising
-<<<<<<< HEAD
-const Log = require('.//Log');//Calling Log Js
-//var FacebookMessanger=require('.//messenger-webhook/Webhook')
-app.use(express.static(__dirname + '/public'));
-var router = express.Router();
-var  message=[{"Type":"Received","Author":"Watson","Text":"This is watson","TimeStamp":new Date()}]
-let CryptoJS =require('crypto-js');
-const fs = require('.//Log');//Calling Node Fs
-//TimeOut ----------
-const util = require('util');
-let StartOfConv=false; 
-let ContextVariable=[];//Capture all context variables
-let Context={};
-=======
 var Log = require('.//Log');//Calling Log Js
 //var FacebookMessanger=require('.//messenger-webhook/Webhook')
 app.use(express.static(__dirname + '/public'));
@@ -36,7 +22,6 @@ var flag=false;//to show up URLS
 var quickreply=false;//to show quick reply
 var template=false;//to show templates
 
->>>>>>> Adding to ncylc
 router.get('/',function(req,res){
     
     res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));
@@ -48,11 +33,7 @@ var bodyParser = require('body-parser');// to read data from req.body
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 var sentdata={};
-<<<<<<< HEAD
-var  message=[]
-=======
 var  message=[];
->>>>>>> Adding to ncylc
 
 app.post('/watson',function (req, res, next) {
   var keySize = 256;
@@ -61,11 +42,7 @@ app.post('/watson',function (req, res, next) {
   var password = "Secret Password";
   function decrypt (transitmessage, pass) {
     var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
-<<<<<<< HEAD
-    var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
-=======
     var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32));
->>>>>>> Adding to ncylc
     var encrypted = transitmessage.substring(64);
     
     var key = CryptoJS.PBKDF2(pass, salt, {
@@ -78,19 +55,11 @@ app.post('/watson',function (req, res, next) {
       padding: CryptoJS.pad.Pkcs7,
       mode: CryptoJS.mode.CBC
       
-<<<<<<< HEAD
-    })
-    return decrypted;
-  }
- 
-let ReceivedData={};
-=======
     });
     return decrypted;
   }
  
 var ReceivedData={};
->>>>>>> Adding to ncylc
 
     // decrypted = decrypt(req.query.y, password);
     // ReceivedData.Text = decrypted.toString(CryptoJS.enc.Utf8);
@@ -100,15 +69,9 @@ var ReceivedData={};
     ReceivedData.Text=req.query.y;
     ReceivedData.Time=new Date();
      ReceivedData.Type="Sent";
-<<<<<<< HEAD
-     let start=req.query.m;
-    //console.log("start"+start+"Typew of start"+typeof(start));
-    setTimeout(function(){ var str=new Date()+"   "+"Author : "+ ReceivedData.Author + "   Message :  "+ ReceivedData.Text+"\r\n" 
-=======
      var start=req.query.m;
     //console.log("start"+start+"Typew of start"+typeof(start));
     setTimeout(function(){ var str=new Date()+"   "+"Author : "+ ReceivedData.Author + "   Message :  "+ ReceivedData.Text+"\r\n" ;
->>>>>>> Adding to ncylc
     Log.CreateLog(str);
 
 console.log("decrypted"+JSON.stringify(ReceivedData));
@@ -116,11 +79,7 @@ if(start=="true"){
   console.log("This is start of message");
   watson.message({
     input:{ text: '' },
-<<<<<<< HEAD
-    workspace_id: '6158aa0e-620c-4d57-aa03-e9bca3462dbb'
-=======
     workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
->>>>>>> Adding to ncylc
 }, function(err, response) {
     if (err) {
       console.error(err);
@@ -129,11 +88,7 @@ if(start=="true"){
         sentdata.Author="Watson";
         sentdata.Type="Received";
         if(response.output.text.length>1){
-<<<<<<< HEAD
-            for(data in response.output.text ){
-=======
             for(var data in response.output.text ){
->>>>>>> Adding to ncylc
             text=text+'\n'+response.output.text[data];
             }
         }
@@ -144,11 +99,7 @@ if(start=="true"){
         sentdata.Text=text;
         sentdata.Time=new Date();
         console.log(JSON.stringify(response));
-<<<<<<< HEAD
-        var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" 
-=======
         var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
->>>>>>> Adding to ncylc
         Log.CreateLog(str);
     
         res.json(sentdata);
@@ -162,11 +113,7 @@ if(start=="true"){
             console.log("After Start conversation");
          watson.message({
             input:{ text: ReceivedData.Text },
-<<<<<<< HEAD
-            workspace_id: '6158aa0e-620c-4d57-aa03-e9bca3462dbb',
-=======
             workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9',
->>>>>>> Adding to ncylc
             context:Context  
         }, function(err, response) {
             if (err) {
@@ -177,21 +124,13 @@ if(start=="true"){
                 sentdata.Author="Watson";
                 sentdata.Type="Received";
                 if(response.output.text.length>1){
-<<<<<<< HEAD
-                    for(data in response.output.text ){
-=======
                     for(var data in response.output.text ){
->>>>>>> Adding to ncylc
                     text=text+'\n'+response.output.text[data];
                     }
                 }
                 else
                 text=response.output.text[0];
-<<<<<<< HEAD
-                let action=response.output.action;
-=======
                 var action=response.output.action;
->>>>>>> Adding to ncylc
                 if(action!=null||action!=undefined){
                   //callAction(action);
                   if(action[0]=="ConfirmCarbooking"){
@@ -204,11 +143,7 @@ if(start=="true"){
                 sentdata.Text=text;
                 sentdata.Time=new Date();
                 console.log(JSON.stringify(response));
-<<<<<<< HEAD
-                var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" 
-=======
                 var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
->>>>>>> Adding to ncylc
                 Log.CreateLog(str);
                 
                 res.json(sentdata);
@@ -220,69 +155,6 @@ if(start=="true"){
 
 
            
-<<<<<<< HEAD
-res.sendStatus;
-  });
-
-
-app.post('/webhook', (req, res) => {  
-    
-     let body = req.body;
-   
-     // Checks this is an event from a page subscription
-     if (body.object === 'page') {
-   
-       // Iterates over each entry - there may be multiple if batched
-       body.entry.forEach(function(entry) {
-   
-         // Gets the message. entry.messaging is an array, but 
-         // will only ever contain one message, so we get index 0
-         let webhookEvent = entry.messaging[0];
-         console.log(webhookEvent);
-       });
-   
-       // Returns a '200 OK' response to all requests
-       res.status(200).send('EVENT_RECEIVED');
-     } else {
-       // Returns a '404 Not Found' if event is not from a page subscription
-       res.sendStatus(404);
-     }
-   
-   });
-
-
-   // Adds support for GET requests to our webhook
-   app.get('/webhook', (req, res) => {
-    
-      // Your verify token. Should be a random string.
-      let VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>"
-        
-      // Parse the query params
-      let mode = req.query['hub.mode'];
-      let token = req.query['hub.verify_token'];
-      let challenge = req.query['hub.challenge'];
-        
-      // Checks if a token and mode is in the query string of the request
-      if (mode && token) {
-      
-        // Checks the mode and token sent is correct
-        if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-          
-          // Responds with the challenge token from the request
-          console.log('WEBHOOK_VERIFIED');
-          res.status(200).send(challenge);
-        
-        } else {
-          // Responds with '403 Forbidden' if verify tokens do not match
-          res.sendStatus(403);      
-        }
-      }
-    });
-  
-//console.log(path.join(__dirname));
-app.use('/',router);
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-=======
 //res.sendStatus;
   });
 
@@ -527,7 +399,6 @@ res.send(req.query['hub.challenge']);
   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
->>>>>>> Adding to ncylc
 console.log(process.env);
 app.listen(3001);
 //console.log(process.env);

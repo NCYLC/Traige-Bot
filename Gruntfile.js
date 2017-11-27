@@ -49,18 +49,7 @@ grunt.initConfig({
           
         },
       },
-<<<<<<< HEAD
   });
 
   grunt.registerTask('Execute', ['autoprefixer', 'uglify', 'concat']);
 }
-=======
-      jshint: {
-        all: ['*.js','public/Views/Controller/chat.js']
-      }
-  });
-
-  grunt.registerTask('Execute', ['autoprefixer', 'uglify', 'concat']);
-  grunt.registerTask('jshint', ['jshint']);
-};
->>>>>>> Adding to ncylc
