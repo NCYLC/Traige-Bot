@@ -212,7 +212,7 @@ if(start=="true"){
           watson.message({
             input:{ text: received_message.text },
             context:FacebookContext,
-            workspace_id: '6158aa0e-620c-4d57-aa03-e9bca3462dbb'
+            workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
         }, function(err, response) {
           console.log("Facebook response"+JSON.stringify(response));
             if (err) {
