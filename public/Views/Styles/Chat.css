@@ -1,0 +1,113 @@
+
+html
+{
+    overflow: hidden;
+}
+body 
+{
+	background: #e9e9e9;
+	color: #9a9a9a;
+	font: 100%/1.5em "Droid Sans", sans-serif;
+	margin: 0;
+}
+
+a { text-decoration: none; }
+
+fieldset 
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+h4, h5 
+{
+	line-height: 1.5em;
+	margin: 0;
+}
+
+hr 
+{
+	background: #e9e9e9;
+    border: 0;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 1px;
+    margin: 0;
+    min-height: 1px;
+}
+
+img 
+{
+    border: 0;
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+input 
+{
+	border: 0;
+	color: inherit;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: normal;
+    margin: 0;
+}
+
+p { margin: 0; }
+
+.clearfix { *zoom: 1; } /* For IE 6/7 */
+.clearfix:before, .clearfix:after 
+{
+    content: "";
+    display: table;
+}
+.clearfix:after { clear: both; }
+
+.fa 
+{
+    font-size: 2rem;
+    margin: 3px
+}
+.fa:hover 
+{
+    cursor: pointer;
+    font-size:24px;
+    color: rgb(233, 212, 106);
+}
+.fa-star
+{
+    color: rgb(42, 158, 6);
+} 
+.ratingText
+{
+    font-size: 12px;
+    margin-left: 4rem;
+}
+.OpenFeedback
+{
+    margin-top: 2rem;
+    width: 20vw;
+    height: 20vh;
+}
+textarea
+{
+    width: 100%;
+    min-height: 100%;
+    resize :none;
+    font-size: 11px
+}
+.Buttons
+{
+    width:100%;
+    background-color: rgb(228, 230, 214);
+    min-height: 15vh;
+}
+button
+{
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+    margin: 1px;
+}

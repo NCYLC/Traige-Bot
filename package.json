@@ -1,0 +1,29 @@
+{
+  "name": "watson",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "bower": "^1.8.2",
+    "crypto-js": "^3.1.9-1",
+    "expres": "0.0.5",
+    "express": "^4.16.2",
+    "sync": "^0.2.5",
+    "util.promisify": "^1.0.0",
+    "watson-developer-cloud": "^2.41.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt-contrib-uglify": "^3.1.0",
+    "grunt-contrib-watch": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sandi[",
+  "license": "ISC",
+  "description": ""
+}
