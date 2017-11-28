@@ -16,7 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://cdn.jsdelivr.net/ngstorage/0.3.10/ngStorage.min.js"></script>
-    <script src="Views/Controller/Chat.min.js" type="text/javascript"></script>
+    <script src="Views/Controller/Chat.js" type="text/javascript"></script>
     
 
 </head>
@@ -65,13 +65,14 @@
 			</div> <!-- end chat-history -->
 
 			<p class="chat-feedback" ng-if="Flag" id="Buttom">Your partner is typing…</p>
-			<!-- <div class="Buttons" ng-if="showButtons">
-				<div class="row" >
-					<div ng-repeat="region in regions" class="col-sm-4 col-md-4 col-lg-4 col-xl-4" title="{{region}}">
-				<button ng-click="Feedback(region)">{{region}}</button></div>
-				</div>
-
-			</div> -->
+			<div class="Buttons" ng-if="quickreplyflag">
+					<div ng-repeat="region in quickreply" class="reply" title="{{region}}">
+				<button ng-click="Feedback(region)">{{region}}</button>
+			</div></div>
+			<div class="Buttons" ng-if="UrlButtonFlag">
+				To know more visit this link.
+			<div class="reply"><a href={{UrlButton}} target="_blank">{{Urltitle}}</a></div></div>
+			
 
 			<form ng-show="!showButtons">
 

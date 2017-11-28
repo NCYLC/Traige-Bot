@@ -13,6 +13,11 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.rating;
     scope.ratingText=["Hated it","Disliked it","It's OK","Liked it","Loved it"];
     var StartofConv=false;
+    scope.quickreplyflag=false;
+    scope.UrlButtonFlag=false;
+    scope.quickreply=[];//quick reply array
+    scope.UrlButton=[];//Url navigator
+    
     if(!StartofConv){
       StartofConv=true;
         
@@ -49,14 +54,14 @@ scope.LockChat=function(){
   scope.isChatOpenFlag=false;
 
 }
-// scope.Feedback=function(data){
-//     scope.showButtons=false;
-//    var data1=data;
-//     scope.sendMessage(data1);
-//     //window.location.href='http://www.lawstuff.org.au/';
-// }
+scope.Feedback=function(data){
+    scope.quickreplyflag=false;
+   var data1=data;
+    scope.sendMessage(data1);
+    //window.location.href='http://www.lawstuff.org.au/';
+}
 
-//Init Message//
+// Init Message//
 
 
     scope.sendMessage=function(data){
@@ -114,7 +119,17 @@ scope.LockChat=function(){
         timeout(function(){location.hash(old)},100);
 scope.Text=''
     http.post(serverurl+"watson?m="+false+"&y="+message.Text+"&z="+message.Author+"&t="+message.Time).then(function(request,response){
-       
+        scope.quickreplyflag=false;
+        scope.UrlButtonFlag=false;
+       if(request.data.quickreply!=null || request.data.quickreply!=undefined){
+        scope.quickreply=request.data.quickreply;
+        scope.quickreplyflag=true;
+           }
+           else if(request.data.URL!=null || request.data.URL!=undefined){
+            scope.UrlButton=request.data.URL;
+            scope.Urltitle=request.data.title;
+            scope.UrlButtonFlag=true;
+               }
       console.log("success",JSON.stringify(request.data));
       scope.message.push(request.data);
       var old='';

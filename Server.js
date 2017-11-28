@@ -18,8 +18,8 @@ var StartOfConv=false;
 var ContextVariable=[];//Capture all context variables
 var Context={};//Context for Node app
 var FacebookContext={};//context for facebook app
-var flag=false;//to show up URLS
-var quickreply=false;//to show quick reply
+var flag=false;//to show up  in facebook URLS
+var quickreply=false;//to show quick in facebook reply
 var template=false;//to show templates
 
 router.get('/',function(req,res){
@@ -130,13 +130,18 @@ if(start=="true"){
                 }
                 else
                 text=response.output.text[0];
-                var action=response.output.action;
+                var action=response.output.Actions;
+                console.log(JSON.stringify(action));
                 if(action!=null||action!=undefined){
                   //callAction(action);
-                  if(action[0]=="ConfirmCarbooking"){
-                    response.context.CarBookingDate=null;
-                    response.context.CarBookingTime=null;
-                    response.context.CarBookingConfirmation=null;
+                  if(Object.keys(action)[0]=="Quickreply"){
+                    var data=Object.keys(action)[0];
+                    sentdata.quickreply=action[data];
+                  }
+                  else if(Object.keys(action)[0]=="URL"){
+                    var data=Object.keys(action)[0];
+                    sentdata.URL=action[data];
+                    sentdata.title=action.title;
                   }
                   console.log("Actions is"+action);
                 }
@@ -145,8 +150,9 @@ if(start=="true"){
                 console.log(JSON.stringify(response));
                 var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);
-                
+                console.log(JSON.stringify(sentdata));
                 res.json(sentdata);
+                sentdata={};
             }
           
         }); 
