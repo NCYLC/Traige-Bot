@@ -98,12 +98,15 @@ textarea
     resize :none;
     font-size: 11px
 }
-.Buttons
-{
-    width:100%;
+.Buttons {
+    width: 100%;
     background-color: rgb(240, 241, 237);
-    /* min-height: 8vh; */
+    /* min-height: 5vh; */
+    padding: 5px;
+    font-size: 15px;
+    overflow: hidden;
     overflow-x: auto;
+   
 }
 .reply{
     min-width: 5vw;
@@ -111,15 +114,19 @@ textarea
     display: inline-block;
 
 }
-button
-{
-    width: 100%;
-    font-size: 1em;
+
+
+button {
+    width: 80Px;
+    border-radius: 4px;
+    box-shadow: inset 1px 1px 2px 0px #c5cebc;
+    font-size: 15px;
     border: none;
     outline: none;
-    padding: 2px;
-    border:1px;
-    margin:1px;
-    color: #4e4a4a;
+    padding: 5px;
+    border: 1px solid rgba(189, 178, 178, 0.664);
+    margin: 2px 5px;
+    color: #4e4a4ac2;
     background-color: #fdfdfd;
+    box-sizing: content-box;
 }

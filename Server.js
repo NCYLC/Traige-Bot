@@ -21,7 +21,7 @@ var FacebookContext={};//context for facebook app
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quick in facebook reply
 var template=false;//to show templates
-
+var Facebookaction={};
 router.get('/',function(req,res){
     
     res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));
@@ -205,15 +205,15 @@ if(start=="true"){
         if (received_message.text) {    
         console.log("In watson received_message.text"+received_message.text);
           var text='';
-          if(received_message.text=='Test'){
-            flag=true;
-          }
-          if(received_message.text=='quickreply'){
-            quickreply=true;
-          }
-          if(received_message.text=='template'){
-            template=true;
-          }
+          // if(received_message.text=='Test'){
+           
+          // }
+          // if(received_message.text=='quickreply'){
+            
+          // }
+          // if(received_message.text=='template'){
+          //   template=true;
+          // }
           
           watson.message({
             input:{ text: received_message.text },
@@ -233,13 +233,31 @@ if(start=="true"){
                 }
                 else
                 text=response.output.text[0];
-             
+
+                var action=response.output.Actions;
+                console.log(JSON.stringify(action));
+                if(action!=null||action!=undefined){
+                  //callAction(action);
+                  if(Object.keys(action)[0]=="Quickreply"){
+                    var data=Object.keys(action)[0];
+                    Facebookaction.quickreply=action[data];
+                    quickreply=true;
+                  }
+                  else if(Object.keys(action)[0]=="URL"){
+                    var data=Object.keys(action)[0];
+                    Facebookaction.URL=action[data];
+                    Facebookaction.title=action.title;
+                    flag=true;//for buttons in face book.
+                  }
+                  console.log("Actions is"+action);
+                }
             }
             //console.log("In Watson text"+text);
             response = {
               "text": text
             }
-            callSendAPI(sender_psid, response);  
+          
+            callSendAPI(sender_psid, response,Facebookaction);  
            // console.log("In Watson"+JSON.stringify(response));
         }); 
       
@@ -259,7 +277,7 @@ res.send(req.query['hub.challenge']);
     
   });
 
-  function callSendAPI(sender_psid, response) {
+  function callSendAPI(sender_psid, response,action) {
     // Construct the message body
     console.log("Inside Send api line2"+JSON.stringify(response));
     let request_body = {};
@@ -272,12 +290,12 @@ res.send(req.query['hub.challenge']);
         "type":"template",
         "payload":{
           "template_type":"button",
-          "text":"Do you want to navigate to our website?",
+          "text":"To know more visit this link.",
           "buttons":[
             {
               "type":"web_url",
-              "url":"http://www.lawstuff.org.au/",
-              "title":"Visit Messenger"
+              "url":action.URL,
+              "title":action.title
             },
           ]
         }
@@ -285,54 +303,15 @@ res.send(req.query['hub.challenge']);
     }
     }
     flag=false;
+
     }
     else if(quickreply){
       request_body = { "recipient": {
         "id": sender_psid
       },
     "message":{
-      "text": "Please select your state",
-      "quick_replies":[
-        {
-          "content_type":"text",
-          "title":"ACT",
-          "payload":"ACT"
-        },
-        {
-          "content_type":"text",
-          "title":"NSW",
-          "payload":"NSW"
-        },
-        {
-          "content_type":"text",
-          "title":"NT",
-          "payload":"NT"
-        },
-        {
-          "content_type":"text",
-          "title":"QLD",
-          "payload":"QLD"
-        },
-        {
-          "content_type":"text",
-          "title":"SA",
-          "payload":"SA"
-        },
-        {
-          "content_type":"text",
-          "title":"TAS",
-          "payload":"TAS"
-        },
-        {
-          "content_type":"text",
-          "title":"VIC",
-          "payload":"VIC"
-        }, {
-          "content_type":"text",
-          "title":"WA",
-          "payload":"WA"
-        },
-      ]
+      "text": "Please provide your answer.",
+      "quick_replies":action.quickreply
     }
     }
     quickreply=false;
@@ -401,7 +380,7 @@ res.send(req.query['hub.challenge']);
         console.error("Unable to send message:" + err);
       }
     }); 
-
+Facebookaction={};//resetting facebookaction
   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
