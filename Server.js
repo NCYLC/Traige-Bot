@@ -17,6 +17,8 @@ var util = require('util');
 var StartOfConv=false; 
 var ContextVariable=[];//Capture all context variables
 var Context={};//Context for Node app
+var CleareContext=false;
+
 var FacebookContext={};//context for facebook app
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quick in facebook reply
@@ -111,6 +113,7 @@ if(start=="true"){
 
           else{
             console.log("After Start conversation");
+            debugger;
          watson.message({
             input:{ text: ReceivedData.Text },
             workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9',
@@ -120,6 +123,17 @@ if(start=="true"){
               console.error(err);
             } else {
               Context=response.context;
+              CleareContext=response.output.CleareContext;
+              if(CleareContext){
+                var arr=Object.keys(response.context);
+              
+                for (var data=2;data<arr.length;data++){
+                  console.log("Nullifying contexts"+Context[arr[data]]+arr[data]);
+                  Context[arr[data]]=null;
+                  
+                }
+                }
+              
                     var text='';
                 sentdata.Author="Watson";
                 sentdata.Type="Received";
@@ -152,6 +166,8 @@ if(start=="true"){
                 Log.CreateLog(str);
                 console.log(JSON.stringify(sentdata));
                 res.json(sentdata);
+                
+               
                 sentdata={};
             }
           
@@ -214,7 +230,8 @@ if(start=="true"){
           // if(received_message.text=='template'){
           //   template=true;
           // }
-          
+          var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
+          Log.CreatefacebookLog(str);
           watson.message({
             input:{ text: received_message.text },
             context:FacebookContext,
@@ -380,11 +397,14 @@ res.send(req.query['hub.challenge']);
         console.error("Unable to send message:" + err);
       }
     }); 
+    var str=new Date()+"   "+"Author : "+ "watson" + "   Message :  "+ response.text+"\r\n" ;
+    Log.CreateLog(str);
 Facebookaction={};//resetting facebookaction
   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 console.log(process.env);
-app.listen(3001);
+
+app.listen(process.env.PORT || 3001);
 //console.log(process.env);
 module.exports=app;
