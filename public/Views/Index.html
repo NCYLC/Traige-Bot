@@ -43,7 +43,7 @@
 
 		<div class="chat">
 			
-			<div class="chat-history">
+			<div class="chat-history" id="chat-history" >
 				
 				<div class="chat-message clearfix" ng-repeat="messages in message">
 					
@@ -75,11 +75,11 @@
 			<div class="reply"><a href={{UrlButton}} target="_blank">{{Urltitle}}</a></div></div>
 			
 
-			<form ng-show="!showButtons">
+			<form>
 
 				<fieldset  > 
 					
-					<input id="input" type="text" placeholder="Type your message…" ng-model="Text" ng-keypress="$event.keyCode == 13 && sendMessage(Text)" autofocus><span>
+					<input type="text" id="resizeForm" placeholder="Type your message…" ng-model="Text" ng-keypress="$event.keyCode == 13 && sendMessage(Text)" ><span>
 					
 
 				</fieldset>

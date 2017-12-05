@@ -6,6 +6,8 @@ var path = require('path');
 var watson=require('.//app.js');
 var Sync = require('sync');//synchronising
 var Log = require('.//Log');//Calling Log Js
+const request=require('request');
+const accesstoken='EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
 //var FacebookMessanger=require('.//messenger-webhook/Webhook')
 app.use(express.static(__dirname + '/public'));
 var router = express.Router();
@@ -237,7 +239,7 @@ if(start=="true"){
             context:FacebookContext,
             workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
         }, function(err, response) {
-          console.log("Facebook response"+JSON.stringify(response));
+          //console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               console.error(err);
             } else {
@@ -251,22 +253,36 @@ if(start=="true"){
                 else
                 text=response.output.text[0];
 
-                var action=response.output.Actions;
-                console.log(JSON.stringify(action));
-                if(action!=null||action!=undefined){
+                var Faceaction=response.output.Actions;
+//                console.log(JSON.stringify(action));
+                if(Faceaction!=null||Faceaction!=undefined){
                   //callAction(action);
-                  if(Object.keys(action)[0]=="Quickreply"){
-                    var data=Object.keys(action)[0];
-                    Facebookaction.quickreply=action[data];
+                  var action1=[];
+                  
+                 // var  dataHead=Object.keys(action[0])
+                 
+                  if(Object.keys(Faceaction)[0]=="Quickreply"){
+                    var mainData=Faceaction['Quickreply'];
+                    console.log("We came to quick reply.");
+                    // var data=action[Object.keys(action[0])];
+                    for(var i=0;i<mainData.length;i++){
+                    var data1={};
+                    data1.content_type="text";
+                    data1.payload=mainData[i];
+                    data1.title=mainData[i];
+                    action1.push(data1);
+                    }
+                    Facebookaction.quickreply=action1;
+                    console.log("facebook Quick reply"+JSON.stringify(action1));
                     quickreply=true;
                   }
-                  else if(Object.keys(action)[0]=="URL"){
-                    var data=Object.keys(action)[0];
-                    Facebookaction.URL=action[data];
-                    Facebookaction.title=action.title;
+                  else if(Object.keys(Faceaction)[0]=="URL"){
+                    var data=Object.keys(Faceaction)[0];
+                    Facebookaction.URL=Faceaction[data];
+                    Facebookaction.title=Faceaction.title;
                     flag=true;//for buttons in face book.
                   }
-                  console.log("Actions is"+action);
+                  console.log("Actions is"+JSON.stringify(Facebookaction));
                 }
             }
             //console.log("In Watson text"+text);
@@ -296,7 +312,7 @@ res.send(req.query['hub.challenge']);
 
   function callSendAPI(sender_psid, response,action) {
     // Construct the message body
-    console.log("Inside Send api line2"+JSON.stringify(response));
+    console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
     let request_body = {};
     if(flag){
       request_body = { "recipient": {
@@ -307,7 +323,7 @@ res.send(req.query['hub.challenge']);
         "type":"template",
         "payload":{
           "template_type":"button",
-          "text":"To know more visit this link.",
+          "text":response.text,
           "buttons":[
             {
               "type":"web_url",
@@ -327,10 +343,11 @@ res.send(req.query['hub.challenge']);
         "id": sender_psid
       },
     "message":{
-      "text": "Please provide your answer.",
+      "text": response.text,
       "quick_replies":action.quickreply
     }
     }
+    //console.log("Quickreply response"+JSON.stringify(request_body))
     quickreply=false;
     }
 
@@ -382,7 +399,7 @@ res.send(req.query['hub.challenge']);
     
      
    
-  console.log(request_body );
+  console.log(JSON.stringify(request_body )+"\n request body");
     // Send the HTTP request to the Messenger Platform
     //error coming here
  request({

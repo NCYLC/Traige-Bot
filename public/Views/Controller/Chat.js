@@ -17,7 +17,83 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.UrlButtonFlag=false;
     scope.quickreply=[];//quick reply array
     scope.UrlButton=[];//Url navigator
+
+
+    var saveWindowHeight= true;
+    var savedWindowHeight,savedWindowWidth,windowHeight;
+//set the initial window width
+
+
+
+//then on resize...
+if (saveWindowHeight = true){
+    savedWindowWidth = window.innerWidth;
+    savedWindowHeight=window.innerHeight;
+    saveWindowHeight = false;
+
+}
+
+ window.onresize =function() {
+    windowHeight =window.innerHeight ;
+// alert(windowHeight);
+     if(window.orientation="landscape")
+     {
+
+        if(windowHeight/(savedWindowHeight) >=0.5 ){
+            var form=document.getElementById("chat-history");
+            
+            form.style.display='visible';
+            return;
+
+        }
+        else{
+            var form=document.getElementById("chat-history");
+            // document.getElementById("resizeForm").style.marginBottom=-"3vh"
+            scope.showChatHistry=false;
+            form.style.display='none';
+            return;
+        }
+
+
+     }
+
+else{
+    var form=document.getElementById("chat-history");
     
+    form.style.display='visible';
+    return;
+
+}
+
+// //if the screen has resized then the window width variable will update
+       
+
+
+// //if the saved window width is still equal to the current window width do nothing
+//         if (savedWindowHeight == windowHeight){
+           
+
+//         }
+
+
+// // if saved window width not equal to the current window width do something
+//         if((savedWindowHeight >= windowHeight)&&(window.orientation="landscape")) {
+//             if (saveWindowHeight = true){
+//                 savedWindowWidth = window.innerWidth;
+//                 saveWindowHeight = false;
+//             }
+//            // do something
+//            var form=document.getElementById("chat-history");
+           
+//            form.style.display='none';
+          
+//             // savedWindowWidth = windowWidth;
+//         }
+
+    };
+
+
+
     if(!StartofConv){
       StartofConv=true;
         

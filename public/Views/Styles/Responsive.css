@@ -1,14 +1,14 @@
 /* Mobile Potrait View */
-@media screen and (min-width: 300px)and (max-width: 450px)and (min-height: 300px)and (max-height: 767px){/* ---------- LIVE-CHAT ---------- */
+@media screen and  (max-width: 450px){/* ---------- LIVE-CHAT ---------- */
     .UnlockChat{
         position: relative;
-        /* float: right; */
-        right: -80vw;
+         float: right;
+        margin-right:-3vw;
     }
 
     #live-chat {
         bottom: 0;
-        font-size: 12px;
+        /* font-size: 12px; */
         right: 5%;
         position: fixed;
         width: 90%;
@@ -21,7 +21,7 @@
         color: #fff;
         cursor: pointer;
         padding: 16px 24px;
-        font-size: 1em
+        /* font-size: 1em */
     }
     
     #live-chat h4:before {
@@ -35,15 +35,15 @@
     }
     
     #live-chat h4 {
-        font-size: 2em;
+        /* font-size: 2em; */
     }
     
     #live-chat h5 {
-        font-size: 2em;
+        /* font-size: 2em; */
         margin-left: -50px;
     }
     #live-chat p {
-        font-size: 2rem;
+        /* font-size: 2rem; */
         margin-left: -40px;
         padding-bottom: 10px
     }
@@ -53,13 +53,14 @@
     }
     
     #live-chat input[type="text"] {
+        position: relative;
         border: 1px solid #ccc;
         border-radius: 3px;
         padding: 8px;
         outline: none;
         height: 50px;
         width: 90%;
-        font-size: 2rem;
+        /* font-size: 2rem; */
     }
     
     .chat-message-counter {
@@ -67,7 +68,7 @@
         border: 1px solid #fff;
         border-radius: 50%;
         display: none;
-        font-size: 12px;
+        /* font-size: 12px; */
         font-weight: bold;
         height: 28px;
         left: 0;
@@ -84,7 +85,7 @@
         border-radius: 50%;
         color: #fff;
         float: right;
-        font-size: 2em;
+        /* font-size: 2em; */
         padding: 10px;
         margin: -8px -15px;
         }
@@ -114,7 +115,7 @@
     
     .chat-time {
         float: right;
-        font-size: 16px;
+        /* font-size: 16px; */
     }
     
     .chat-feedback {
@@ -125,16 +126,17 @@
     /* Mobile landscape view */
     /* (min-width: 300px)and (max-width: 450px)and (min-height: 400px)and (max-height: 767px) */
     /* (min-width: 550px)and (max-width: 800px)and (min-height: 100px)and (max-height: 450px) */
-    @media screen and (min-width: 550px)and (max-width: 750px)and (min-height: 100px)and (max-height: 450px){/* ---------- LIVE-CHAT ---------- */
+    @media screen and (min-width: 451px)and (max-width: 750px){/* ---------- LIVE-CHAT ---------- */
         
         .UnlockChat{
             position: relative;
-            /* float: right; */
-            right: -90vw;
+            float: right;
+            margin-right:-3vw;
+            /* right: -90vw; */
         }
         #live-chat {
             bottom: 0;
-            font-size: 12px;
+            /* font-size: 12px; */
             top:-5px;
             right: 5%;
             position: fixed;
@@ -148,7 +150,7 @@
             color: #fff;
             cursor: pointer;
             padding: 16px ;
-            font-size: 1em
+            /* font-size: 1em */
         }
         
         #live-chat h4:before {
@@ -162,15 +164,15 @@
         }
         
         #live-chat h4 {
-            font-size: 2rem;
+            /* font-size: 2rem; */
         }
         
         #live-chat h5 {
-            font-size: 18px;
+            /* font-size: 18px; */
             margin-left: -50px;
         }
         #live-chat p {
-            font-size: 16px;
+            /* font-size: 16px; */
             margin-left: -30px;
             padding-bottom: 10px
         }
@@ -180,13 +182,14 @@
         }
         
         #live-chat input[type="text"] {
+            position: relative;
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             height: 50px;
             width: 90%;
-            font-size: 16px;
+            /* font-size: 16px; */
         }
         
         .chat-message-counter {
@@ -194,7 +197,7 @@
             border: 1px solid #fff;
             border-radius: 50%;
             display: none;
-            font-size: 12px;
+            /* font-size: 12px; */
             font-weight: bold;
             height: 28px;
             left: 0;
@@ -211,7 +214,7 @@
             border-radius: 50%;
             color: #fff;
             float: right;
-            font-size: 2rem;
+            /* font-size: 2rem; */
             padding: 10px;
             margin: -5px -5px;
             }
@@ -242,7 +245,7 @@
         
         .chat-time {
             float: right;
-            font-size: 16px;
+            /* font-size: 16px; */
         }
         
         .chat-feedback {
@@ -254,15 +257,16 @@
     /* TabLet View lanscape*/
     /* (min-width: 300px)and (max-width: 450px)and (min-height: 400px)and (max-height: 767px) */
     /* (min-width: 550px)and (max-width: 800px)and (min-height: 100px)and (max-height: 450px) */
-    @media screen and (min-width: 751px)and (max-width: 1024px)and (min-height: 750px){/* ---------- LIVE-CHAT ---------- */
+    @media screen and (min-width: 751px)and (max-width: 1370px){/* ---------- LIVE-CHAT ---------- */
         .UnlockChat{
             position: relative;
-            /* float: right; */
-            right: -45vw;
+            float: right;
+            margin-right:-3vw;
+            /* right: -45vw; */
         }
         #live-chat {
             bottom: 0;
-            font-size: .5vw; 
+            /* font-size: .5vw;  */
             right: 3%;
             position: fixed;
             width: 60vw;
@@ -289,18 +293,18 @@
         }
         
         #live-chat h4 {
-            font-size: 2vw;
+            /* font-size: 2vw; */
         }
         
         #live-chat h5 {
-            font-size: 1.7vw;
+            /* font-size: 1.7vw; */
             margin-left: -50px;
         }
         #live-chat p {
             min-height: 1.2vw;
-            font-size: 1.5vw;
+            /* font-size: 1.5vw; */
             margin-left: -40px;
-            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family:'Roboto', sans-serif;
             padding-bottom: 10px
         }
         
@@ -309,13 +313,14 @@
         }
         
         #live-chat input[type="text"] {
+            position: relative;
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             height: 6vh;
             width: 90%;
-            font-size: 1.5vw;
+            /* font-size: 1.5vw; */
         }
         
         .chat-message-counter {
@@ -323,7 +328,7 @@
             border: 1px solid #fff;
             border-radius: 50%;
             display: none;
-            font-size: 12px;
+            /* font-size: 12px; */
             font-weight: bold;
             height: 28px;
             left: 0;
@@ -340,7 +345,7 @@
             border-radius: 0%;
             color: #fff;
             float: right;
-            font-size: 1.5vw;
+            /* font-size: 1.5vw; */
             padding: 0.5vw;
             margin: -1vw -1vh;
             }
@@ -370,7 +375,7 @@
         
         .chat-time {
             float: right;
-            font-size: 20px;
+            /* font-size: 20px; */
         }
         
         .chat-feedback {
@@ -380,131 +385,6 @@
 
    
 
-    
-  /* TabLet View potrait*/
-    /* (min-width: 300px)and (max-width: 450px)and (min-height: 400px)and (max-height: 767px) */
-    /* (min-width: 550px)and (max-width: 800px)and (min-height: 100px)and (max-height: 450px) */
-    @media screen and (min-width: 751px)and (max-width: 1024px){/* ---------- LIVE-CHAT ---------- */
-        .UnlockChat{
-            position: relative;
-            /* float: right; */
-            right: -90vw;
-        }
-        #live-chat{
-        font-size: .5vw;
-        bottom: 0;
-        
-        position: fixed;
-        width: 60vw;
-        }
-        
-        #live-chat header {
-            background: #293239;
-            border-radius: 5px 5px 0 0;
-            color: #fff;
-            cursor: pointer;
-            padding: 1.5vw;
-            /* font-size: 1.2em */
-        }
-        
-        #live-chat h4:before {
-            background: #1a8a34;
-            border-radius: 50%;
-            content: "";
-            display: inline-block;
-            height: 8px;
-            margin: 0 8px 0 0;
-            width: 8px;
-        }
-        
-        #live-chat h4 {
-            font-size: 2vw;
-        }
-        
-        #live-chat h5 {
-            font-size: 1.7vw;
-            margin-left: -50px;
-        }
-        #live-chat p {
-            min-height: 1.2vw;
-            font-size: 1.5vw;
-            margin-left: -40px;
-            padding-bottom: 10px
-        }
-        
-        #live-chat form {
-            padding: 0.9vw;
-        }
-        
-        #live-chat input[type="text"] {
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            padding: 8px;
-            outline: none;
-            height: 6vh;
-            width: 90%;
-            font-size: 1.5vw;
-        }
-        
-        .chat-message-counter {
-            background: #e62727;
-            border: 1px solid #fff;
-            border-radius: 50%;
-            display: none;
-            font-size: 12px;
-            font-weight: bold;
-            height: 28px;
-            left: 0;
-            line-height: 28px;
-            margin: -15px 0 0 -15px;
-            position: absolute;
-            text-align: center;
-            top: 0;
-            width: 28px;
-        }
-        
-        .chat-close {
-            background: #556979;
-            border-radius: 0%;
-            color: #fff;
-            float: right;
-            font-size: 1.5vw;
-            padding: 0.5vw;
-            margin: -1vw -1vh;
-            }
-        
-        .chat {
-            background: #fff;
-        }
-        
-        .chat-history {
-            height: 65vh;
-            padding: 8px 24px;
-            overflow-y: scroll;
-        }
-        
-        .chat-message {
-            margin: 16px 0;
-        }
-        
-        .chat-message img {
-            border-radius: 50%;
-            float: left;
-        }
-        
-        .chat-message-content {
-            margin-left: 56px;
-        }
-        
-        .chat-time {
-            float: right;
-            font-size: 20px;
-        }
-        
-        .chat-feedback {
-            font-style: italic;	
-            margin: 0 0 0 80px;
-        }}
 
         /* Laptop View */
         @media screen and (min-width : 1224px) 
@@ -512,13 +392,14 @@
 
             .UnlockChat{
                 position: relative;
-                /* float: right; */
-                right: -87vw;
+                float: right;
+                margin-right:-3vw;
+                /* right: -87vw; */
             }
 
         #live-chat {
             bottom: 0;
-            font-size: 12px;
+            /* font-size: 12px; */
             right: 24px;
             position: fixed;
             width: 300px;
@@ -543,11 +424,11 @@
         }
         
         #live-chat h4 {
-            font-size: 12px;
+            /* font-size: 12px; */
         }
         
         #live-chat h5 {
-            font-size: 10px;
+            /* font-size: 10px; */
         }
         
         #live-chat form {
@@ -555,6 +436,7 @@
         }
         
         #live-chat input[type="text"] {
+            position: relative;
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
@@ -567,7 +449,7 @@
             border: 1px solid #fff;
             border-radius: 50%;
             display: none;
-            font-size: 12px;
+            /* font-size: 12px; */
             font-weight: bold;
             height: 28px;
             left: 0;
@@ -585,7 +467,7 @@
             color: #fff;
             display: block;
             float: right;
-            font-size: 10px;
+            /* font-size: 10px; */
             height: 16px;
             line-height: 16px;
             margin: 2px 0 0 0;
@@ -618,7 +500,7 @@
         
         .chat-time {
             float: right;
-            font-size: 10px;
+            /* font-size: 10px; */
         }
         
         .chat-feedback {
