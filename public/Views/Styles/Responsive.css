@@ -415,7 +415,7 @@
             /* font-size: 12px; */
             right: 24px;
             position: fixed;
-            width: 300px;
+            width:30vw
         }
         
         #live-chat header {
@@ -423,7 +423,7 @@
             border-radius: 5px 5px 0 0;
             color: #fff;
             cursor: pointer;
-            padding: 16px 24px;
+            padding: 1vh;
         }
         
         #live-chat h4:before {
@@ -450,7 +450,7 @@
             border-radius: 3px;
             padding: 8px;
             outline: none;
-            width: 234px;
+            width: 90%;
         }
         
         #live-chat input[type="text"] {
@@ -479,8 +479,8 @@
         
         .chat-close {
             background: #1b2126;
-            border: 1vw solid #1b2126;
-            border-radius: 50%;
+            border: 0.5vw solid #1b2126;
+            border-radius: 40%;
             color: #fff;
             display: block;
             float: right;
@@ -498,7 +498,7 @@
         }
         
         .chat-history {
-            height: 252px;
+            height: 60vh;
             padding: 8px 24px;
             overflow-y: scroll;
         }

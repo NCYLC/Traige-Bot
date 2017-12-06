@@ -39,7 +39,7 @@ if (saveWindowHeight = true){
      if(window.orientation="landscape")
      {
 
-        if(windowHeight/(savedWindowHeight) >=0.5 ){
+        if(windowHeight/(savedWindowHeight) >=0.38 ){
             var form=document.getElementById("chat-history");
             var Header=document.getElementById("Header");
             Header.style.display='block';
