@@ -41,16 +41,24 @@ if (saveWindowHeight = true){
 
         if(windowHeight/(savedWindowHeight) >=0.5 ){
             var form=document.getElementById("chat-history");
-            
-            form.style.display='visible';
+            var Header=document.getElementById("Header");
+            Header.style.display='block';
+            form.style.display='block';
+            // scope.message=scope.message;
+            // var old='';
+            // location.hash(scope.message.length-1)
+          
+            //       anchorScroll();
+            //       timeout(function(){location.hash(old)},100);
             return;
 
         }
         else{
             var form=document.getElementById("chat-history");
-            // document.getElementById("resizeForm").style.marginBottom=-"3vh"
-            scope.showChatHistry=false;
+            var Header=document.getElementById("Header");
+            Header.style.display='none';
             form.style.display='none';
+
             return;
         }
 
@@ -60,7 +68,17 @@ if (saveWindowHeight = true){
 else{
     var form=document.getElementById("chat-history");
     
-    form.style.display='visible';
+    form.style.display='block';
+    // scope.message=scope.message;
+    var Header=document.getElementById("Header");
+    Header.style.display='block';
+
+    
+    // var old='';
+    // location.hash(scope.message.length-1)
+  
+    //       anchorScroll();
+    //       timeout(function(){location.hash(old)},100);
     return;
 
 }

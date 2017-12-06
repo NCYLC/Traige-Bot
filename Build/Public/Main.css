@@ -139,6 +139,10 @@ button {
     background-color: #fdfdfd;
     box-sizing: content-box;
 }
+.fa-paper-plane{
+    font-size: 1.3em;
+    color: rgb(6, 29, 6)
+}
 /* Mobile Potrait View */
 @media screen and  (max-width: 450px){/* ---------- LIVE-CHAT ---------- */
     .UnlockChat{
@@ -191,16 +195,19 @@ button {
     
     #live-chat form {
         padding: 20px 10px;
-    }
-    
-    #live-chat input[type="text"] {
-        position: relative;
         border: 1px solid #ccc;
         border-radius: 3px;
         padding: 8px;
         outline: none;
         height: 50px;
         width: 90%;
+    }
+    
+    #live-chat input[type="text"] {
+        width: 90%;
+        position: relative;
+        border: none;
+        outline: none
         /* font-size: 2rem; */
     }
     
@@ -222,13 +229,14 @@ button {
     }
     
     .chat-close {
-        background: #556979;
+        background: #1b2126;
+        border: 1vw solid #1b2126;
         border-radius: 50%;
         color: #fff;
         float: right;
-        /* font-size: 2em; */
-        padding: 10px;
-        margin: -8px -15px;
+        /* font-size: 2em;
+        padding: 1vw;
+        margin: -1vw; */
         }
     
     .chat {
@@ -320,16 +328,20 @@ button {
         
         #live-chat form {
             padding: 20px 10px;
-        }
-        
-        #live-chat input[type="text"] {
-            position: relative;
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             height: 50px;
             width: 90%;
+        }
+        
+        #live-chat input[type="text"] {
+            position: relative;
+            width: 90%;
+            border: none;
+            outline: none;
+
             /* font-size: 16px; */
         }
         
@@ -351,13 +363,14 @@ button {
         }
         
         .chat-close {
-            background: #556979;
+            background: #1b2126;
+            border: 1vw solid #1b2126;
             border-radius: 50%;
             color: #fff;
             float: right;
-            /* font-size: 2rem; */
-            padding: 10px;
-            margin: -5px -5px;
+            /* font-size: 2rem;
+            padding: 1vw;
+            margin: -1vw; */
             }
         
         .chat {
@@ -451,16 +464,19 @@ button {
         
         #live-chat form {
             padding: 0.9vw;
-        }
-        
-        #live-chat input[type="text"] {
-            position: relative;
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             height: 6vh;
             width: 90%;
+        }
+        
+        #live-chat input[type="text"] {
+            width: 90%;
+            position: relative;
+            border: none;
+            outline: none
             /* font-size: 1.5vw; */
         }
         
@@ -482,13 +498,14 @@ button {
         }
         
         .chat-close {
-            background: #556979;
-            border-radius: 0%;
+            background: #1b2126;
+            border: 1vw solid #1b2126;
+            border-radius: 50%;
             color: #fff;
             float: right;
-            /* font-size: 1.5vw; */
-            padding: 0.5vw;
-            margin: -1vw -1vh;
+            /* font-size: 1.5vw;
+            padding: 1vw;
+            margin: -1vw; */
             }
         
         .chat {
@@ -574,15 +591,18 @@ button {
         
         #live-chat form {
             padding: 24px;
-        }
-        
-        #live-chat input[type="text"] {
-            position: relative;
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             width: 234px;
+        }
+        
+        #live-chat input[type="text"] {
+            width: 90%;
+            position: relative;
+            border: none;
+            outline: none
         }
         
         .chat-message-counter {
@@ -604,16 +624,18 @@ button {
         
         .chat-close {
             background: #1b2126;
+            border: 1vw solid #1b2126;
             border-radius: 50%;
             color: #fff;
             display: block;
             float: right;
-            /* font-size: 10px; */
+            /* font-size: 10px;
             height: 16px;
             line-height: 16px;
-            margin: 2px 0 0 0;
+            padding: 1vw;
+            margin: -1vw;
             text-align: center;
-            width: 16px;
+            width: 16px; */
         }
         
         .chat {

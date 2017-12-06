@@ -31,7 +31,7 @@
 <div class="UnlockChat" ng-cloak ng-show="!isChatOpenFlag" ng-click="UnlockChat()"><img title="Traige Bot" src="Views/Styles/Images/ChatIcon.png"></div>
   <div id="live-chat" ng-cloak ng-show="isChatOpenFlag" >
 		
-		<header class="clearfix" ng-click="LockChat()">
+		<header class="clearfix" ng-click="LockChat()" id="Header">
 			
 			<a href="#" class="chat-close">x</a>
 
@@ -77,10 +77,10 @@
 
 			<form>
 
-				<fieldset  > 
+				<fieldset ng-keypress="$event.keyCode == 13 && sendMessage(Text)" > 
 					
-					<input type="text" id="resizeForm" placeholder="Type your message…" ng-model="Text" ng-keypress="$event.keyCode == 13 && sendMessage(Text)" ><span>
-					
+					<input type="text" id="resizeForm" placeholder="Type your message…" ng-model="Text" ><span>
+						<i class="fa fa-paper-plane" aria-hidden="true" ng-click="sendMessage(Text)"></i></span>
 
 				</fieldset>
 

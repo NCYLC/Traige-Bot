@@ -139,3 +139,7 @@ button {
     background-color: #fdfdfd;
     box-sizing: content-box;
 }
+.fa-paper-plane{
+    font-size: 1.3em;
+    color: rgb(6, 29, 6)
+}
