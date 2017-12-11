@@ -1,0 +1,5 @@
+#Ignore this files
+Logs/
+node_modules/
+.vscode
+tasks
