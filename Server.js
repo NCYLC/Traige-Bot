@@ -1,5 +1,3 @@
-
-
 var express=require('express');
 var app=express();
 var path = require('path');
@@ -83,9 +81,11 @@ if(start=="true"){
   console.log("This is start of message");
   watson.message({
     input:{ text: '' },
-    workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
+    workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'//c4365db3-9e85-4417-9d71-12cdb55925a9
+
 }, function(err, response) {
     if (err) {
+      Log.ErrorLog(err);
       console.error(err);
     } else {
             var text='';
@@ -122,6 +122,7 @@ if(start=="true"){
             context:Context  
         }, function(err, response) {
             if (err) {
+              Log.ErrorLog(err);
               console.error(err);
             } else {
               Context=response.context;
@@ -211,6 +212,7 @@ if(start=="true"){
     
       } else {
         // Return a '404 Not Found' if event is not from a page subscription
+        Log.facebookErrorLog('Return a 404 Not Found if event is not from a page subscription');
         res.sendStatus(404);
       }
     
@@ -241,6 +243,7 @@ if(start=="true"){
         }, function(err, response) {
           //console.log("Facebook response"+JSON.stringify(response));
             if (err) {
+              Log.facebookErrorLog(err);
               console.error(err);
             } else {
               FacebookContext=response.context; 
@@ -411,6 +414,7 @@ res.send(req.query['hub.challenge']);
       if (!err) {
         console.log('message sent!')
       } else {
+        Log.facebookErrorLog(err);
         console.error("Unable to send message:" + err);
       }
     }); 
@@ -422,6 +426,27 @@ app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 console.log(process.env);
 
-app.listen(process.env.PORT || 3001);
+
+const cluster = require('cluster');
+
+const numCPUs = require('os').cpus().length;
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
+
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
+  app.listen(process.env.PORT || 3001);
+  console.log(`Worker ${process.pid} started`);
+}
+// app.listen(process.env.PORT || 3001);
 //console.log(process.env);
 module.exports=app;
