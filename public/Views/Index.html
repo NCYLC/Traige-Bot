@@ -6,8 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<link rel="stylesheet" href="Views/Styles/Main.css">
-
+	<link rel="stylesheet" href="Views/Styles/Chat.css">
+	<link rel="stylesheet" href="Views/Styles/Responsive.css">
+	<link rel="shortcut icon" href="Views/Styles/Images/img.ico" />
     <script
     src="https://code.jquery.com/jquery-3.2.1.min.js"
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -22,19 +23,47 @@
 </head>
 
 <body class="container" ng-controller="ChatController">
-<div class="FeedbackContainer" title="Rate us">
-	<span ng-repeat="data in [1,2,3,4,5]" ng-cloak><i ng-class="($index+1)<=rating ? 'fa fa-star':'fa fa-star-o'" aria-hidden="true" ng-click="storeRating($index)"></i></span>
-	<div class="ratingText" >{{ratingText[rating-1]}}</div>
-</div>
+<!-- Defining Modal for Feedback -->
+
+<!-- Button trigger modal -->
+
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Provide your feedback</h5>
+			  <span class="Modaloptions"> <i class="fa fa-cloud-upload" aria-hidden="true" ng-click="Feedbackupload(ratingText[rating-1],Textarea)" data-dismiss="modal"></i> <i class="fa fa-times-circle" data-dismiss="modal" aria-hidden="true"></i></span> </span>
+
+			</div>
+			<div class="modal-body">
+					<div class="FeedbackContainer" title="Rate us">
+							<span ng-repeat="data in [1,2,3,4,5]" ng-cloak><i ng-class="($index+1)<=rating ? 'fa fa-star':'fa fa-star-o'" aria-hidden="true" ng-click="storeRating($index)"></i></span>
+							<div class="ratingText" >{{ratingText[rating-1]}}</div>
+						</div>
+						<div class="OpenFeedback" ng-cloak ng-show="OpenFeedback"><textarea ng-model="Textarea" placeholder="Provide your valuable feedback"></textarea></div>
+			</div>
+			
+		  </div>
+		</div>
+	  </div>
+
+<!-- defining chats here -->
+
 <div class="FeedbackContainer" >
-<div class="OpenFeedback" ng-cloak ng-if="OpenFeedback"><textarea ng-model="FeedbackText" placeholder="Provide your valuable feedback"></textarea></div>
+
 <div class="UnlockChat" ng-cloak ng-show="!isChatOpenFlag" ng-click="UnlockChat()"><img title="Traige Bot" src="Views/Styles/Images/ChatIcon.png"></div>
-  <div id="live-chat" ng-cloak ng-show="isChatOpenFlag" >
+  <div id="live-chat" ng-cloak ng-show="isChatOpenFlag">
 		
-		<header class="clearfix" ng-click="LockChat()" id="Header">
+		<header class="clearfix" id="Header">
 			
 			<!-- <a href="#" class="chat-close">x</a> -->
-			<i class="fa fa-times-circle" aria-hidden="true" href="#"></i>
+			<span class="options"><button title='Provide Feedback' data-toggle="modal" data-target="#exampleModal">
+					<i class="fa fa-ellipsis-v" aria-hidden="true" >
+				  </button></i>
+				<i class="fa fa-times-circle" aria-hidden="true"  ng-click="LockChat()"></i></span>
+			
 			<h4>Lawstuff BoT</h4>
 			<span></span>
 			<!-- <span class="chat-message-counter">3</span> -->

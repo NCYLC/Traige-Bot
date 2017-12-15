@@ -6,6 +6,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     console.log(serverurl);
     scope.sendData={};
     scope.Text;
+    // scope.Textarea;
     scope.regions=["ACT","NSW","NT","QLD","SA","TAS","VIC","WA"];
     scope.showButtons=false;
     scope.TextSent='';
@@ -17,7 +18,22 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.UrlButtonFlag=false;
     scope.quickreply=[];//quick reply array
     scope.UrlButton=[];//Url navigator
+    scope.Textarea='';
+scope.Feedbackupload=function(data1,data2){
 
+console.log(data1+data2);
+scope.FeedbackData={};
+scope.FeedbackData.rate=data1;
+scope.FeedbackData.Text=data2;
+http.post(serverurl+"Feedback",scope.FeedbackData).then(function(request,response){
+console.log(JSON.stringify(response));
+}),function error(response){
+    
+    console.log(response);
+
+}
+
+}
 
     var saveWindowHeight= true;
     var savedWindowHeight,savedWindowWidth,windowHeight;

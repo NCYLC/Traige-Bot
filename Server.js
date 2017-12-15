@@ -1,6 +1,5 @@
-
-
 var express=require('express');
+const workspaceID='38282176-f16f-4e2f-bd7d-4969793f9220'
 var app=express();
 var path = require('path');
 var watson=require('.//app.js');
@@ -32,6 +31,7 @@ router.get('/',function(req,res){
 
 });
 
+
 var bodyParser = require('body-parser');// to read data from req.body
 //var multer = require('multer');//to read objectified data
 app.use(bodyParser.json()); // for parsing application/json
@@ -39,6 +39,16 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 var sentdata={};
 var  message=[];
 
+// storing feedback here
+app.post('/Feedback',function(req,res){
+  var Data="User has "+req.body.rate+" and commented "+req.body.Text+"\n"
+  Log.feedBack(Data)
+  console.log(JSON.stringify(req.body));
+
+  res.sendStatus;
+});
+
+//receiving message for watsokn
 app.post('/watson',function (req, res, next) {
   var keySize = 256;
   var ivSize = 128;
@@ -83,9 +93,12 @@ if(start=="true"){
   console.log("This is start of message");
   watson.message({
     input:{ text: '' },
-    workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
+    workspace_id: workspaceID//c4365db3-9e85-4417-9d71-12cdb55925a9
+
 }, function(err, response) {
     if (err) {
+      Log.ErrorLog(err);
+     
       console.error(err);
     } else {
             var text='';
@@ -118,10 +131,11 @@ if(start=="true"){
             debugger;
          watson.message({
             input:{ text: ReceivedData.Text },
-            workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9',
+            workspace_id: workspaceID,
             context:Context  
         }, function(err, response) {
             if (err) {
+              Log.ErrorLog(err);
               console.error(err);
             } else {
               Context=response.context;
@@ -211,6 +225,7 @@ if(start=="true"){
     
       } else {
         // Return a '404 Not Found' if event is not from a page subscription
+        Log.facebookErrorLog('Return a 404 Not Found if event is not from a page subscription');
         res.sendStatus(404);
       }
     
@@ -237,10 +252,11 @@ if(start=="true"){
           watson.message({
             input:{ text: received_message.text },
             context:FacebookContext,
-            workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
+            workspace_id: workspaceID
         }, function(err, response) {
           //console.log("Facebook response"+JSON.stringify(response));
             if (err) {
+              Log.facebookErrorLog(err);
               console.error(err);
             } else {
               FacebookContext=response.context; 
@@ -411,6 +427,7 @@ res.send(req.query['hub.challenge']);
       if (!err) {
         console.log('message sent!')
       } else {
+        Log.facebookErrorLog(err);
         console.error("Unable to send message:" + err);
       }
     }); 
@@ -422,6 +439,27 @@ app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 console.log(process.env);
 
-app.listen(process.env.PORT || 3001);
+
+const cluster = require('cluster');
+
+const numCPUs = require('os').cpus().length;
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
+
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
+  app.listen(process.env.PORT || 3001);
+  console.log(`Worker ${process.pid} started`);
+}
+// app.listen(process.env.PORT || 3001);
 //console.log(process.env);
 module.exports=app;

@@ -85,8 +85,11 @@ p { margin: 0; }
     /* font-size:24px; */
     color: rgb(233, 212, 106);
 }
+.fa-star-o{
+    font-size: 2rem;
+}
 .fa-star
-{
+{font-size: 2rem;
     color: rgb(42, 158, 6);
 } 
 .ratingText
@@ -144,8 +147,38 @@ button {
     color: rgb(6, 29, 6)
 }
 .fa-times-circle {
-    float: right;
+   
     color: #a9b1ab;
     /* margin-left: 5rem; */
     font-size: 1.3rem;
+}
+.fa-cloud-upload{
+    font-size: 1.3rem;
+    color: rgb(6, 29, 6);
+}
+.options{
+    position: relative;
+    float: right;
+
+}
+button{
+    padding: 0px;
+    border: none;
+    width: 10px;
+    background-color: #293239;
+    outline: none;
+}
+.modal-header {
+    padding: 0px;
+    border-bottom: 1px solid #E0D8D8;
+}
+.modal-title{
+margin-left: 20px;
+font-size: 1rem;
+}
+.Modaloptions{
+    position: relative;
+    float: right;
+    top: -19px;
+    
 }
