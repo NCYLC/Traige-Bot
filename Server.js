@@ -1,4 +1,5 @@
 var express=require('express');
+const workspaceID='38282176-f16f-4e2f-bd7d-4969793f9220'
 var app=express();
 var path = require('path');
 var watson=require('.//app.js');
@@ -81,11 +82,12 @@ if(start=="true"){
   console.log("This is start of message");
   watson.message({
     input:{ text: '' },
-    workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'//c4365db3-9e85-4417-9d71-12cdb55925a9
+    workspace_id: workspaceID//c4365db3-9e85-4417-9d71-12cdb55925a9
 
 }, function(err, response) {
     if (err) {
       Log.ErrorLog(err);
+     
       console.error(err);
     } else {
             var text='';
@@ -118,7 +120,7 @@ if(start=="true"){
             debugger;
          watson.message({
             input:{ text: ReceivedData.Text },
-            workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9',
+            workspace_id: workspaceID,
             context:Context  
         }, function(err, response) {
             if (err) {
@@ -239,7 +241,7 @@ if(start=="true"){
           watson.message({
             input:{ text: received_message.text },
             context:FacebookContext,
-            workspace_id: 'c4365db3-9e85-4417-9d71-12cdb55925a9'
+            workspace_id: workspaceID
         }, function(err, response) {
           //console.log("Facebook response"+JSON.stringify(response));
             if (err) {
