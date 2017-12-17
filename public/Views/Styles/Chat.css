@@ -1,7 +1,5 @@
-
-html
-{
-    overflow: hidden;
+html{
+    font-family: 'Roboto', sans-serif;
 }
 body 
 {
@@ -49,7 +47,6 @@ input
 {
 	border: 0;
 	color: inherit;
-    font-family: inherit;
     font-size: 100%;
     line-height: normal;
     margin: 0;

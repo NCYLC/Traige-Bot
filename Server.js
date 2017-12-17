@@ -28,7 +28,7 @@ var template=false;//to show templates
 var Facebookaction={};
 router.get('/',function(req,res){
     
-    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));
+    res.sendFile(path.join(__dirname, '/', 'public','/', 'index.html'));
 
 });
 

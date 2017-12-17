@@ -11,6 +11,15 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.TextSent='';
     scope.OpenFeedback=false;
     scope.rating;
+ scope.resize=function () {
+        let viewheight = $(window).height();
+        let viewwidth = $(window).width();
+        
+        let viewport = document.querySelector("meta[name=viewport]");
+        viewport.setAttribute("content", "height=" + viewheight + "px, width=" + viewwidth + "px, initial-scale=1.0");
+        
+        document.getElementById("Inputform").style.bottom=viewheight-100;
+};
     scope.ratingText=["Hated it","Disliked it","It's OK","Liked it","Loved it"];
     var StartofConv=false;
     scope.quickreplyflag=false;
@@ -65,6 +74,7 @@ scope.Feedback=function(data){
 
 
     scope.sendMessage=function(data){
+        
       scope.Text=data;
       //document.getElementById('input').innerHTML='Type your message…';
     if(scope.Text!=null ||scope.Text!=undefined)
