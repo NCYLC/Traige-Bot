@@ -1,3 +1,4 @@
+const util = require('util');
 const fs = require('fs');
 var Log={};
 var date=new Date();
@@ -7,7 +8,7 @@ var Error_File="Logs/WatsonErrorLog"+"-"+date.getDate()+"-"+(date.getMonth()+1)+
 var facebookError_File="Logs/FacebookErrorLog"+"-"+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+".txt";
 var feedBack="Logs/feedBack"+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+".txt";
 
-console.log(file_name);
+// console.log(file_name);
 
 
 Log.CreateLog=function(Data){
@@ -38,10 +39,40 @@ Log.CreateLog=function(Data){
                 };
 
                 Log.feedBack=function(Data){
-                    data=new Date()+Data+'\n';
+                    data=new Date()+Data;
                     fs.appendFile(feedBack,data, (err) => {
                         if (err) throw err;
                         console.log('The '+data+' was appended to'+ feedBack+' file!');
                       });
-                    };feedBack
+                    };
+                   
+                    
+                    
+                    
+                    Log.CreateReport=async function() {
+                        const readFile = util.promisify(fs.readFile);
+                        let dataarray=[];
+                        try{
+                      const data = await readFile('./Logs/feedBack-12-2017.txt','UTF8');
+                      var array=data.split('\n');
+                      for(var i=0;i<array.length-1;i++){
+                          var splited =array[i].split('has ');
+                           var dataNode=splited[1].split(' and')
+                          
+                          dataarray.push(dataNode[0]);
+                      }
+                    }catch(err){
+                        dataarray=[];
+                        console.log("couldn't find file")
+                    }
+                    //   console.log(data);
+                      
+                        // array=data.split('\n');
+                        // console.log('returned array    '+dataarray);
+                        // console.log(array)
+                     return dataarray;
+                    }
+                    
+                
+                //   Log.CreateReport();
     module.exports=Log

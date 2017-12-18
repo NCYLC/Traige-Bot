@@ -49,6 +49,15 @@ app.post('/Feedback',function(req,res){
 
   res.sendStatus;
 });
+ app.get('/Viewreport',async function(req,res){
+ 
+  var ReportData=await Log.CreateReport();
+// console.log("ReportData         "+JSON.stringify(ReportData));
+
+
+                        
+  res.json(ReportData);
+});
 
 //receiving message for watsokn
 app.post('/watson',function (req, res, next) {
