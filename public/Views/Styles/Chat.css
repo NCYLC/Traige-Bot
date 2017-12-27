@@ -200,3 +200,29 @@ margin:0px;
 margin-bottom:1vh;
 width:90%
 }
+.sent {
+    position: relative;
+    float: right;
+    background-color: #e1ffc7;
+    padding: 0px 2vw 0px 5vw;
+    border: 1px solid #d2cccc;
+    border-radius: 8px 0px 8px 8px;
+    box-shadow: -2px 3px 10px 0px #9aa29a;
+}
+.received {
+    border: 1px solid #e8e0e0;
+    margin-left: -5vw;
+    padding: 0px 0vw 0px 5vw;
+    border-radius: 0px 8px 8px 8px;
+    background-color: #dce4e4;
+    box-shadow: 2px 3px 8px 0px #9aa29a;
+}
+.chat-history {
+    background-color: #e4e6ce;
+}
+.unlockfeedback {
+    
+    color: #cebfbf;
+    background-color: #614f4f;
+   
+}

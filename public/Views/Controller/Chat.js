@@ -12,6 +12,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.showButtons=false;
     scope.TextSent='';
     scope.OpenFeedback=false;
+    scope.FeedbackData={};
     scope.rating;
     scope.ratingText=["Hated it","Disliked it","It's OK","Liked it","Loved it"];
     var StartofConv=false;
@@ -20,11 +21,56 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.quickreply=[];//quick reply array
     scope.UrlButton=[];//Url navigator
     scope.Textarea='';
+    scope.prevrate=false;
     scope.showoptions=false;
+    scope.Dontsave=function(){
+        if(scope.rating!=undefined)
+            {
+                swal({
+                    title: "Are you sure?",
+                    text: "Your data will not be saved .\n If you don't want to rate us click on cancel button  ",
+                    icon: "warning",
+                    buttons: ['Continue','Cancel'],
+                    dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      swal("Hope you will rate us next time");
+                    } else {
+                        
+                        swal("Feedback Submitted", "Thanks for your valuable feedback", "success");
+                        // console.log(data1+data2);
+                        
+                        scope.FeedbackData.rate=scope.ratingText[scope.rating-1];
+                       
+                        scope.FeedbackData.Text=scope.Textarea;
+                        http.post(serverurl+"Feedback",scope.FeedbackData).then(function(request,response){
+                            
+                        console.log(JSON.stringify(response));
+                        
+                        }),function error(response){
+                            
+                            console.log(response);
+                            
+                        
+                        }
+                        scope.rating=undefined;
+                        // scope.showoption();
+                    }
+                  }); 
+            }
+
+            scope.showoption()
+    }
     scope.showoption=function(){
+        
+            
+        //set the initial window width
         
         scope.showoptions=(scope.showoptions==false)?true:false;
     }
+    var saveWindowHeight= true;
+    var savedWindowHeight,savedWindowWidth,windowHeight;
     scope.Fetchreport=function(){
         http.get(serverurl+'Viewreport').then(function(request,response){
             
@@ -55,15 +101,41 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
             console.log(error)
         });
     }
-scope.Feedbackupload=function(data1,data2){
+    // check whether user had alrady provided feedbackor not
+    scope.checkFeedback=function(){
+        if(scope.FeedbackData.rate !=null || scope.FeedbackData.rate !=undefined)
+            {
+                swal({
+                    title: "Are you sure?",
+                    text: "You have rated \'"+scope.FeedbackData.rate+"'\ our chat. \n"+"Do you want to change your rating?",
+                    icon: "success",
+                    buttons: ["No", "Rate Again"],
+                    dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                        $("#Feedback").modal();
+                    } else {
+                      swal("Thanks for your feedback!");
+                    }
+                  });
+            }
+            else{
+                swal("To rate us select the stars and provide any comments and then click on save to cloud button");
+                $("#Feedback").modal();
+            }
 
+    }
+scope.Feedbackupload=function(data1,data2){
+    swal("Feedback Submitted", "Thanks for your valuable feedback", "success");
 console.log(data1+data2);
-scope.FeedbackData={};
+
 scope.FeedbackData.rate=data1;
 scope.FeedbackData.Text=data2;
 http.post(serverurl+"Feedback",scope.FeedbackData).then(function(request,response){
     
 console.log(JSON.stringify(response));
+
 }),function error(response){
     
     console.log(response);
@@ -172,7 +244,10 @@ else{
         http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+'Sandip'+"&t="+new Date()).then(function(request,response){
           
          console.log("success",JSON.stringify(request.data));
+         scope.receiveddata=request.data;
+         scope.receiveddata.Type='Received';
          scope.message.push(request.data);
+        //  scope.message.push(request.data);
          var old='';
          location.hash(scope.message.length-1)
       
@@ -279,6 +354,8 @@ scope.Text=''
             scope.UrlButtonFlag=true;
                }
       console.log("success",JSON.stringify(request.data));
+      scope.receiveddata=request.data;
+      scope.receiveddata.Type='Received';
       scope.message.push(request.data);
       var old='';
       location.hash(scope.message.length-1)

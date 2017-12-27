@@ -4,7 +4,8 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link rel="stylesheet" href="Views/Styles/Chat.css">
 	<link rel="stylesheet" href="Views/Styles/Responsive.css">
@@ -53,7 +54,7 @@
 		  <div class="modal-content">
 			<div class="modal-header">
 			  <h5 class="modal-title" id="exampleModalLabel">Provide your feedback</h5>
-			  <span class="Modaloptions"> <i class="fa fa-cloud-upload" aria-hidden="true" ng-click="Feedbackupload(ratingText[rating-1],Textarea)" data-dismiss="modal"></i> <i class="fa fa-times-circle" data-dismiss="modal" ng-click="showoption()" aria-hidden="true"></i></span> </span>
+			  <span class="Modaloptions"> <i class="fa fa-check" aria-hidden="true" title="Save" ng-click="Feedbackupload(ratingText[rating-1],Textarea)" data-dismiss="modal"></i> <i class="fa fa-times-circle" data-dismiss="modal" ng-click="Dontsave()" aria-hidden="true"></i></span> </span>
 
 			</div>
 			<div class="modal-body">
@@ -83,7 +84,7 @@
 					<i class="fa fa-ellipsis-v" aria-hidden="true" >
 				  </button></i>
 				  <div class="dropdownmenu" ng-show="showoptions">
-						<button data-toggle="modal" data-target="#Feedback">Provide us feedback</button>
+						<button id="ratebutton" data-toggle="modal"  ng-click="checkFeedback()">Provide us feedback</button>
 						
 						<button data-toggle="modal" data-target="#ReportModal" ng-click="Fetchreport()">View Report</button>
 				  </div>
@@ -105,12 +106,13 @@
 
 					<div class="chat-message-content clearfix">
 						
-						<span class="chat-time">{{messages.Time | date:'MM-dd HH:mm'}}</span>
-
+						<!-- <span class="chat-time">{{messages.Time | date:'MM-dd HH:mm'}}</span> -->
+						<div ng-class="messages.Type=='Received'?'received':'sent'">
 						<h5 id={{$index}}>{{messages.Author}}</h5>
 
 						<p>{{messages.Text}}</p>
-
+						</div>
+						<!-- Defining ng class -->
 					</div> <!-- end chat-message-content -->
           <hr>
 				</div> <!-- end chat-message -->
