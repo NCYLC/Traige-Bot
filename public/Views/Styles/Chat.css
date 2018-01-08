@@ -144,8 +144,12 @@ button {
     color: rgb(6, 29, 6)
 }
 .fa-times-circle {
-    float: right;
+    /* float: right; */
     color: #a9b1ab;
     /* margin-left: 5rem; */
     font-size: 1.3rem;
+}
+.options{
+    position: relative;
+    float: right;
 }
