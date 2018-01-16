@@ -184,7 +184,13 @@ if(start=="true"){
                     sentdata.URL=action[data];
                     sentdata.title=action.title;
                   }
+                 
                   console.log("Actions is"+action);
+                }
+                else if(response.output.List!=null || response.output.List!=undefined){
+                  console.error("List is been detected")
+                  sentdata.List=response.output.List;
+                  
                 }
                 sentdata.Text=text;
                 sentdata.Time=new Date();

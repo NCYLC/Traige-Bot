@@ -18,6 +18,9 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     var StartofConv=false;
     scope.quickreplyflag=false;
     scope.UrlButtonFlag=false;
+    //list view
+    scope.listview=false;
+    scope.listviewArray=[];
     scope.quickreply=[];//quick reply array
     scope.UrlButton=[];//Url navigator
     scope.Textarea='';
@@ -30,12 +33,14 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
                     title: "Are you sure?",
                     text: "Your data will not be saved .\n If you don't want to rate us click on cancel button  ",
                     icon: "warning",
-                    buttons: ['Continue','Cancel'],
+                    buttons: ['Save','Cancel'],
                     dangerMode: true,
                   })
                   .then((willDelete) => {
                     if (willDelete) {
-                      swal("Hope you will rate us next time");
+                      swal("Your data was not saved\n We hope you will rate us later .", {
+                        icon: "success",
+                      });
                     } else {
                         
                         swal("Feedback Submitted", "Thanks for your valuable feedback", "success");
@@ -107,7 +112,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
             {
                 swal({
                     title: "Are you sure?",
-                    text: "You have rated \'"+scope.FeedbackData.rate+"'\ our chat. \n"+"Do you want to change your rating?",
+                    text: "You have rated \'"+scope.FeedbackData.rate+"'\ our chat. \n"+"Do you want to rate us again?",
                     icon: "success",
                     buttons: ["No", "Rate Again"],
                     dangerMode: true,
@@ -344,6 +349,7 @@ scope.Text=''
     http.post(serverurl+"watson?m="+false+"&y="+message.Text+"&z="+message.Author+"&t="+message.Time).then(function(request,response){
         scope.quickreplyflag=false;
         scope.UrlButtonFlag=false;
+        scope.listview=false;//resiting listview
        if(request.data.quickreply!=null || request.data.quickreply!=undefined){
         scope.quickreply=request.data.quickreply;
         scope.quickreplyflag=true;
@@ -353,6 +359,10 @@ scope.Text=''
             scope.Urltitle=request.data.title;
             scope.UrlButtonFlag=true;
                }
+               else if(request.data.List!=null || request.data.List!=undefined){
+                scope.listview=true;
+                scope.listviewArray=request.data.List;
+                   }
       console.log("success",JSON.stringify(request.data));
       scope.receiveddata=request.data;
       scope.receiveddata.Type='Received';
@@ -379,7 +389,7 @@ var loadchart=function(datalables,lable){
           labels: lable,
           datasets: [
             {
-              label: "Population (millions)",
+              label: "Rates this month",
               backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
               data: datalables
             }

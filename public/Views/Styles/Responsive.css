@@ -40,11 +40,12 @@
     
     #live-chat h5 {
         /* font-size: 2em; */
-        margin-left: -50px;
+        position: relative
+        
     }
     #live-chat p {
         /* font-size: 2rem; */
-        margin-left: -40px;
+        position: relative;
         padding-bottom: 10px
     }
     
@@ -173,11 +174,11 @@
         
         #live-chat h5 {
             /* font-size: 18px; */
-            margin-left: -50px;
+            position: relative
         }
         #live-chat p {
             /* font-size: 16px; */
-            margin-left: -30px;
+            position: relative;
             padding-bottom: 10px
         }
         
@@ -307,12 +308,12 @@
         
         #live-chat h5 {
             /* font-size: 1.7vw; */
-            margin-left: -50px;
+          position: relative
         }
         #live-chat p {
             min-height: 1.2vw;
             /* font-size: 1.5vw; */
-            margin-left: -40px;
+           position: relative;
             font-family:'Roboto', sans-serif;
             padding-bottom: 10px
         }

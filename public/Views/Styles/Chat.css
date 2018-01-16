@@ -219,10 +219,51 @@ width:90%
 }
 .chat-history {
     background-color: #e4e6ce;
+    overflow-x: hidden;
 }
 .unlockfeedback {
     
     color: #cebfbf;
     background-color: #614f4f;
    
+}
+
+.listArraycontainer{
+    position: relative;
+    padding: 5px;
+    /* border: 1px solid; */
+    margin: 4px -24%;
+    display: inline-flex;
+}
+.listArray{
+    position: relative;
+    border: 1px solid;
+    min-width: 46%;
+    margin-right: 15%;
+    padding: 5px;
+    background-color: #e0973d;
+    /* display: inline-grid; */
+}
+.listArrayUrl {
+    position: relative;
+    /* min-width: 35%; */
+    border: 1px solid;
+    padding: 5px;
+    /* color: green; */
+}
+.fa-angle-left {
+    position: relative;
+    float: left;
+    margin-top: 16%;
+    font-size: 3em;
+    z-index: 4;
+    /* top: -9px; */
+}
+.fa-angle-right {
+    position: relative;
+    left: 55%;
+    z-index: 4;
+    margin-top: 16%;
+    margin-left: 2%;
+    font-size: 3em;
 }

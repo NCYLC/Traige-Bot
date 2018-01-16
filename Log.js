@@ -53,7 +53,7 @@ Log.CreateLog=function(Data){
                         const readFile = util.promisify(fs.readFile);
                         let dataarray=[];
                         try{
-                      const data = await readFile('./Logs/feedBack-12-2017.txt','UTF8');
+                      const data = await readFile(feedBack,'UTF8');
                       var array=data.split('\n');
                       for(var i=0;i<array.length-1;i++){
                           var splited =array[i].split('has ');
