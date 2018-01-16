@@ -39,7 +39,7 @@
 
 			</div>
 			<div class="modal-body">
-				<div ng-show="nodata"><p>Noone has provided feedback in this month.<br>Click on the button
+				<div ng-show="nodata"><p>None has provided feedback in this month.<br>Click on the button
 					<button data-toggle="modal" data-target="#Feedback">Rate us</button>
 					 to be the first person to rate us.</p></div>
 					<canvas ng-show="!nodata" id="bar-chart" width="800" height="450"></canvas>
@@ -110,8 +110,15 @@
 						<div ng-class="messages.Type=='Received'?'received':'sent'">
 						<h5 id={{$index}}>{{messages.Author}}</h5>
 
-						<p>{{messages.Text}}</p>
-						</div>
+						<p >{{messages.Text}}</p>
+						<div class="listArraycontainer" ng-show="messages.List">
+								<i class="fa fa-angle-left" aria-hidden="true"></i>
+								<i class="fa fa-angle-right" aria-hidden="true"></i>
+								<div class="listArray" ng-repeat="listview in messages.List">
+									<p>{{listview.Text}}</p>
+							<div class="listArrayUrl"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div></div>
+							
+							</div>
 						<!-- Defining ng class -->
 					</div> <!-- end chat-message-content -->
           <hr>
@@ -120,6 +127,7 @@
 				
 
 			</div> <!-- end chat-history -->
+
 
 			<p class="chat-feedback" ng-if="Flag" id="Buttom">Your partner is typing…</p>
 			<div class="Buttons" ng-if="quickreplyflag">
