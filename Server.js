@@ -1,12 +1,14 @@
 var express=require('express');
-const workspaceID='38282176-f16f-4e2f-bd7d-4969793f9220'
+const keys=require('./Keys');
+const workspaceID=keys.watson.workspaceID 
+//'38282176-f16f-4e2f-bd7d-4969793f9220'
 var app=express();
 var path = require('path');
 var watson=require('.//app.js');
 var Sync = require('sync');//synchronising
 var Log = require('.//Log');//Calling Log Js
 const request=require('request');
-const accesstoken='EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
+const accesstoken=keys.facebook.accesstoken//'EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
 //var FacebookMessanger=require('.//messenger-webhook/Webhook')
 app.use(express.static(__dirname + '/public'));
 var router = express.Router();
@@ -31,6 +33,7 @@ router.get('/',function(req,res){
 
 });
 
+
 var bodyParser = require('body-parser');// to read data from req.body
 //var multer = require('multer');//to read objectified data
 app.use(bodyParser.json()); // for parsing application/json
@@ -38,6 +41,25 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 var sentdata={};
 var  message=[];
 
+// storing feedback here
+app.post('/Feedback',function(req,res){
+  var Data="User has "+req.body.rate+" and commented "+req.body.Text+"\n"
+  Log.feedBack(Data)
+  console.log(JSON.stringify(req.body));
+
+  res.sendStatus;
+});
+ app.get('/Viewreport',async function(req,res){
+ 
+  var ReportData=await Log.CreateReport();
+// console.log("ReportData         "+JSON.stringify(ReportData));
+
+
+                        
+  res.json(ReportData);
+});
+
+//receiving message for watsokn
 app.post('/watson',function (req, res, next) {
   var keySize = 256;
   var ivSize = 128;

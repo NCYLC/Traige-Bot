@@ -85,8 +85,11 @@ p { margin: 0; }
     /* font-size:24px; */
     color: rgb(233, 212, 106);
 }
+.fa-star-o{
+    font-size: 2rem;
+}
 .fa-star
-{
+{font-size: 2rem;
     color: rgb(42, 158, 6);
 } 
 .ratingText
@@ -144,12 +147,82 @@ button {
     color: rgb(6, 29, 6)
 }
 .fa-times-circle {
-    /* float: right; */
+   
     color: #a9b1ab;
     /* margin-left: 5rem; */
     font-size: 1.3rem;
 }
+.fa-cloud-upload{
+    font-size: 1.3rem;
+    color: rgb(6, 29, 6);
+}
 .options{
     position: relative;
     float: right;
+
+}
+.unlockfeedback{
+    padding: 0px;
+    border: none;
+    width: 10px;
+    background-color: #293239;
+    outline: none;
+}
+.modal-header {
+    padding: 0px;
+    border-bottom: 1px solid #E0D8D8;
+}
+.modal-title{
+margin-left: 20px;
+font-size: 1rem;
+}
+.Modaloptions{
+    position: relative;
+    float: right;
+    top: -19px;
+    
+}
+.dropdownmenu{
+    margin-top:1vw; 
+    display: block;
+    color: black;
+    position: absolute;
+    right: 0px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 7px 10px;
+    z-index: 1;
+
+}
+.dropdownmenu button{
+margin:0px;
+margin-bottom:1vh;
+width:90%
+}
+.sent {
+    position: relative;
+    float: right;
+    background-color: #e1ffc7;
+    padding: 0px 2vw 0px 5vw;
+    border: 1px solid #d2cccc;
+    border-radius: 8px 0px 8px 8px;
+    box-shadow: -2px 3px 10px 0px #9aa29a;
+}
+.received {
+    border: 1px solid #e8e0e0;
+    margin-left: -5vw;
+    padding: 0px 0vw 0px 5vw;
+    border-radius: 0px 8px 8px 8px;
+    background-color: #dce4e4;
+    box-shadow: 2px 3px 8px 0px #9aa29a;
+}
+.chat-history {
+    background-color: #e4e6ce;
+}
+.unlockfeedback {
+    
+    color: #cebfbf;
+    background-color: #614f4f;
+   
 }
