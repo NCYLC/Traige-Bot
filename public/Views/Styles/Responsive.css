@@ -39,12 +39,14 @@
     }
     
     #live-chat h5 {
-        /* font-size: 2em; */
-        position: relative
+        font-size: 1em;
+    position: relative;
+    font-family: georgia;
         
     }
     #live-chat p {
         /* font-size: 2rem; */
+        font-size: 0.9em;
         position: relative;
         padding-bottom: 10px
     }
@@ -56,7 +58,7 @@
         padding: 8px;
         outline: none;
         height: 50px;
-        width: 90%;
+        /* width: 90%; */
     }
     
     #live-chat input[type="text"] {
@@ -115,7 +117,7 @@
     }
     
     .chat-message-content {
-        margin-left: 56px;
+        margin-left: 22px;
     }
     
     .chat-time {
@@ -173,12 +175,14 @@
         }
         
         #live-chat h5 {
-            /* font-size: 18px; */
-            position: relative
+            font-size: 1em;
+    position: relative;
+    font-family: georgia;
         }
         #live-chat p {
             /* font-size: 16px; */
             position: relative;
+            font-size: 0.9em;
             padding-bottom: 10px
         }
         
@@ -189,7 +193,7 @@
             padding: 8px;
             outline: none;
             height: 50px;
-            width: 90%;
+            /* width: 90%; */
         }
         
         #live-chat input[type="text"] {
@@ -250,7 +254,7 @@
         }
         
         .chat-message-content {
-            margin-left: 56px;
+            margin-left: 22px;
         }
         
         .chat-time {
@@ -307,13 +311,15 @@
         }
         
         #live-chat h5 {
-            /* font-size: 1.7vw; */
-          position: relative
+            font-size: 1em;
+    position: relative;
+    font-family: georgia;
         }
         #live-chat p {
-            min-height: 1.2vw;
+            /* min-height: 1.2vw; */
             /* font-size: 1.5vw; */
            position: relative;
+           font-size: 0.9em;
             font-family:'Roboto', sans-serif;
             padding-bottom: 10px
         }
@@ -325,7 +331,7 @@
             padding: 8px;
             outline: none;
             height: 6vh;
-            width: 90%;
+            /* width: 90%; */
         }
         
         #live-chat input[type="text"] {
@@ -384,7 +390,7 @@
         }
         
         .chat-message-content {
-            margin-left: 56px;
+            margin-left: 22px;
         }
         
         .chat-time {
@@ -442,7 +448,9 @@
         }
         
         #live-chat h5 {
-            /* font-size: 10px; */
+            font-size: 1em;
+    position: relative;
+    font-family: georgia;
         }
         
         #live-chat form {
@@ -451,7 +459,7 @@
             border-radius: 3px;
             padding: 8px;
             outline: none;
-            width: 90%;
+            /* width: 90%; */
         }
         
         #live-chat input[type="text"] {
@@ -514,7 +522,7 @@
         }
         
         .chat-message-content {
-            margin-left: 56px;
+            margin-left: 22px;
         }
         
         .chat-time {

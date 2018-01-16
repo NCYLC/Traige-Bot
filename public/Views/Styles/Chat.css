@@ -13,7 +13,7 @@ body
     width:100%;
     overflow-x: hidden;
     overflow-y: scroll;
-	background: #e9e9e9;
+	/* background: #e9e9e9; */
     color:#4d524d;
     font-family: 'Roboto', sans-serif;
 	/* font: 100%/1.5em "Droid Sans", sans-serif; */
@@ -204,21 +204,21 @@ width:90%
     position: relative;
     float: right;
     background-color: #e1ffc7;
-    padding: 0px 2vw 0px 5vw;
+    padding: 1vh 2vw 0px 3vw;
     border: 1px solid #d2cccc;
     border-radius: 8px 0px 8px 8px;
     box-shadow: -2px 3px 10px 0px #9aa29a;
 }
 .received {
     border: 1px solid #e8e0e0;
-    margin-left: -5vw;
-    padding: 0px 0vw 0px 5vw;
+    margin-left: -2em;
+    padding: 1vh 0vw 0px 2vw;
     border-radius: 0px 8px 8px 8px;
-    background-color: #dce4e4;
+    background-color: #dceef9;
     box-shadow: 2px 3px 8px 0px #9aa29a;
 }
 .chat-history {
-    background-color: #e4e6ce;
+    background-color: #eceff3;
     overflow-x: hidden;
 }
 .unlockfeedback {
@@ -228,28 +228,38 @@ width:90%
    
 }
 
-.listArraycontainer{
+.listArraycontainer {
     position: relative;
-    padding: 5px;
+    padding: 16px;
     /* border: 1px solid; */
-    margin: 4px -24%;
-    display: inline-flex;
+    width: 100%;
+    overflow: hidden;
+    /* margin: 4px -24%; */
+    /* display: inline-flex; */
 }
-.listArray{
+.listArray {
     position: relative;
-    border: 1px solid;
-    min-width: 46%;
-    margin-right: 15%;
-    padding: 5px;
-    background-color: #e0973d;
-    /* display: inline-grid; */
+    border-bottom: 2px solid #dceef9;
+    padding: 14px;
+    background-color: #fff;
+    box-shadow: 0.5px 0.5px 4px 1px #accadc;
 }
 .listArrayUrl {
     position: relative;
     /* min-width: 35%; */
-    border: 1px solid;
+    border: 1px solid #2b7cf1;  
     padding: 5px;
-    /* color: green; */
+    /* float: right; */
+    /* bottom: -4vh; */
+    text-align: center;
+    display: table-cell;
+    margin: 10px 0px 0px 0px;
+    background-color: #5998f3;
+    box-shadow: 0.5px 0.5px 2px 0px #86a2c7;
+}
+.listArrayUrl a{
+    color: #fff;
+    text-decoration: none;
 }
 .fa-angle-left {
     position: relative;
@@ -266,4 +276,22 @@ width:90%
     margin-top: 16%;
     margin-left: 2%;
     font-size: 3em;
+}
+.ListTitle {
+    font-size: 1em;
+    color: #615d5d;
+    font-weight: 600;
+    /* border-bottom: 1px solid #d0cccc; */
+    padding: 2px;
+}
+.Listbody {
+    font-size: 0.9em;
+}
+.ListTemplateTitle {
+    margin-bottom: 2vh;
+    font-size: 13px;
+    font-style: italic;
+}
+#live-chat form{
+    width: 100%
 }

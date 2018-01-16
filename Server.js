@@ -151,7 +151,7 @@ if(start=="true"){
             } else {
               Context=response.context;
               CleareContext=response.output.CleareContext;
-              if(CleareContext){
+              if(CleareContext=="true"){
                 var arr=Object.keys(response.context);
               
                 for (var data=2;data<arr.length;data++){

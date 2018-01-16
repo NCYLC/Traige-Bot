@@ -112,20 +112,23 @@
 
 						<p >{{messages.Text}}</p>
 						<div class="listArraycontainer" ng-show="messages.List">
-								<i class="fa fa-angle-left" aria-hidden="true"></i>
-								<i class="fa fa-angle-right" aria-hidden="true"></i>
-								<div class="listArray" ng-repeat="listview in messages.List">
-									<p>{{listview.Text}}</p>
+								<div class="ListTemplateTitle">{{messages.List.Title}}</div>
+								<button class="listArrayUrl" ng-if="showall==true?false:true" ng-click="showall = (showall==true?false:true)" ng-change="showall=showall">{{showall==false?"Hide all":"Show all"}}</button>
+
+								<div class="listArray" ng-repeat="listview in messages.List.Maindata">
+									<div class="ListTitle">{{listview.Title}}</div>
+									<div class="Listbody">{{listview.Text}}
 							<div class="listArrayUrl"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div></div>
-							
+						</div>
 							</div>
 						<!-- Defining ng class -->
 					</div> <!-- end chat-message-content -->
-          <hr>
+          <!-- <hr> -->
 				</div> <!-- end chat-message -->
 
 				
 
+			</div>
 			</div> <!-- end chat-history -->
 
 

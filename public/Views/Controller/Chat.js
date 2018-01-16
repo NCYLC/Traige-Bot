@@ -18,6 +18,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     var StartofConv=false;
     scope.quickreplyflag=false;
     scope.UrlButtonFlag=false;
+    scope.showall=false;
     //list view
     scope.listview=false;
     scope.listviewArray=[];
