@@ -111,11 +111,10 @@
 						<h5 id={{$index}}>{{messages.Author}}</h5>
 
 						<p >{{messages.Text}}</p>
-						<div class="listArraycontainer" ng-show="messages.List">
+						<div class="listArraycontainer" ng-if="messages.List">
 								<div class="ListTemplateTitle">{{messages.List.Title}}</div>
-								<button class="listArrayUrl" ng-if="showall==true?false:true" ng-click="showall = (showall==true?false:true)" ng-change="showall=showall">{{showall==false?"Hide all":"Show all"}}</button>
-
-								<div class="listArray" ng-repeat="listview in messages.List.Maindata">
+								<button class="listArrayUrl" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"Hide all":"Show all"}}</button>
+								<div class="listArray" ng-if="form.showall" ng-repeat="listview in messages.List.Maindata">
 									<div class="ListTitle">{{listview.Title}}</div>
 									<div class="Listbody">{{listview.Text}}
 							<div class="listArrayUrl"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div></div>
