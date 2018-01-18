@@ -113,11 +113,12 @@
 						<p >{{messages.Text}}</p>
 						<div class="listArraycontainer" ng-if="messages.List">
 								<div class="ListTemplateTitle">{{messages.List.Title}}</div>
-								<button class="listArrayUrl" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"Hide all":"Show all"}}</button>
+								<button class="listArrayUrl" ng-if="messages.List.Maindata.length>1" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"Hide all":"Show all"}}</button>
 								<div class="listArray" ng-if="form.showall" ng-repeat="listview in messages.List.Maindata">
 									<div class="ListTitle">{{listview.Title}}</div>
 									<div class="Listbody">{{listview.Text}}
-							<div class="listArrayUrl"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div></div>
+							<div class="listArrayUrl" ng-if="listview.Actions.URL"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div>
+							<div class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply"><button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button></div></div>
 						</div>
 							</div>
 						<!-- Defining ng class -->

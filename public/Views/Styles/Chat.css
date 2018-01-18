@@ -118,6 +118,7 @@ textarea
     /* font-size: 15px; */
     overflow: hidden;
     overflow-x: auto;
+    display: inline;
    
 }
 .reply{
