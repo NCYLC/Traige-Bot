@@ -109,7 +109,6 @@ if(start=="true"){
 }, function(err, response) {
     if (err) {
       Log.ErrorLog(err);
-     
       console.error(err);
     } else {
             var text='';
@@ -123,10 +122,11 @@ if(start=="true"){
         else
         text=response.output.text[0];
         Context=response.context;
+        console.log(JSON.stringify(Context));
         StartOfConv=response.context.StartOfConv;
         sentdata.Text=text;
         sentdata.Time=new Date();
-        console.log(JSON.stringify(response));
+        // console.log(JSON.stringify(response));
         var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
     
@@ -150,8 +150,10 @@ if(start=="true"){
               console.error(err);
             } else {
               Context=response.context;
+              console.log(JSON.stringify(Context));
               CleareContext=response.output.CleareContext;
               if(CleareContext=="true"){
+                console.log("Context Cleared.");
                 var arr=Object.keys(response.context);
               
                 for (var data=2;data<arr.length;data++){
@@ -194,7 +196,7 @@ if(start=="true"){
                 }
                 sentdata.Text=text;
                 sentdata.Time=new Date();
-                console.log(JSON.stringify(response));
+                // console.log(JSON.stringify(response));
                 var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);
                 console.log(JSON.stringify(sentdata));

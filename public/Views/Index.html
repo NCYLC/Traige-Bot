@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Chat">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Lawstuff au</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,7 +9,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link rel="stylesheet" href="Views/Styles/Chat.css">
 	<link rel="stylesheet" href="Views/Styles/Responsive.css">
-	<link rel="shortcut icon" href="Views/Styles/Images/img.ico" />
+	<link rel="shortcut icon" href="Views/Styles/Images/law-stuff.ico" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script
     src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -113,7 +113,7 @@
 						<p >{{messages.Text}}</p>
 						<div class="listArraycontainer" ng-if="messages.List">
 								<div class="ListTemplateTitle">{{messages.List.Title}}</div>
-								<button class="listArrayUrl" ng-if="messages.List.Maindata.length>1" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"Hide all":"Show all"}}</button>
+								<button class="listArrayUrl" ng-if="messages.List.Maindata.length>1" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"Hide options":"Show options"}}</button>
 								<div class="listArray" ng-if="form.showall" ng-repeat="listview in messages.List.Maindata">
 									<div class="ListTitle">{{listview.Title}}</div>
 									<div class="Listbody">{{listview.Text}}
