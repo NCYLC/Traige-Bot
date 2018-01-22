@@ -1,0 +1,140 @@
+#################Minimum age#####################
+{
+  "output": {
+    "text": {
+      "values": [
+        "Would you like information about Victoria or NSW?"
+      ],
+      "selection_policy": "sequential"
+    },
+    "Actions": {
+      "Quickreply": [
+        "NSW",
+        "Victoria"
+      ]
+    }
+  }
+}
+
+State select NSW
+{
+  "output": {
+    "List": {
+      "Title": "In NSW, there is no legal minimum age to start work.\nAn exception to this is door to door sales, where you need to be at least 14 years and 9 months of age.\nWhilst you can work at any age. ",
+      "Maindata": [
+        {
+          "Text": "   There are some conditions that will apply to your employment, including the places and hours you can work, depending on how old you are. \nTo help us work out what conditions apply to you, we have some questions. \nHow old are you?",
+          "Title": "How old are you?"
+        }
+      ]
+    },
+    "text": {
+      "values": [
+        ""
+      ],
+      "selection_policy": "sequential"
+    },
+    "CleareContext": "true"
+  }
+}
+
+Less than 16
+{
+  "output": {
+    "List": {
+      "Title": "There are certain conditions that apply to young workers in NSW who are under 16 years of age.                                                In NSW, you can work full time after you have completed Year 10  ",
+      "Maindata": [
+        {
+          "Text": "There are also certain conditions that apply if you are working in modelling or entertainment.                                        In NSW, if you are under 16 years of age and working in modelling or entertainment, your employer cannot have you work:\n•\tMore than 5 days per week;\n•\tMore than 8 hours per day; and\n•\tAfter 11pm or before 6am.",
+          "Title": "If you are working in modelling or entertainment"
+        },
+        {
+          "Text": "For more information, you can have a look at the Fair Work Ombudsman’s Fact Sheet on young workers ",
+          "Title": "eSafety Commissioner’s Fact Sheet on “Sexting”",
+          "Actions": {
+            "URL": "https://www.fairwork.gov.au/find-help-for/young-workers-and-students",
+            "title": "fairwork.gov.au"
+          }
+        }
+      ]
+    },
+    "text": {
+      "values": [
+        ""
+      ],
+      "selection_policy": "sequential"
+    },
+    "CleareContext": "true"
+  }
+}
+
+Less than 15
+{
+  "output": {
+    "List": {
+      "Title": "There are certain conditions that apply to young workers in NSW who are under 15 years of age. If you are under 15 years of age, your employer cannot have you work: During school hours;More than one shift a day;More than four hours on a day they go to school;More than five days in a row;After 9pm if you have school the next day;If it is less than 12 hours since your last shift; andFor any hours that make the combination of their school and work hours more than 50 hours in a 7 day week.                                                         ",
+      "Maindata": [
+        {
+          "Text": "Some conditions also apply to young people working in licensed venues (for example, pubs or hotels). \nDo you want to hear more about these conditions?",
+          "Title": "Do you want to hear more?",
+          "Actions": {
+            "Quickreply": [
+              "Yes",
+              "No"
+            ]
+          }
+        }
+      ]
+    },
+    "text": {
+      "values": [
+        ""
+      ],
+      "selection_policy": "sequential"
+    },
+    "CleareContext": "true"
+  }
+}
+
+16 and above
+{
+  "output": {
+    "List": {
+      "Title": "In NSW, you can work full time after you have completed year 10 or when you turn 17, whichever occurs first. ",
+      "Maindata": [
+        {
+          "Text": "For more information, you can have a look at the Fair Work Ombudsman’s Fact Sheet on young workers here.",
+          "Title": "More info",
+          "Actions": {
+            "URL": "https://www.fairwork.gov.au/find-help-for/young-workers-and-students",
+            "title": "fairwork.gov.au"
+          }
+        },
+        {
+          "Text": "You can read more these conditions on our Lawstuff page here.",
+          "Title": "Read More",
+          "Actions": {
+            "URL": "http://www.lawstuff.org.au/nsw_law/topics/employment/What-age-can-I-start-work",
+            "title": "lawstuff.org.au"
+          }
+        },
+        {
+          "Text": "If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form  here.",
+          "Title": "Contact one of our lawyers",
+          "Actions": {
+            "URL": "https://www.lawmail.org.au/verification",
+            "title": "Lawmail"
+          }
+        }
+      ]
+    },
+    "text": {
+      "values": [
+        ""
+      ],
+      "selection_policy": "sequential"
+    },
+    "CleareContext": "true"
+  }
+}
+

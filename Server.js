@@ -1,66 +1,67 @@
-var express=require('express');
-const keys=require('./Keys');
-const workspaceID=keys.watson.workspaceID 
+var express=require('express');//requiring Express to create server
+const keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
+const workspaceID=keys.watson.workspaceID //Fetching watson workspaceid from keys file
 //'38282176-f16f-4e2f-bd7d-4969793f9220'
-var app=express();
-var path = require('path');
-var watson=require('.//app.js');
-var Sync = require('sync');//synchronising
-var Log = require('.//Log');//Calling Log Js
-const request=require('request');
-const accesstoken=keys.facebook.accesstoken//'EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
+var app=express();// Creating express object
+var path = require('path');// requiring  node path module to access local path
+var watson=require('.//app.js');//Requering app.js
+var Sync = require('sync');//requering Sync module
+var Log = require('.//Log');//requering Logs. js module
+const request=require('request');//Requering node request module
+const accesstoken=keys.facebook.accesstoken//facebook access token is stored from keys file                                                'EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
 //var FacebookMessanger=require('.//messenger-webhook/Webhook')
-app.use(express.static(__dirname + '/public'));
-var router = express.Router();
+app.use(express.static(__dirname + '/public'));//Making public folder visible in browser tree
+var router = express.Router();//Initialising express router
 var  message=[{"Type":"Received","Author":"Watson","Text":"This is watson","TimeStamp":new Date()}];
 var CryptoJS =require('crypto-js');
-var fs = require('.//Log');//Calling Node Fs
+var fs = require('.//Log');//requiring log.js module for using loging
 //TimeOut ----------
-var util = require('util');
-var StartOfConv=false; 
+var util = require('util');//requiring node utils module
+var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
 var Context={};//Context for Node app
-var CleareContext=false;
+var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
 var flag=false;//to show up  in facebook URLS
-var quickreply=false;//to show quick in facebook reply
+var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
-var Facebookaction={};
+var Facebookaction={};// storing facebook actions in an object
 router.get('/',function(req,res){
     
-    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));
-
-});
+    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));//as a reponse sendding index.html to client browser
 
 
-var bodyParser = require('body-parser');// to read data from req.body
+});//Creting function which will be rendered when url wil be hitted
+
+
+var bodyParser = require('body-parser');//requiring body-parser node module
 //var multer = require('multer');//to read objectified data
-app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.json()); // for parsing reuest data into Object this will use bodyparser as a middleware in each req and response
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-var sentdata={};
-var  message=[];
+var sentdata={};//initialising senddata onject
+var  message=[];// creating empty array
 
 // storing feedback here
 app.post('/Feedback',function(req,res){
-  var Data="User has "+req.body.rate+" and commented "+req.body.Text+"\n"
-  Log.feedBack(Data)
+  var Data="User has "+req.body.rate+" and commented "+req.body.Text+"\n"// creating Data string
+  Log.feedBack(Data)//for logggging user feedback into feedback logs
   console.log(JSON.stringify(req.body));
 
-  res.sendStatus;
-});
+  res.sendStatus;// response sent back to user
+});//Craeting post request for feedback functionality
  app.get('/Viewreport',async function(req,res){
  
-  var ReportData=await Log.CreateReport();
+  var ReportData=await Log.CreateReport();//creating report data 
 // console.log("ReportData         "+JSON.stringify(ReportData));
 
 
                         
-  res.json(ReportData);
-});
+  res.json(ReportData);//sending reporting data to client browser
+});//creating get req to fetch report 
 
 //receiving message for watsokn
-app.post('/watson',function (req, res, next) {
+app.post('/watson',function (req, res, next) {//post method for sending message
   var keySize = 256;
   var ivSize = 128;
   var iterations = 100;
@@ -90,39 +91,39 @@ var ReceivedData={};
     // ReceivedData.Text = decrypted.toString(CryptoJS.enc.Utf8);
     // decrypted = decrypt(req.query.z, password);
     // ReceivedData.Author = decrypted.toString(CryptoJS.enc.Utf8);
-    ReceivedData.Author=req.query.z;
-    ReceivedData.Text=req.query.y;
-    ReceivedData.Time=new Date();
-     ReceivedData.Type="Sent";
-     var start=req.query.m;
+    ReceivedData.Author=req.query.z;//capturing send message author info
+    ReceivedData.Text=req.query.y;//capturing message text
+    ReceivedData.Time=new Date();//getting at what time message came to middleware
+     ReceivedData.Type="Sent";//setting message type
+     var start=req.query.m;//checking if it's start of message
     //console.log("start"+start+"Typew of start"+typeof(start));
     setTimeout(function(){ var str=new Date()+"   "+"Author : "+ ReceivedData.Author + "   Message :  "+ ReceivedData.Text+"\r\n" ;
-    Log.CreateLog(str);
+    Log.CreateLog(str);// creating log to capture each request and response from user
 
 console.log("decrypted"+JSON.stringify(ReceivedData));
-if(start=="true"){
+if(start=="true"){// will trigger if user ha refresed there browser thus will trigger Welcome node in watson
   console.log("This is start of message");
   watson.message({
-    input:{ text: '' },
-    workspace_id: workspaceID//c4365db3-9e85-4417-9d71-12cdb55925a9
+    input:{ text: '' },// passing null data to trigger  welcome node in watson
+    workspace_id: workspaceID//passing workspace idinto mesage property
 
 }, function(err, response) {
     if (err) {
-      Log.ErrorLog(err);
+      Log.ErrorLog(err);//loggig error if error occured
       console.error(err);
     } else {
             var text='';
-        sentdata.Author="Watson";
-        sentdata.Type="Received";
-        if(response.output.text.length>1){
+        sentdata.Author="Watson";//if success set Author
+        sentdata.Type="Received";//set type as received
+        if(response.output.text.length>1){// will be triggered if text has more than 1 item 
             for(var data in response.output.text ){
             text=text+'\n'+response.output.text[data];
             }
         }
         else
-        text=response.output.text[0];
-        Context=response.context;
-        console.log(JSON.stringify(Context));
+        text=response.output.text[0];// will be triggered if text has only one item
+        Context=response.context;//setting incoming context into a variable
+        console.log(JSON.stringify(Context));//printing context
         StartOfConv=response.context.StartOfConv;
         sentdata.Text=text;
         sentdata.Time=new Date();
@@ -130,34 +131,34 @@ if(start=="true"){
         var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
     
-        res.json(sentdata);
+        res.json(sentdata);//sending reponse back to user
     }
-}); 
+}); //end of watson message
 
-}
+}// end of start of conv module
 
 
-          else{
+          else{// if user has active session with watson
             console.log("After Start conversation");
             debugger;
          watson.message({
             input:{ text: ReceivedData.Text },
             workspace_id: workspaceID,
-            context:Context  
+            context:Context  //passing incoming context varaible to watson context
         }, function(err, response) {
             if (err) {
               Log.ErrorLog(err);
               console.error(err);
             } else {
-              Context=response.context;
+              Context=response.context;//storing output  context into same context variable thus updating context
               console.log(JSON.stringify(Context));
-              CleareContext=response.output.CleareContext;
-              if(CleareContext=="true"){
+              CleareContext=response.output.CleareContext;//if we detect clearecontext
+              if(CleareContext=="true"){//if cleare context is set
                 console.log("Context Cleared.");
-                var arr=Object.keys(response.context);
+                var arr=Object.keys(response.context);//storing conntext into variable
               
                 for (var data=2;data<arr.length;data++){
-                  console.log("Nullifying contexts"+Context[arr[data]]+arr[data]);
+                  console.log("Nullifying contexts"+Context[arr[data]]+arr[data]);//nullfying user defined contexts
                   Context[arr[data]]=null;
                   
                 }
@@ -173,37 +174,37 @@ if(start=="true"){
                 }
                 else
                 text=response.output.text[0];
-                var action=response.output.Actions;
+                var action=response.output.Actions;//storing actions
                 console.log(JSON.stringify(action));
                 if(action!=null||action!=undefined){
                   //callAction(action);
-                  if(Object.keys(action)[0]=="Quickreply"){
+                  if(Object.keys(action)[0]=="Quickreply"){// if we detect quickreplies from watson json
                     var data=Object.keys(action)[0];
-                    sentdata.quickreply=action[data];
+                    sentdata.quickreply=action[data];// storing quickreplies and sending to user
                   }
-                  else if(Object.keys(action)[0]=="URL"){
+                  else if(Object.keys(action)[0]=="URL"){// if we detect URL in watson json
                     var data=Object.keys(action)[0];
                     sentdata.URL=action[data];
-                    sentdata.title=action.title;
+                    sentdata.title=action.title;//storing quickreplies and sending it back to users
                   }
                  
                   console.log("Actions is"+action);
                 }
-                else if(response.output.List!=null || response.output.List!=undefined){
+                else if(response.output.List!=null || response.output.List!=undefined){// checking if watson Json has any list data
                   console.error("List is been detected")
-                  sentdata.List=response.output.List;
+                  sentdata.List=response.output.List;//sending list data back to users
                   
                 }
                 sentdata.Text=text;
                 sentdata.Time=new Date();
                 // console.log(JSON.stringify(response));
                 var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
-                Log.CreateLog(str);
+                Log.CreateLog(str);//upadting log data
                 console.log(JSON.stringify(sentdata));
-                res.json(sentdata);
+                res.json(sentdata);//sending data back to users
                 
                
-                sentdata={};
+                sentdata={};// nullifing send object once its send to users
             }
           
         }); 
@@ -215,7 +216,7 @@ if(start=="true"){
 //res.sendStatus;
   });
 
-
+ // facebook module starts here
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");
       // Parse the request body from the POST

@@ -1,0 +1,224 @@
+Node1:
+{
+    "output": {
+      "text": {
+        "values": [
+          "Would you like information about Victoria or NSW?"
+        ],
+        "selection_policy": "sequential"
+      },
+      "Actions": {
+        "Quickreply": [
+          "NSW",
+          "Victoria"
+        ]
+      }
+    }
+  }
+  If NSW Node:
+  {
+    "output": {
+      "List": {
+        "Title": "This information is for young “employees” in New South Wales. It does not cover employees employed by the NSW Government or local councils in NSW, “independent contractors”, “contractors” or “sub-contractors” (“subbies”). ",
+        "Maindata": [
+          {
+            "Text": "   If you are an “employee” and you are required to do the training as part of your job, or very soon after being employed, you should normally be paid for those hours.If you are not sure if you are an employee, please read:",
+            "Title": "If you are not sure please read",
+            "Actions": {
+              "URL": "https://www.fairwork.gov.au/how-we-will-help/templates-and-guides/fact-sheets/rights-and-obligations/independent-contractors-and-employees",
+              "title": "fairwork.gov.au"
+            }
+          },
+          {
+            "Text": "Does the work you have not been paid for fit into one of these categories?",
+            "Title": "Do you fit in",
+            "Actions": {
+              "Quickreply": [
+                "Yes",
+                "No",
+                "Not sure"
+              ]
+            }
+          }
+        ]
+      },
+      "text": {
+        "values": [
+          ""
+        ],
+        "selection_policy": "sequential"
+      },
+      "CleareContext": "true"
+    }
+  }
+  @yes an Employee:
+  {
+    "output": {
+      "List": {
+        "Title": "",
+        "Maindata": [
+          {
+            "Text": "   Because your work fits into one of these categories, it may be legal for your work to be unpaid.\nFor more information on this, you can have a look at the Fair Work Ombudsman’s Fact Sheet on unpaid work ",
+            "Title": "",
+            "Actions": {
+              "URL": "https://www.fairwork.gov.au/how-we-will-help/templates-and-guides/fact-sheets/unpaid-work",
+              "title": "fairwork.gov.au"
+            }
+          }
+        ]
+      },
+      "text": {
+        "values": [
+          ""
+        ],
+        "selection_policy": "sequential"
+      },
+      "CleareContext": "true"
+    }
+  }
+
+  No:
+  {
+    "output": {
+      "List": {
+        "Title": "It sounds like you should be paid for your work.  ",
+        "Maindata": [
+          {
+            "Text": "   The best thing you can do is to arrange a meeting with your employer to discuss the pay you may be owed. If you’re not sure how to do this or would like some help, the Fair Work Ombudsman has a Fact Sheet on how you can resolve issues in the workplace. ",
+            "Title": "Arrange a Meeting",
+            "Actions": {
+              "URL": "https://www.fairwork.gov.au/how-we-will-help/how-we-help-you/help-resolving-workplace-issues#try-to-resolve-the-issue-yourself/",
+              "title": "fairwork.gov.au"
+            }
+          },
+          {
+            "Text": "You can calculate the pay you may be owed",
+            "Title": "Calculate the pay",
+            "Actions": {
+              "URL": "https://calculate.fairwork.gov.au/findyouraward",
+              "title": "Find your award"
+            }
+          },
+          {
+            "Text": "If your employer still refuses to pay you, then you can contact the Fair Work Ombudsman for help. You can make a request for help online . ",
+            "Title": "Contact the Fair Work Ombudsman for help ",
+            "Actions": {
+              "URL": "https://www.fairwork.gov.au/how-we-will-help/get-help#/content",
+              "title": "Fairwork help"
+            }
+          },
+          {
+            "Text": "You can get free, confidential information and help from LawAccess. ",
+            "Title": "Get free, confidential information and help ",
+            "Actions": {
+              "URL": "http://www.lawaccess.nsw.gov.au",
+              "title": "lawaccess help"
+            }
+          },
+          {
+            "Text": "If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form. ",
+            "Title": "Contact one of our lawyers for free",
+            "Actions": {
+              "URL": "https://www.lawmail.org.au/verification",
+              "title": "Lawmail"
+            }
+          }
+        ]
+      },
+      "text": {
+        "values": [
+          ""
+        ],
+        "selection_policy": "sequential"
+      },
+      "CleareContext": "true"
+    }
+  }
+
+  Not sure:
+  {
+    "output": {
+      "List": {
+        "Title": "Further help",
+        "Maindata": [
+          {
+            "Text": "For more legal information on work and your rights, you can visit our Lawstuff page  ",
+            "Title": "More help on Lawstuff",
+            "Actions": {
+              "URL": "http://www.lawstuff.org.au/vic_law/topics/employment",
+              "title": "lawstuff employement"
+            }
+          },
+          {
+            "Text": "You can get free, confidential information and help from the LawAccess here",
+            "Title": "Get help from LawAccess",
+            "Actions": {
+              "URL": "http://www.lawaccess.nsw.gov.au",
+              "title": "lawaccess"
+            }
+          },
+          {
+            "Text": "You can get free, confidential information and help from the Fair Work Ombudsman here. ",
+            "Title": "Get help from FWO ",
+            "Actions": {
+              "URL": "https://www.fairwork.gov.au/how-we-will-help/get-help#/content",
+              "title": "fairwork.gov.au"
+            }
+          },
+          {
+            "Text": "If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form . ",
+            "Title": "Contact lawyers for free",
+            "Actions": {
+              "URL": "https://www.lawmail.org.au/verification",
+              "title": "lawmail"
+            }
+          }
+        ]
+      },
+      "text": {
+        "values": [
+          ""
+        ],
+        "selection_policy": "sequential"
+      },
+      "CleareContext": "true"
+    }
+  }
+  ########### if Vic ################
+  {
+    "output": {
+      "List": {
+        "Title": "We are sorry to hear that you are not being paid! To help us work out whether you are entitled to payment for your work, we have some questions. \nSometimes it is legal for work to be unpaid. For example, an unpaid work trial when being evaluated for a job (to determine if you have the specific skills for a job), volunteer work, unpaid work experience or an unpaid internship (where you are getting experience in a job or industry), or a vocational placement.",
+        "Maindata": [
+          {
+            "Text": "   If you are not sure whether your work fits into one of these categories, please read here",
+            "Title": "If you are not sure please read",
+            "Actions": {
+              "URL": "https://www.fairwork.gov.au/how-we-will-help/templates-and-guides/fact-sheets/unpaid-work/unpaid-work",
+              "title": "fairwork.gov.au"
+            }
+          },
+          {
+            "Text": "Does the work you have not been paid for fit into one of these categories?",
+            "Title": "Do you fit in",
+            "Actions": {
+              "Quickreply": [
+                "Yes",
+                "Nope",
+                "Not sure"
+              ]
+            }
+          }
+        ]
+      },
+      "text": {
+        "values": [
+          ""
+        ],
+        "selection_policy": "sequential"
+      },
+      "CleareContext": "true"
+    }
+  }
+
+  

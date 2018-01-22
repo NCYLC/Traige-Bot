@@ -1,0 +1,109 @@
+Cyber Bully
+{
+  "output": {
+    "text": {
+      "values": [
+        "If you or someone you know is being bullied online, we want you to know that cyber-bullying and harassment is never okey . In some cases it can be a crime.                                                        Is the bullying or harassment you are experiencing relates to the sending or sharing of sexual texts, photos or videos?"
+      ],
+      "selection_policy": "sequential"
+    },
+    "Actions": {
+      "Quickreply": [
+        "Yes",
+        "No"
+      ]
+    }
+  }
+}
+Yes ,sharing of sexual texts, photos or videos
+{
+  "output": {
+    "List": {
+      "Title": "Under national law, it is a crime to use a mobile phone or the internet to menace, harass or offend someone.   We recommend that you take screenshots of any messages or posts you have received.  If the bullying or harassment you are experiencing relates to the sending or sharing of sexual texts, photos or videos, there are additional laws that may apply.  ",
+      "Maindata": [
+        {
+          "Text": "   You can read more about sending or sharing sexual texts, photos or videos and the law on our Lawstuff page. ",
+          "Title": "Read more about sending or sharing sexual texts",
+          "Actions": {
+            "URL": "http://www.lawstuff.org.au/nsw_law/topics/Sexting",
+            "title": "Lawstuff Sexting"
+          }
+        },
+        {
+          "Text": "For more information, you can have a look at the eSafety Commissioner’s Fact Sheet on “Sexting”",
+          "Title": "eSafety Commissioner’s Fact Sheet on “Sexting”",
+          "Actions": {
+            "URL": "https://esafety.gov.au/esafety-information/esafety-issues/sexting",
+            "title": "eSafety Commissioner"
+          }
+        },
+        {
+          "Text": "If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form ",
+          "Title": "Contact our lawyers ",
+          "Actions": {
+            "URL": "https://www.lawmail.org.au/verification",
+            "title": "Lawmail"
+          }
+        }
+      ]
+    },
+    "text": {
+      "values": [
+        ""
+      ],
+      "selection_policy": "sequential"
+    },
+    "CleareContext": "true"
+  }
+}
+Other cyber bully
+{
+  "output": {
+    "List": {
+      "Title": "Under national law, it is a crime to use a mobile phone or the internet to menace, harass or offend someone.  If you are being bullied online, there are a number of things you can do.We recommend that you take screenshots of any messages or posts you have received. Try to include the dates and times of all the messages or calls, and evidence of who sent it. ",
+      "Maindata": [
+        {
+          "Text": "You can adjust your privacy settings on your social media accounts so that you cannot be tagged in anything, and so other people cannot publish posts or comments on your account. You can also unfriend or unfollow, block and report the account of anyone bullying you. If you need any help with how to do this, you can have a look at the eSafety Commissioner’s guide .",
+          "Title": "Adjust privacy settings on social media",
+          "Actions": {
+            "URL": "https://www.esafety.gov.au/complaints-and-reporting/cyberbullying-complaints/social-media-services-safety-centres",
+            "title": "Social media safety centres"
+          }
+        },
+        {
+          "Text": "   Experiencing online bullying or harassment can be really tough. We encourage you to talk to someone about how you are feeling, and for some extra support. This could be a parent, trusted adult or a teacher at your school. If you are not sure who to talk to, you can call Kids Helpline on 1800 55 1800 (24-hours a day, seven days a week, but there can be a wait to get through) for free and confidential counselling. You can also chat to them online . ",
+          "Title": "Talk to someone about how you are feeling",
+          "Actions": {
+            "URL": "https://kidshelpline.com.au/teens",
+            "title": "Kidshelpline"
+          }
+        },
+        {
+          "Text": "   You can read more about online bullying and the law on our Lawstuff page. ",
+          "Title": "Read more about online bullying",
+          "Actions": {
+            "URL": "http://www.lawstuff.org.au/nsw_law/topics/bullying/cyber-bullying",
+            "title": "Anti-bullying"
+          }
+        },
+        {
+          "Text": "For more information, you can have a look at the eSafety Commissioner’s Fact Sheet on cyber-bullying.",
+          "Title": "more information",
+          "Actions": {
+            "URL": "https://esafety.gov.au/esafety-information/esafety-issues/cyberbullying",
+            "title": "eSafety Commissioner"
+          }
+        },
+        {
+          "Text": "If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form.",
+          "Title": "Contact one lawyers ",
+          "Actions": {
+            "URL": "https://www.lawmail.org.au/verification",
+            "title": "Lawmail"
+          }
+        }
+      ]
+    },
+    "CleareContext": "true"
+  }
+}
