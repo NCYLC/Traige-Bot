@@ -1,3 +1,5 @@
+
+
 var express=require('express');//requiring Express to create server
 const keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
 const workspaceID=keys.watson.workspaceID //Fetching watson workspaceid from keys file
@@ -19,7 +21,6 @@ var fs = require('.//Log');//requiring log.js module for using loging
 var util = require('util');//requiring node utils module
 var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
-var Context={};//Context for Node app
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
@@ -62,6 +63,8 @@ app.post('/Feedback',function(req,res){
 
 //receiving message for watsokn
 app.post('/watson',function (req, res, next) {//post method for sending message
+  
+var Context={};//Context for Node app
   var keySize = 256;
   var ivSize = 128;
   var iterations = 100;
@@ -95,7 +98,7 @@ var ReceivedData={};
     ReceivedData.Text=req.query.y;//capturing message text
     ReceivedData.Time=new Date();//getting at what time message came to middleware
      ReceivedData.Type="Sent";//setting message type
-     var start=req.query.m;//checking if it's start of message
+    var start=req.query.m;
     //console.log("start"+start+"Typew of start"+typeof(start));
     setTimeout(function(){ var str=new Date()+"   "+"Author : "+ ReceivedData.Author + "   Message :  "+ ReceivedData.Text+"\r\n" ;
     Log.CreateLog(str);// creating log to capture each request and response from user
@@ -127,6 +130,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         StartOfConv=response.context.StartOfConv;
         sentdata.Text=text;
         sentdata.Time=new Date();
+        sentdata.Context=Context;//giving user back his context
         // console.log(JSON.stringify(response));
         var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
@@ -139,6 +143,8 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 
 
           else{// if user has active session with watson
+            Context=JSON.parse(req.query.c);//Getting context data fro user
+            console.log("Line 147"+typeof(Context)+JSON.stringify(Context));
             console.log("After Start conversation");
             debugger;
          watson.message({
@@ -151,6 +157,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
               console.error(err);
             } else {
               Context=response.context;//storing output  context into same context variable thus updating context
+              sentdata.Context=Context;
               console.log(JSON.stringify(Context));
               CleareContext=response.output.CleareContext;//if we detect clearecontext
               if(CleareContext=="true"){//if cleare context is set
@@ -472,11 +479,14 @@ if (cluster.isMaster) {
   }
 
   cluster.on('exit', (worker, code, signal) => {
+    cluster.fork();// if worker dies it will restart
     console.log(`worker ${worker.process.pid} died`);
+
   });
 } else {
   // Workers can share any TCP connection
   // In this case it is an HTTP server
+ 
   app.listen(process.env.PORT || 3001);
   console.log(`Worker ${process.pid} started`);
 }
