@@ -337,7 +337,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             }
           
             callSendAPI(sender_psid, response,Facebookaction);  
-           // console.log("In Watson"+JSON.stringify(response));
+           console.log("In Watson"+JSON.stringify(response));
         }); 
          }//test
           // Create the payload for a basic text message
