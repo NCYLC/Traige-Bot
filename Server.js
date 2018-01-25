@@ -272,7 +272,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           // }
           // if(received_message.text=='quickreply'){
             
-          }
+//           }
           if(received_message.text=='template'){
             template=true;
           }
