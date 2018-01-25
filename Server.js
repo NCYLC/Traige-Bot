@@ -1,7 +1,7 @@
 
 
 var express=require('express');//requiring Express to create server
-// const Helmet=require ('helmet')
+ const Helmet=require ('helmet')
 var keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
 const workspaceID=keys.watson.workspaceID //Fetching watson workspaceid from keys file
 //'38282176-f16f-4e2f-bd7d-4969793f9220'
@@ -272,10 +272,10 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           // }
           // if(received_message.text=='quickreply'){
             
-          // }
-          // if(received_message.text=='template'){
-          //   template=true;
-          // }
+          }
+          if(received_message.text=='template'){
+            template=true;
+          }
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           watson.message({
@@ -408,19 +408,19 @@ res.send(req.query['hub.challenge']);
             "elements":[
                {
                 "title":"Welcome to Peter\'s Hats",
-                "image_url":"https://petersfancybrownhats.com/company_image.png",
+                // "image_url":"https://petersfancybrownhats.com/company_image.png",
                 "subtitle":"We\'ve got the right hat for everyone.",
                 "default_action": {
                   "type": "web_url",
-                  "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
+                  "url": "https://ncylcworkspace.slack.com/",
                   "messenger_extensions": true,
                   "webview_height_ratio": "tall",
-                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                  "fallback_url": "https://ncylcworkspace.slack.com/"
                 },
                 "buttons":[
                   {
                     "type":"web_url",
-                    "url":"https://petersfancybrownhats.com",
+                    "url":"https://ncylcworkspace.slack.com/",
                     "title":"View Website"
                   },{
                     "type":"postback",
