@@ -276,6 +276,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           if(received_message.text=='template'){
             template=true;
           }
+         else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           watson.message({
@@ -338,7 +339,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             callSendAPI(sender_psid, response,Facebookaction);  
            // console.log("In Watson"+JSON.stringify(response));
         }); 
-      
+         }//test
           // Create the payload for a basic text message
          
           
