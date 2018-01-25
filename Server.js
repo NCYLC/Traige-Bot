@@ -1,5 +1,5 @@
 var express=require('express');
-const keys=require('./Keys');
+var keys=require('./Keys');
 const workspaceID=keys.watson.workspaceID 
 //'38282176-f16f-4e2f-bd7d-4969793f9220'
 var app=express();
@@ -28,8 +28,8 @@ var quickreply=false;//to show quick in facebook reply
 var template=false;//to show templates
 var Facebookaction={};
 router.get('/',function(req,res){
-    
-    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));
+    console.log(__dirname,);
+    res.sendFile(path.join(__dirname, '/', 'public','/', 'index.html'));
 
 });
 
