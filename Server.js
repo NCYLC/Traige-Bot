@@ -1,7 +1,7 @@
 
 
 var express=require('express');//requiring Express to create server
-// const Helmet=require ('helmet')
+ const Helmet=require ('helmet')
 var keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
 const workspaceID=keys.watson.workspaceID //Fetching watson workspaceid from keys file
 //'38282176-f16f-4e2f-bd7d-4969793f9220'
