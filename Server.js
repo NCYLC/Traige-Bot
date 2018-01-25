@@ -28,8 +28,8 @@ var quickreply=false;//to show quick in facebook reply
 var template=false;//to show templates
 var Facebookaction={};
 router.get('/',function(req,res){
-    console.log(__dirname,);
-    res.sendFile(path.join(__dirname, '/', 'public','/', 'index.html'));
+    
+    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'Index.html'));
 
 });
 
