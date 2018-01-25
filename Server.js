@@ -265,7 +265,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         var text='';
         // Check if the message contains text
         if (received_message.text) {    
-        console.log("In watson received_message.text"+received_message.text);
+//         console.log("In watson received_message.text"+received_message.text);
           var text='';
           // if(received_message.text=='Test'){
            
@@ -284,7 +284,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             context:FacebookContext,
             workspace_id: workspaceID
         }, function(err, response) {
-          //console.log("Facebook response"+JSON.stringify(response));
+          console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
@@ -309,7 +309,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                  
                   if(Object.keys(Faceaction)[0]=="Quickreply"){
                     var mainData=Faceaction['Quickreply'];
-                    console.log("We came to quick reply.");
+//                     console.log("We came to quick reply.");
                     // var data=action[Object.keys(action[0])];
                     for(var i=0;i<mainData.length;i++){
                     var data1={};
@@ -319,7 +319,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                     action1.push(data1);
                     }
                     Facebookaction.quickreply=action1;
-                    console.log("facebook Quick reply"+JSON.stringify(action1));
+//                     console.log("facebook Quick reply"+JSON.stringify(action1));
                     quickreply=true;
                   }
                   else if(Object.keys(Faceaction)[0]=="URL"){
@@ -328,7 +328,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                     Facebookaction.title=Faceaction.title;
                     flag=true;//for buttons in face book.
                   }
-                  console.log("Actions is"+JSON.stringify(Facebookaction));
+//                   console.log("Actions is"+JSON.stringify(Facebookaction));
                 }
             }
             //console.log("In Watson text"+text);
@@ -350,7 +350,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       }
 
 app.get('/webhook', (req, res) => {
-  console.log(req.query);
+//   console.log(req.query);
 if(req.query['hub.verify_token']==='Test')
 res.send(req.query['hub.challenge']);
     
@@ -445,7 +445,7 @@ res.send(req.query['hub.challenge']);
     
      
    
-  console.log(JSON.stringify(request_body )+"\n request body");
+//   console.log(JSON.stringify(request_body )+"\n request body");
     // Send the HTTP request to the Messenger Platform
     //error coming here
  request({
