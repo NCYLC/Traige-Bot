@@ -1,7 +1,8 @@
 
 
 var express=require('express');//requiring Express to create server
-const keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
+// const Helmet=require ('helmet')
+var keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
 const workspaceID=keys.watson.workspaceID //Fetching watson workspaceid from keys file
 //'38282176-f16f-4e2f-bd7d-4969793f9220'
 var app=express();// Creating express object
@@ -13,6 +14,7 @@ const request=require('request');//Requering node request module
 const accesstoken=keys.facebook.accesstoken//facebook access token is stored from keys file                                                'EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
 //var FacebookMessanger=require('.//messenger-webhook/Webhook')
 app.use(express.static(__dirname + '/public'));//Making public folder visible in browser tree
+app.use(Helmet());
 var router = express.Router();//Initialising express router
 var  message=[{"Type":"Received","Author":"Watson","Text":"This is watson","TimeStamp":new Date()}];
 var CryptoJS =require('crypto-js');
@@ -30,7 +32,7 @@ var template=false;//to show templates
 var Facebookaction={};// storing facebook actions in an object
 router.get('/',function(req,res){
     
-    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'index.html'));//as a reponse sendding index.html to client browser
+    res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'Index.html'));//as a reponse sendding index.html to client browser
 
 
 });//Creting function which will be rendered when url wil be hitted
@@ -47,7 +49,7 @@ var  message=[];// creating empty array
 app.post('/Feedback',function(req,res){
   var Data="User has "+req.body.rate+" and commented "+req.body.Text+"\n"// creating Data string
   Log.feedBack(Data)//for logggging user feedback into feedback logs
-  console.log(JSON.stringify(req.body));
+  // console.log(JSON.stringify(req.body));
 
   res.sendStatus;// response sent back to user
 });//Craeting post request for feedback functionality
@@ -103,9 +105,9 @@ var ReceivedData={};
     setTimeout(function(){ var str=new Date()+"   "+"Author : "+ ReceivedData.Author + "   Message :  "+ ReceivedData.Text+"\r\n" ;
     Log.CreateLog(str);// creating log to capture each request and response from user
 
-console.log("decrypted"+JSON.stringify(ReceivedData));
+// console.log("decrypted"+JSON.stringify(ReceivedData));
 if(start=="true"){// will trigger if user ha refresed there browser thus will trigger Welcome node in watson
-  console.log("This is start of message");
+  // console.log("This is start of message");
   watson.message({
     input:{ text: '' },// passing null data to trigger  welcome node in watson
     workspace_id: workspaceID//passing workspace idinto mesage property
@@ -126,7 +128,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         else
         text=response.output.text[0];// will be triggered if text has only one item
         Context=response.context;//setting incoming context into a variable
-        console.log(JSON.stringify(Context));//printing context
+        console.log(JSON.stringify(response));//printing context
         StartOfConv=response.context.StartOfConv;
         sentdata.Text=text;
         sentdata.Time=new Date();
@@ -144,8 +146,8 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 
           else{// if user has active session with watson
             Context=JSON.parse(req.query.c);//Getting context data fro user
-            console.log("Line 147"+typeof(Context)+JSON.stringify(Context));
-            console.log("After Start conversation");
+            // console.log("Line 147"+typeof(Context)+JSON.stringify(Context));
+            // console.log("After Start conversation");
             debugger;
          watson.message({
             input:{ text: ReceivedData.Text },
@@ -158,7 +160,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             } else {
               Context=response.context;//storing output  context into same context variable thus updating context
               sentdata.Context=Context;
-              console.log(JSON.stringify(Context));
+              // console.log(JSON.stringify(Context));
               CleareContext=response.output.CleareContext;//if we detect clearecontext
               if(CleareContext=="true"){//if cleare context is set
                 console.log("Context Cleared.");
@@ -198,7 +200,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                   console.log("Actions is"+action);
                 }
                 else if(response.output.List!=null || response.output.List!=undefined){// checking if watson Json has any list data
-                  console.error("List is been detected")
+                  console.log("List is been detected")
                   sentdata.List=response.output.List;//sending list data back to users
                   
                 }
