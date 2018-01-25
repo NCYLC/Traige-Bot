@@ -14,7 +14,7 @@ var feedBack="Logs/feedBack"+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+".tx
 Log.CreateLog=function(Data){
     fs.appendFile(file_name,Data, (err) => {
         if (err) throw err;
-        console.log('The '+Data+' was appended'+ file_name+' to file!');
+        // console.log('The '+Data+' was appended'+ file_name+' to file!');
       });
     };
     Log.CreatefacebookLog=function(Data){

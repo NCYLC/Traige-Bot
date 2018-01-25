@@ -99,9 +99,9 @@ var ReceivedData={};
     setTimeout(function(){ var str=new Date()+"   "+"Author : "+ ReceivedData.Author + "   Message :  "+ ReceivedData.Text+"\r\n" ;
     Log.CreateLog(str);
 
-console.log("decrypted"+JSON.stringify(ReceivedData));
+// console.log("decrypted"+JSON.stringify(ReceivedData));
 if(start=="true"){
-  console.log("This is start of message");
+  // console.log("This is start of message");
   watson.message({
     input:{ text: '' },
     workspace_id: workspaceID//c4365db3-9e85-4417-9d71-12cdb55925a9
@@ -122,7 +122,7 @@ if(start=="true"){
         else
         text=response.output.text[0];
         Context=response.context;
-        console.log(JSON.stringify(Context));
+        console.log(JSON.stringify(response));
         StartOfConv=response.context.StartOfConv;
         sentdata.Text=text;
         sentdata.Time=new Date();
@@ -138,7 +138,7 @@ if(start=="true"){
 
 
           else{
-            console.log("After Start conversation");
+            // console.log("After Start conversation");
             debugger;
          watson.message({
             input:{ text: ReceivedData.Text },
@@ -150,7 +150,7 @@ if(start=="true"){
               console.error(err);
             } else {
               Context=response.context;
-              console.log(JSON.stringify(Context));
+              console.log(JSON.stringify(response));
               CleareContext=response.output.CleareContext;
               if(CleareContext=="true"){
                 console.log("Context Cleared.");
@@ -199,7 +199,7 @@ if(start=="true"){
                 // console.log(JSON.stringify(response));
                 var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);
-                console.log(JSON.stringify(sentdata));
+                // console.log(JSON.stringify(sentdata));
                 res.json(sentdata);
                 
                
