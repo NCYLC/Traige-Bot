@@ -279,10 +279,11 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
          else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
+          console.log("At line no 282 before call"+JSON.stringify(FacebookContext));
           watson.message({
             input:{ text: received_message.text },
-            context:FacebookContext,
-            workspace_id: workspaceID
+            workspace_id: workspaceID,
+           context:FacebookContext
         }, function(err, response) {
           console.log("Facebook response"+JSON.stringify(response));
             if (err) {
