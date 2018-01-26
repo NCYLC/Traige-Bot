@@ -109,7 +109,6 @@ if(start=="true"){
 }, function(err, response) {
     if (err) {
       Log.ErrorLog(err);
-     
       console.error(err);
     } else {
             var text='';
@@ -123,10 +122,11 @@ if(start=="true"){
         else
         text=response.output.text[0];
         Context=response.context;
+        console.log(JSON.stringify(Context));
         StartOfConv=response.context.StartOfConv;
         sentdata.Text=text;
         sentdata.Time=new Date();
-        console.log(JSON.stringify(response));
+        // console.log(JSON.stringify(response));
         var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
     
@@ -150,8 +150,10 @@ if(start=="true"){
               console.error(err);
             } else {
               Context=response.context;
+              console.log(JSON.stringify(Context));
               CleareContext=response.output.CleareContext;
-              if(CleareContext){
+              if(CleareContext=="true"){
+                console.log("Context Cleared.");
                 var arr=Object.keys(response.context);
               
                 for (var data=2;data<arr.length;data++){
@@ -184,11 +186,17 @@ if(start=="true"){
                     sentdata.URL=action[data];
                     sentdata.title=action.title;
                   }
+                 
                   console.log("Actions is"+action);
+                }
+                else if(response.output.List!=null || response.output.List!=undefined){
+                  console.error("List is been detected")
+                  sentdata.List=response.output.List;
+                  
                 }
                 sentdata.Text=text;
                 sentdata.Time=new Date();
-                console.log(JSON.stringify(response));
+                // console.log(JSON.stringify(response));
                 var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);
                 console.log(JSON.stringify(sentdata));
@@ -206,8 +214,9 @@ if(start=="true"){
            
 //res.sendStatus;
   });
-
-
+// ######################**************&&&&&&&&&&&&7#######################
+// facebook inte gration starts here 
+// 
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");
       // Parse the request body from the POST
@@ -255,9 +264,10 @@ if(start=="true"){
           // if(received_message.text=='quickreply'){
             
           // }
-          // if(received_message.text=='template'){
-          //   template=true;
-          // }
+          if(received_message.text=='template'){
+            template=true;
+            received_message.text=null;
+          }
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           watson.message({
@@ -288,7 +298,7 @@ if(start=="true"){
                   
                  // var  dataHead=Object.keys(action[0])
                  
-                  if(Object.keys(Faceaction)[0]=="Quickreply"){
+                  if(Faceaction.Quickreply){
                     var mainData=Faceaction['Quickreply'];
                     console.log("We came to quick reply.");
                     // var data=action[Object.keys(action[0])];
@@ -379,6 +389,7 @@ res.send(req.query['hub.challenge']);
     }
 
     else if(template){
+      console.log("Template detected.")
       request_body = { "recipient": {
         "id": sender_psid
       },

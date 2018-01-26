@@ -12,19 +12,72 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.showButtons=false;
     scope.TextSent='';
     scope.OpenFeedback=false;
+    scope.FeedbackData={};
     scope.rating;
     scope.ratingText=["Hated it","Disliked it","It's OK","Liked it","Loved it"];
     var StartofConv=false;
     scope.quickreplyflag=false;
     scope.UrlButtonFlag=false;
+    scope.form={};
+    scope.form.showall=true;
+    //list view
+    scope.listview=false;
+    scope.listviewArray=[];
     scope.quickreply=[];//quick reply array
     scope.UrlButton=[];//Url navigator
     scope.Textarea='';
+    scope.prevrate=false;
     scope.showoptions=false;
+    scope.Dontsave=function(){
+        if(scope.rating!=undefined)
+            {
+                swal({
+                    title: "Are you sure?",
+                    text: "Your data will not be saved .\n If you don't want to rate us click on cancel button  ",
+                    icon: "warning",
+                    buttons: ['Save','Cancel'],
+                    dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      swal("Your data was not saved\n We hope you will rate us later .", {
+                        icon: "success",
+                      });
+                    } else {
+                        
+                        swal("Feedback Submitted", "Thanks for your valuable feedback", "success");
+                        // console.log(data1+data2);
+                        
+                        scope.FeedbackData.rate=scope.ratingText[scope.rating-1];
+                       
+                        scope.FeedbackData.Text=scope.Textarea;
+                        http.post(serverurl+"Feedback",scope.FeedbackData).then(function(request,response){
+                            
+                        console.log(JSON.stringify(response));
+                        
+                        }),function error(response){
+                            
+                            console.log(response);
+                            
+                        
+                        }
+                        scope.rating=undefined;
+                        // scope.showoption();
+                    }
+                  }); 
+            }
+
+            scope.showoption()
+    }
     scope.showoption=function(){
+        
+            
+        //set the initial window width
         
         scope.showoptions=(scope.showoptions==false)?true:false;
     }
+    var saveWindowHeight= true;
+    var savedWindowHeight,savedWindowWidth,windowHeight;
     scope.Fetchreport=function(){
         http.get(serverurl+'Viewreport').then(function(request,response){
             
@@ -55,15 +108,41 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
             console.log(error)
         });
     }
-scope.Feedbackupload=function(data1,data2){
+    // check whether user had alrady provided feedbackor not
+    scope.checkFeedback=function(){
+        if(scope.FeedbackData.rate !=null || scope.FeedbackData.rate !=undefined)
+            {
+                swal({
+                    title: "Are you sure?",
+                    text: "You have rated \'"+scope.FeedbackData.rate+"'\ our chat. \n"+"Do you want to rate us again?",
+                    icon: "success",
+                    buttons: ["No", "Rate Again"],
+                    dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                        $("#Feedback").modal();
+                    } else {
+                      swal("Thanks for your feedback!");
+                    }
+                  });
+            }
+            else{
+                swal("To rate us select the stars and provide any comments and then click on save to cloud button");
+                $("#Feedback").modal();
+            }
 
+    }
+scope.Feedbackupload=function(data1,data2){
+    swal("Feedback Submitted", "Thanks for your valuable feedback", "success");
 console.log(data1+data2);
-scope.FeedbackData={};
+
 scope.FeedbackData.rate=data1;
 scope.FeedbackData.Text=data2;
 http.post(serverurl+"Feedback",scope.FeedbackData).then(function(request,response){
     
 console.log(JSON.stringify(response));
+
 }),function error(response){
     
     console.log(response);
@@ -172,7 +251,10 @@ else{
         http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+'Sandip'+"&t="+new Date()).then(function(request,response){
           
          console.log("success",JSON.stringify(request.data));
+         scope.receiveddata=request.data;
+         scope.receiveddata.Type='Received';
          scope.message.push(request.data);
+        //  scope.message.push(request.data);
          var old='';
          location.hash(scope.message.length-1)
       
@@ -269,6 +351,7 @@ scope.Text=''
     http.post(serverurl+"watson?m="+false+"&y="+message.Text+"&z="+message.Author+"&t="+message.Time).then(function(request,response){
         scope.quickreplyflag=false;
         scope.UrlButtonFlag=false;
+        scope.listview=false;//resiting listview
        if(request.data.quickreply!=null || request.data.quickreply!=undefined){
         scope.quickreply=request.data.quickreply;
         scope.quickreplyflag=true;
@@ -278,7 +361,13 @@ scope.Text=''
             scope.Urltitle=request.data.title;
             scope.UrlButtonFlag=true;
                }
+               else if(request.data.List!=null || request.data.List!=undefined){
+                scope.listview=true;
+                scope.listviewArray=request.data.List;
+                   }
       console.log("success",JSON.stringify(request.data));
+      scope.receiveddata=request.data;
+      scope.receiveddata.Type='Received';
       scope.message.push(request.data);
       var old='';
       location.hash(scope.message.length-1)
@@ -302,7 +391,7 @@ var loadchart=function(datalables,lable){
           labels: lable,
           datasets: [
             {
-              label: "Population (millions)",
+              label: "Rates this month",
               backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
               data: datalables
             }
