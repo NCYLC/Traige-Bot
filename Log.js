@@ -27,7 +27,7 @@ var  appendFile= util.promisify(fs.appendFile);
         Log.CreatefacebookLog=async function(Data){
             try{
                 await appendFile(facebookfile_name,Data);
-                console.log(Data +"is been printen to "+facebookfile_name);
+//                 console.log(Data +"is been printen to "+facebookfile_name);
                 }
                 catch(err){
                     console.log(err);

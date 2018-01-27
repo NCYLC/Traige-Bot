@@ -25,7 +25,7 @@ var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
-var FacebookContext={};//context for facebook app
+var FacebookContext=null;//context for facebook app
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -224,7 +224,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
            
 //res.sendStatus;
   });
-
+var contextIndex,Facebookcontexts;
  // facebook module starts here
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");
@@ -265,32 +265,39 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         var text='';
         // Check if the message contains text
         if (received_message.text) {    
-        console.log("In watson received_message.text"+received_message.text);
+//         console.log("In watson received_message.text"+received_message.text);
           var text='';
           // if(received_message.text=='Test'){
            
           // }
           // if(received_message.text=='quickreply'){
             
-          // }
+//           }
           if(received_message.text=='template'){
             template=true;
           }
+         else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
+          console.log("At line no 282 before call"+JSON.stringify(FacebookContext));
           watson.message({
             input:{ text: received_message.text },
-            context:FacebookContext,
-            workspace_id: workspaceID
+            workspace_id: workspaceID,
+           context:FacebookContext
         }, function(err, response) {
-          //console.log("Facebook response"+JSON.stringify(response));
+          console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-              FacebookContext=response.context; 
-                
-                if(response.output.text.length>1){
+         
+              if((FacebookContext==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+              }
+            else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+              Facebookcontexts[contextIndex].FacebookContext=response.context;
+              }                
+               if(response.output.text.length>1){
                     for(data in response.output.text ){
                     text=text+'\n'+response.output.text[data];
                     }
@@ -308,7 +315,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                  
                   if(Object.keys(Faceaction)[0]=="Quickreply"){
                     var mainData=Faceaction['Quickreply'];
-                    console.log("We came to quick reply.");
+//                     console.log("We came to quick reply.");
                     // var data=action[Object.keys(action[0])];
                     for(var i=0;i<mainData.length;i++){
                     var data1={};
@@ -318,7 +325,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                     action1.push(data1);
                     }
                     Facebookaction.quickreply=action1;
-                    console.log("facebook Quick reply"+JSON.stringify(action1));
+//                     console.log("facebook Quick reply"+JSON.stringify(action1));
                     quickreply=true;
                   }
 
@@ -331,7 +338,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                     Facebookaction.title=Faceaction.title;
                     flag=true;//for buttons in face book.
                   }
-                  console.log("Actions is"+JSON.stringify(Facebookaction));
+//                   console.log("Actions is"+JSON.stringify(Facebookaction));
                 }
             }
             //console.log("In Watson text"+text);
@@ -340,9 +347,9 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             }
           
             callSendAPI(sender_psid, response,Facebookaction);  
-           // console.log("In Watson"+JSON.stringify(response));
+           console.log("In Watson"+JSON.stringify(response));
         }); 
-      
+         }//test
           // Create the payload for a basic text message
          
           
@@ -353,13 +360,24 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       }
 
 app.get('/webhook', (req, res) => {
-  console.log(req.query);
+//   console.log(req.query);
 if(req.query['hub.verify_token']==='Test')
 res.send(req.query['hub.challenge']);
     
   });
 
   function callSendAPI(sender_psid, response,action) {
+
+    var FacebookContext = null;
+  var index = 0;
+  Facebookcontexts.forEach(function(value) {
+    console.log(value.From);
+    if (value.From == sender_psid) {
+      FacebookContext = value.FacebookContext;
+      contextIndex = index;
+    }
+    index = index + 1;
+  });
     // Construct the message body
     console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
     let request_body = {};
@@ -416,15 +434,15 @@ res.send(req.query['hub.challenge']);
                 "subtitle":"We\'ve got the right hat for everyone.",
                 "default_action": {
                   "type": "web_url",
-                  "url": "https://sandip143.herokuapp.com/",
+                  "url": "https://ncylcworkspace.slack.com/",
                   "messenger_extensions": true,
                   "webview_height_ratio": "tall",
-                  "fallback_url": "https://sandip143.herokuapp.com/"
+                  "fallback_url": "https://ncylcworkspace.slack.com/"
                 },
                 "buttons":[
                   {
                     "type":"web_url",
-                    "url":"https://sandip143.herokuapp.com/",
+                    "url":"https://ncylcworkspace.slack.com/",
                     "title":"View Website"
                   },{
                     "type":"postback",
@@ -448,7 +466,7 @@ res.send(req.query['hub.challenge']);
     
      
    
-  console.log(JSON.stringify(request_body )+"\n request body");
+//   console.log(JSON.stringify(request_body )+"\n request body");
     // Send the HTTP request to the Messenger Platform
     //error coming here
  request({
