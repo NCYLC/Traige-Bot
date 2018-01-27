@@ -142,15 +142,15 @@
 			<div class="reply"><a href={{UrlButton}} target="_blank">{{Urltitle}}</a></div></div>
 			
 
-			<form>
+			<form name="Inputform">
 
 				<fieldset ng-keypress="$event.keyCode == 13 && sendMessage(Text)" > 
 					
-					<input type="text" id="resizeForm" placeholder="Type your message…" ng-model="Text" ><span>
+					<input type="text" id="resizeForm" name="Inputform.feild"  placeholder="Type your message…" ng-model="Text" ><span>
 						<i class="fa fa-paper-plane" aria-hidden="true" ng-click="sendMessage(Text)"></i></span>
 
 				</fieldset>
-
+			
 			</form>
 
 		</div> <!-- end chat -->

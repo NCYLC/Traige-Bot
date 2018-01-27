@@ -28,6 +28,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.Textarea='';
     scope.prevrate=false;
     scope.showoptions=false;
+    var Context={};//Context for Node app
     scope.Dontsave=function(){
         if(scope.rating!=undefined)
             {
@@ -247,12 +248,14 @@ else{
 
     if(!StartofConv){
       StartofConv=true;
-        
+  
         http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+'Sandip'+"&t="+new Date()).then(function(request,response){
           
          console.log("success",JSON.stringify(request.data));
          scope.receiveddata=request.data;
          scope.receiveddata.Type='Received';
+         Context=request.data.Context;//geeting context data from backend
+         console.log(JSON.stringify(Context));
          scope.message.push(request.data);
         //  scope.message.push(request.data);
          var old='';
@@ -296,8 +299,9 @@ scope.Feedback=function(data){
 
     scope.sendMessage=function(data){
       scope.Text=data;
+    //   alert(scope.Text.indexOf("#"))
       //document.getElementById('input').innerHTML='Type your message…';
-    if(scope.Text!=null ||scope.Text!=undefined)
+    if((scope.Text!=null ||scope.Text!=undefined) &&(scope.Text.indexOf("#")<0))
     {
     var message={};
 
@@ -348,7 +352,8 @@ scope.Feedback=function(data){
         anchorScroll();
         timeout(function(){location.hash(old)},100);
 scope.Text=''
-    http.post(serverurl+"watson?m="+false+"&y="+message.Text+"&z="+message.Author+"&t="+message.Time).then(function(request,response){
+    http.post(serverurl+"watson?m="+false+"&y="+message.Text+"&z="+message.Author+"&t="+message.Time+"&c="+JSON.stringify(Context)).then(function(request,response){
+        Context=request.data.Context;//geeting context data from backend
         scope.quickreplyflag=false;
         scope.UrlButtonFlag=false;
         scope.listview=false;//resiting listview
@@ -379,6 +384,10 @@ scope.Text=''
         console.log(response);
 
     }
+    }
+    else{
+        swal("Data could not be send \n Please try again");
+        scope.Text="";
     }
 }
 

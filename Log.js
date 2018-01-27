@@ -1,3 +1,5 @@
+
+
 const util = require('util');
 const fs = require('fs');
 var Log={};
@@ -7,43 +9,62 @@ var facebookfile_name="Logs/FacebookLog"+"-"+date.getDate()+"-"+(date.getMonth()
 var Error_File="Logs/WatsonErrorLog"+"-"+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+".txt";
 var facebookError_File="Logs/FacebookErrorLog"+"-"+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+".txt";
 var feedBack="Logs/feedBack"+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+".txt";
-
+var  appendFile= util.promisify(fs.appendFile);
 // console.log(file_name);
 
 
-Log.CreateLog=function(Data){
-    fs.appendFile(file_name,Data, (err) => {
-        if (err) throw err;
-        // console.log('The '+Data+' was appended'+ file_name+' to file!');
-      });
-    };
-    Log.CreatefacebookLog=function(Data){
-        fs.appendFile(facebookfile_name,Data, (err) => {
-            if (err) throw err;
-            console.log('The '+Data+' was appended to'+ facebookfile_name+'  file!');
-          });
+    Log.CreateLog=async function(Data){
+    try{
+    await appendFile(file_name,Data);
+    // console.log(Data +"is been printen to "+file_name);
+    }
+    catch(err){
+        console.log(err);
+    }
+
         };
-        Log.ErrorLog= function(Data){
-            data=new Date()+Data+'\n';
-            fs.appendFile(Error_File,data, (err) => {
-                if (err) throw err;
-                console.log('The '+data+' was appended to'+ Error_File+' file!');
-              });
+
+        Log.CreatefacebookLog=async function(Data){
+            try{
+                await appendFile(facebookfile_name,Data);
+                console.log(Data +"is been printen to "+facebookfile_name);
+                }
+                catch(err){
+                    console.log(err);
+                }
             };
-            Log.facebookErrorLog=function(Data){
+        Log.ErrorLog=async function(Data){
+            data=new Date()+Data+'\n';
+            try{
+               await appendFile(Error_File,data);
+                console.log(data +"is been printen to "+Error_File);
+                }
+                catch(err){
+                    console.log(err);
+                }
+            };
+            Log.facebookErrorLog=async function(Data){
+
                 data=new Date()+Data+'\n';
-                fs.appendFile(facebookError_File,data, (err) => {
-                    if (err) throw err;
-                    console.log('The '+data+' was appended to'+ facebookError_File+' file!');
-                  });
+                try{
+                    await appendFile(facebookError_File,data);
+                    console.log(data +"is been printen to "+facebookError_File);
+                    }
+                    catch(err){
+                        console.log(err);
+                    }
+               
                 };
 
-                Log.feedBack=function(Data){
+                Log.feedBack=async function(Data){
                     data=new Date()+Data;
-                    fs.appendFile(feedBack,data, (err) => {
-                        if (err) throw err;
-                        console.log('The '+data+' was appended to'+ feedBack+' file!');
-                      });
+                    try{
+                        await appendFile(feedBack,data);
+                        console.log(data +"is been printen to "+feedBack);
+                        }
+                        catch(err){
+                            console.log(err);
+                        }
                     };
                    
                     
