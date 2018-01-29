@@ -1,0 +1,107 @@
+EMPLOYMENT – WORKPLACE BULLYING
+{
+  "output": {
+    "text": {
+      "values": [
+        "We are sorry to hear that you are having trouble at work.                           Would you like information about Victoria or NSW?"
+      ]
+    },
+    "Actions": {
+      "Quickreply": [
+        "NSW",
+        "Victoria"
+      ]
+    }
+  }
+}
+if NSW
+{
+  "output": {
+    "text": {
+      "values": [
+        "Are you currently employed at the same work place?"
+      ],
+      "selection_policy": "sequential"
+    },
+    "Actions": {
+      "Quickreply": [
+        "Yes",
+        "No"
+      ]
+    }
+  }
+}
+
+If yes
+{
+  "output": {
+    "List": {
+      "Title": "If you believe you have been bullied at work , if you feel safe and comfortable to do so, you could arrange a meeting with your employer to discuss the problem. You could ask that a support person, like a parent or a trusted adult come with you to the meeting. If you’re not sure how to discuss the problem with your employer or would like some help there are a number of options available to you. ",
+      "Maindata": [
+        {
+          "Text": "The Fair Work Ombudsman has a Fact Sheet on how you can resolve issues in the workplace ",
+          "Title": "Fair Work Ombudsman Fact Sheet",
+          "Actions": {
+            "URL": "https://www.fairwork.gov.au/how-we-will-help/how-we-help-you/help-resolving-workplace-issues#try-to-resolve-the-issue-yourself/",
+            "title": "Help resolving workplace issues"
+          }
+        },
+        {
+          "Text": "   You could apply to the Fair Work Commission for an order to stop the bullying. You can take a quiz on the Fair Work Commission website to see if you are able to apply for an order here. ",
+          "Title": "Application for an order to stop bullying",
+          "Actions": {
+            "URL": "https://www.fwc.gov.au/content/rules-form/application-order-stop-bullying",
+            "title": "Fair Work Commission website"
+          }
+        },
+        {
+          "Text": "   For more information on bullying at work, you can have a look at the Fair Work Commission’s page here. ",
+          "Title": "Fair Work Commission’s page",
+          "Actions": {
+            "URL": "https://www.fwc.gov.au/disputes-at-work/anti-bullying",
+            "title": "Anti-bullying"
+          }
+        },
+        {
+          "Text": "If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form here.",
+          "Title": "Contact lawyers for free",
+          "Actions": {
+            "URL": "https://www.lawmail.org.au/verification",
+            "title": "Law mail"
+          }
+        }
+      ]
+    },
+    "CleareContext": "true"
+  }
+}
+
+If not employed in same company(No)
+{
+  "output": {
+    "List": {
+      "Title": "If you have been fired or left your employment because you felt forced to, you may have a legal claim against your employer for an “unfair dismissal”. There is a time limit of 21 days to make a claim, so if you would like to do this, you should get legal advice as soon as possible.",
+      "Maindata": [
+        {
+          "Text": "For more information on unfair dismissal, you can have a look at the Fair Work Commission’s page here.",
+          "Title": "Information on unfair dismissal",
+          "Actions": {
+            "URL": "https://www.fwc.gov.au/termination-of-employment/unfair-dismissal",
+            "title": "Unfair dismissal"
+          }
+        },
+        {
+          "Text": "  If you would like to contact one of our lawyers for free, confidential advice, you can submit our Lawmail form here. ",
+          "Title": "Contact our lawyers",
+          "Actions": {
+            "URL": "https://www.lawmail.org.au/verification",
+            "title": "Lawmail"
+          }
+        }
+      ]
+    },
+    "CleareContext": "true"
+  }
+}
+
+

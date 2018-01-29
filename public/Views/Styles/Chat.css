@@ -111,13 +111,8 @@ textarea
     /* font-size: 11px */
 }
 .Buttons {
-    width: 100%;
-    background-color: rgb(240, 241, 237);
-    /* min-height: 5vh; */
+
     padding: 5px;
-    /* font-size: 15px; */
-    overflow: hidden;
-    overflow-x: auto;
     display: inline;
    
 }

@@ -1,6 +1,11 @@
 #Ignore this files
-Logs/
+
 node_modules/
 .vscode
 tasks
-package-lock.json
+package-lock.jsons
+public\Views\bower_components
+.bowerrc
+bower.json
+public/Views/Styles/Images/688078.jpg
+public/Views/bower_components/
