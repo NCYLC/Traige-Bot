@@ -168,7 +168,7 @@ res.send(req.query['hub.challenge']);
   });
  function callSendAPI(sender_psid, response,action) {
 
-    var FacebookContext = null;
+     FacebookContext = null;
   var index = 0;
   Facebookcontexts.forEach(function(value) {
     console.log(value.From);
