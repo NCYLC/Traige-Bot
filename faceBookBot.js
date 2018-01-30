@@ -20,7 +20,8 @@ var FacebookContext=null;//context for facebook app
 var Facebookaction={};// storing facebook actions in an object
 facebookApp.use(bodyParser.json()); // for parsing reuest data into Object this will use bodyparser as a middleware in each req and response
 facebookApp.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-var contextIndex,Facebookcontexts;
+var contextIndex;
+var Facebookcontexts=[];
 
  // facebook module starts here
   facebookApp.post('/', (req, res) => {  
@@ -79,9 +80,11 @@ var contextIndex,Facebookcontexts;
             } else {
          
               if((FacebookContext==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+                console.log("am at Facebook Bot and where context is null or Sender has came for first time");
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
               }
             else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+              console.log("am at Facebook Bot and where  Sender has came already");
               Facebookcontexts[contextIndex].FacebookContext=response.context;
               }                
                if(response.output.text.length>1){
