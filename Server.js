@@ -25,10 +25,10 @@ var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
+var FacebookContext=null;//context for facebook app
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
-var FacebookContext=null;//context for facebook app
 var Facebookaction={};// storing facebook actions in an object
 router.get('/',function(req,res){
     
@@ -226,42 +226,39 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
   });
 var contextIndex,Facebookcontexts;
  // facebook module starts here
- var facebookApp=require("./faceBookBot");
- app.use('/webhook',facebookApp);
-
-  // app.post('/webhook', (req, res) => {  
-  //   console.log("Iside Post");
-  //     // Parse the request body from the POST
-  //     let body = req.body;
+  app.post('/webhook', (req, res) => {  
+    console.log("Iside Post");
+      // Parse the request body from the POST
+      let body = req.body;
     
-  //     // Check the webhook event is from a Page subscription
-  //     if (body.object === 'page') {
+      // Check the webhook event is from a Page subscription
+      if (body.object === 'page') {
     
-  //       // Iterate over each entry - there may be multiple if batched
-  //       body.entry.forEach(function(entry) {
+        // Iterate over each entry - there may be multiple if batched
+        body.entry.forEach(function(entry) {
     
-  //         // Get the webhook event. entry.messaging is an array, but 
-  //         // will only ever contain one event, so we get index 0
-  //         let webhook_event = entry.messaging[0];
-  //                  console.log(webhook_event);
-  //                  sender_psid=webhook_event.sender.id;
+          // Get the webhook event. entry.messaging is an array, but 
+          // will only ever contain one event, so we get index 0
+          let webhook_event = entry.messaging[0];
+                   console.log(webhook_event);
+                   sender_psid=webhook_event.sender.id;
                    
-  //         if (sender_psid) {
-  //           handleMessage(sender_psid, webhook_event.message);        
-  //         }
+          if (sender_psid) {
+            handleMessage(sender_psid, webhook_event.message);        
+          }
           
-  //       });
+        });
     
-  //       // Return a '200 OK' response to all events
-  //       res.status(200).send('EVENT_RECEIVED');
+        // Return a '200 OK' response to all events
+        res.status(200).send('EVENT_RECEIVED');
     
-  //     } else {
-  //       // Return a '404 Not Found' if event is not from a page subscription
-  //       Log.facebookErrorLog('Return a 404 Not Found if event is not from a page subscription');
-  //       res.sendStatus(404);
-  //     }
+      } else {
+        // Return a '404 Not Found' if event is not from a page subscription
+        Log.facebookErrorLog('Return a 404 Not Found if event is not from a page subscription');
+        res.sendStatus(404);
+      }
     
-  //   });
+    });
     function handleMessage(sender_psid, received_message) {
       
         let response;
@@ -362,16 +359,16 @@ var contextIndex,Facebookcontexts;
           
       }
 
-// app.get('/webhook', (req, res) => {
-// //   console.log(req.query);
-// if(req.query['hub.verify_token']==='Test')
-// res.send(req.query['hub.challenge']);
+app.get('/webhook', (req, res) => {
+//   console.log(req.query);
+if(req.query['hub.verify_token']==='Test')
+res.send(req.query['hub.challenge']);
     
-//   });
+  });
 
   function callSendAPI(sender_psid, response,action) {
 
-    var FacebookContext = null;
+ FacebookContext = null;
   var index = 0;
   Facebookcontexts.forEach(function(value) {
     console.log(value.From);
@@ -491,7 +488,7 @@ Facebookaction={};//resetting facebookaction
   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-// console.log(process.env);
+console.log(process.env);
 
 
 const cluster = require('cluster');
