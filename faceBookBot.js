@@ -79,10 +79,14 @@ var Facebookcontexts=[];
               console.error(err);
             } else {
          
-              if((FacebookContext==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
-                console.log("am at Facebook Bot and where context is null or Sender has came for first time");
+              if(Facebookcontexts.find(v=>v.From==sender_psid)==undefined){
+                console.log("am at Facebook Bot and where Sender has came for first time");
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
               }
+            else if(FacebookContext==null){
+               console.log("am at Facebook Bot and where context is null ");
+              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+            }
             else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
               console.log("am at Facebook Bot and where  Sender has came already");
               Facebookcontexts[contextIndex].FacebookContext=response.context;

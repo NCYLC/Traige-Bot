@@ -25,7 +25,7 @@ var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
-var FacebookContext=null;//context for facebook app
+var FacebookContext;//context for facebook app
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -224,7 +224,8 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
            
 //res.sendStatus;
   });
-var contextIndex,Facebookcontexts;
+var contextIndex;
+var Facebookcontexts=[];
  // facebook module starts here
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");
@@ -293,9 +294,11 @@ var contextIndex,Facebookcontexts;
          
               if((FacebookContext==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+              console.log(JSON.stringify(Facebookcontexts));
               }
             else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
               Facebookcontexts[contextIndex].FacebookContext=response.context;
+              console.log(JSON.stringify(Facebookcontexts));
               }                
                if(response.output.text.length>1){
                     for(data in response.output.text ){
@@ -488,7 +491,7 @@ Facebookaction={};//resetting facebookaction
   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-console.log(process.env);
+// console.log(process.env);
 
 
 const cluster = require('cluster');

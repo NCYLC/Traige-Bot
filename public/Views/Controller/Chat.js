@@ -198,6 +198,35 @@ if (saveWindowHeight = true){
 
 
      }
+    else if(window.orientation="portrait")
+     {
+
+        if(windowHeight/(savedWindowHeight) <=0.65 ){
+            var form=document.getElementById("chat-history");
+            var Header=document.getElementById("Header");
+            Header.style.position='relative';
+            Header.style.top='1vh';
+           
+            // scope.message=scope.message;
+            // var old='';
+            // location.hash(scope.message.length-1)
+          
+            //       anchorScroll();
+            //       timeout(function(){location.hash(old)},100);
+            return;
+
+        }
+        else{
+            var form=document.getElementById("chat-history");
+            var Header=document.getElementById("Header");
+            Header.style.position='relative';
+            Header.style.top='0';
+
+            return;
+        }
+
+
+     }
 
 else{
     var form=document.getElementById("chat-history");
