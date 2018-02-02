@@ -25,7 +25,7 @@ var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
-var FacebookContext;//context for facebook app
+var FacebookContext={};//context for facebook app
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -280,11 +280,11 @@ var Facebookcontexts=[];
          else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          console.log("At line no 282 before call"+JSON.stringify(FacebookContext));
+          console.log("At line no 282 before call"+JSON.stringify(FacebookContext.context));
           watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
-           context:FacebookContext
+           context:FacebookContext.context
         }, function(err, response) {
           console.log("Facebook response"+JSON.stringify(response));
             if (err) {
@@ -292,9 +292,9 @@ var Facebookcontexts=[];
               console.error(err);
             } else {
          
-              if((FacebookContext==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+              if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log(JSON.stringify(Facebookcontexts));
+              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts));
               }
             else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
               Facebookcontexts[contextIndex].FacebookContext=response.context;
@@ -371,12 +371,12 @@ res.send(req.query['hub.challenge']);
 
   function callSendAPI(sender_psid, response,action) {
 
- FacebookContext = null;
+
   var index = 0;
   Facebookcontexts.forEach(function(value) {
     console.log(value.From);
     if (value.From == sender_psid) {
-      FacebookContext = value.FacebookContext;
+      FacebookContext.context = value.FacebookContext;
       contextIndex = index;
     }
     index = index + 1;
