@@ -26,6 +26,7 @@ var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
+var Facebookcontexts=[];
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -118,7 +119,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       console.error(err);
     } else {
             var text='';
-        sentdata.Author="Watson";//if success set Author
+        sentdata.Author="Ayla";//if success set Author
         sentdata.Type="Received";//set type as received
         if(response.output.text.length>1){// will be triggered if text has more than 1 item 
             for(var data in response.output.text ){
@@ -134,7 +135,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         sentdata.Time=new Date();
         sentdata.Context=Context;//giving user back his context
         // console.log(JSON.stringify(response));
-        var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
+        var str=new Date()+"   "+"Author : "+ "Ayla" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
     
         res.json(sentdata);//sending reponse back to user
@@ -174,7 +175,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                 }
               
                     var text='';
-                sentdata.Author="Watson";
+                sentdata.Author="Ayla";
                 sentdata.Type="Received";
                 if(response.output.text.length>1){
                     for(var data in response.output.text ){
@@ -207,7 +208,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                 sentdata.Text=text;
                 sentdata.Time=new Date();
                 // console.log(JSON.stringify(response));
-                var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
+                var str=new Date()+"   "+"Author : "+ "Ayla" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);//upadting log data
                 console.log(JSON.stringify(sentdata));
                 res.json(sentdata);//sending data back to users
@@ -225,7 +226,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 //res.sendStatus;
   });
 var contextIndex;
-var Facebookcontexts=[];
+
  // facebook module starts here
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");

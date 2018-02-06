@@ -115,6 +115,10 @@ textarea
     padding: 5px;
     display: inline;
    
+   
+}
+ul {
+    padding-left: 10px;
 }
 .reply{
     min-width: 5vw;
@@ -137,6 +141,8 @@ button {
     color: #4e4a4ac2;
     background-color: #fdfdfd;
     box-sizing: content-box;
+     background-color: #5998f3;
+    color: #fff;
 }
 .fa-paper-plane{
     font-size: 1.3em;
@@ -194,7 +200,9 @@ font-size: 1rem;
 .dropdownmenu button{
 margin:0px;
 margin-bottom:1vh;
-width:90%
+width:90%;
+  background-color: #5998f3;
+  color: #fff
 }
 .sent {
     position: relative;

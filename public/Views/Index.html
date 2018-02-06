@@ -90,7 +90,7 @@
 				  </div>
 				<i class="fa fa-times-circle" aria-hidden="true"  ng-click="LockChat()"></i></span>
 			
-			<h4>Lawstuff BoT</h4>
+			<h4>Ayla</h4>
 			<span></span>
 			<!-- <span class="chat-message-counter">3</span> -->
 
@@ -118,7 +118,13 @@
 									<div class="ListTitle">{{listview.Title}}</div>
 									<div class="Listbody">{{listview.Text}}
 							<div class="listArrayUrl" ng-if="listview.Actions.URL"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div>
-							<div class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply"><button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button></div></div>
+							<!-- <div class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply">
+								<button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button>
+							</div>-->
+							<ul>
+								<li class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply"><button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button></div></li> 
+							</ul>
+							</div> 
 						</div>
 							</div>
 						<!-- Defining ng class -->

@@ -278,7 +278,7 @@ else{
     if(!StartofConv){
       StartofConv=true;
   
-        http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+'Sandip'+"&t="+new Date()).then(function(request,response){
+        http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+''+"&t="+new Date()).then(function(request,response){
           
          console.log("success",JSON.stringify(request.data));
          scope.receiveddata=request.data;
@@ -365,7 +365,7 @@ scope.Feedback=function(data){
   var date=new Date();
   Timestamp=date.toString();
   var password = "Secret Password";// Will be edited later
-  scope.sendData={"Type":"Sent","Author":"Sandip","Text":scope.Text,"Time":Timestamp}
+  scope.sendData={"Type":"Sent","Author":"","Text":scope.Text,"Time":Timestamp}
   // var Type = encrypt(scope.sendData.Type, password);
   message.Type=scope.sendData.Type;
   // var Text = encrypt(scope.sendData.Text, password);
