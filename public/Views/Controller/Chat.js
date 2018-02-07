@@ -19,7 +19,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.quickreplyflag=false;
     scope.UrlButtonFlag=false;
     scope.form={};
-    scope.form.showall=true;
+    scope.form.showall=false;
     //list view
     scope.listview=false;
     scope.listviewArray=[];
