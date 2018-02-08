@@ -297,15 +297,20 @@ var contextIndex;
               console.error(err);
             } else {
          
-              if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
-              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
-              }
-            else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+            if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+              console.log("am at Facebook Bot and where  Sender has came already");
               Facebookcontexts[contextIndex].FacebookContext=response.context;
-              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
-              }                
-               if(response.output.text.length>1){
+              }  
+         
+              else if(Facebookcontexts.find(v=>v.From==sender_psid)==undefined){
+                console.log("am at Facebook Bot and where Sender has came for first time");
+              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+              }
+            else if(FacebookContext==null){
+               console.log("am at Facebook Bot and where context is null ");
+              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+            }              
+               else if(response.output.text.length>1){
                     for(data in response.output.text ){
                     text=text+'\n'+response.output.text[data];
                     }
