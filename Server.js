@@ -246,7 +246,7 @@ var contextIndex;
           // Get the webhook event. entry.messaging is an array, but 
           // will only ever contain one event, so we get index 0
           let webhook_event = entry.messaging[0];
-                   console.log(webhook_event);
+                  //  console.log(webhook_event);
                    sender_psid=webhook_event.sender.id;
                    
           if (sender_psid) {
@@ -285,24 +285,24 @@ var contextIndex;
          else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts.context));
+          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
           watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
            context:FacebookContext.context
         }, function(err, response) {
-          console.log("Facebook response"+JSON.stringify(response));
+          // console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
             if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
               Facebookcontexts[contextIndex].FacebookContext=response.context;
-              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts));
               } 
              else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts));
               }
                          
                if(response.output.text.length>1){
@@ -376,18 +376,19 @@ res.send(req.query['hub.challenge']);
 
   function callSendAPI(sender_psid, response,action) {
 
-
+console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
   var index = 0;
   Facebookcontexts.forEach(function(value) {
     console.log(value.From);
     if (value.From == sender_psid) {
       FacebookContext.context = value.FacebookContext;
+      console.log("facebook context inside for each "+JSON.stringify(FacebookContext.context));
       contextIndex = index;
     }
     index = index + 1;
   });
     // Construct the message body
-    console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
+    // console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
     let request_body = {};
     if(flag){
       request_body = { "recipient": {
@@ -484,7 +485,7 @@ res.send(req.query['hub.challenge']);
       "json": request_body
     }, (err, res, body) => {
       if (!err) {
-        console.log('message sent!')
+        // console.log('message sent!')
       } else {
         Log.facebookErrorLog(err);
         console.error("Unable to send message:" + err);
@@ -503,7 +504,7 @@ const cluster = require('cluster');
 
 const numCPUs = require('os').cpus().length;
 if (cluster.isMaster) {
-  console.log(`Master ${process.pid} is running`);
+  // console.log(`Master ${process.pid} is running`);
 
   // Fork workers.
   for (let i = 0; i < numCPUs; i++) {
@@ -512,7 +513,7 @@ if (cluster.isMaster) {
 
   cluster.on('exit', (worker, code, signal) => {
     cluster.fork();// if worker dies it will restart
-    console.log(`worker ${worker.process.pid} died`);
+    // console.log(`worker ${worker.process.pid} died`);
 
   });
 } else {
@@ -520,7 +521,7 @@ if (cluster.isMaster) {
   // In this case it is an HTTP server
  
   app.listen(process.env.PORT || 3001);
-  console.log(`Worker ${process.pid} started`);
+  // console.log(`Worker ${process.pid} started`);
 }
 // app.listen(process.env.PORT || 3001);
 //console.log(process.env);
