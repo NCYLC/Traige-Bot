@@ -22,7 +22,7 @@ facebookApp.use(bodyParser.json()); // for parsing reuest data into Object this 
 facebookApp.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 var contextIndex;
 var Facebookcontexts=[];
-
+console.log("I am here at facebookBot.js");
  // facebook module starts here
   facebookApp.post('/', (req, res) => {  
     console.log("Iside Post");
@@ -73,13 +73,17 @@ var Facebookcontexts=[];
             workspace_id: workspaceID,
            context:FacebookContext
         }, function(err, response) {
-          console.log("Facebook response"+JSON.stringify(response));
+          // console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
+                if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+              console.log("am at Facebook Bot and where  Sender has came already");
+              Facebookcontexts[contextIndex].FacebookContext=response.context;
+              }  
          
-              if(Facebookcontexts.find(v=>v.From==sender_psid)==undefined){
+              else if(Facebookcontexts.find(v=>v.From==sender_psid)==undefined){
                 console.log("am at Facebook Bot and where Sender has came for first time");
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
               }
@@ -87,10 +91,7 @@ var Facebookcontexts=[];
                console.log("am at Facebook Bot and where context is null ");
               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
             }
-            else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
-              console.log("am at Facebook Bot and where  Sender has came already");
-              Facebookcontexts[contextIndex].FacebookContext=response.context;
-              }                
+                         
                if(response.output.text.length>1){
                     for(data in response.output.text ){
                     text=text+'\n'+response.output.text[data];
