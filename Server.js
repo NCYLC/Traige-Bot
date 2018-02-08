@@ -26,7 +26,7 @@ var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
-var Facebookcontexts=[];
+var Facebookcontexts={};
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -285,7 +285,7 @@ var contextIndex;
          else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
+          console.log("At line no 288 before call"+JSON.stringify(Facebookcontexts));
           watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
@@ -296,16 +296,28 @@ var contextIndex;
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-            if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
-              Facebookcontexts[contextIndex].FacebookContext=response.context;
-              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts));
-              } 
-             else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
-              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts));
-              }
-                         
-               if(response.output.text.length>1){
+            if(Object.keys(Facebookcontexts)==0){
+              console.log("facebook is used for the first time");
+              Facebookcontexts[sender_psid]=response.context;
+            }
+               else if(Object.keys(Facebookcontexts)>0){
+                 var flag=false;
+                 var keys=Object.keys(Facebookcontexts);
+                 for(var i=0;i<keys.length;i++){
+                   if(Facebookcontexts[keys[i]]==sender_psid){
+                      Facebookcontexts[keys[i]]=response.context;
+                      flag=true;
+                      break;
+                   }
+                 }
+                  if(!flag)
+                    {
+                      Facebookcontexts[sender_psid]=response.context;
+                    }
+                  
+            
+            }         
+               else if(response.output.text.length>1){
                     for(data in response.output.text ){
                     text=text+'\n'+response.output.text[data];
                     }
@@ -377,16 +389,13 @@ res.send(req.query['hub.challenge']);
   function callSendAPI(sender_psid, response,action) {
 
 console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
-  var index = 0;
-  Facebookcontexts.forEach(function(value) {
-    console.log(value.From);
-    if (value.From == sender_psid) {
-      FacebookContext.context = value.FacebookContext;
-      console.log("facebook context inside for each "+JSON.stringify(FacebookContext.context));
-      contextIndex = index;
-    }
-    index = index + 1;
-  });
+  var keys=Object.keys(Facebookcontexts);
+                 for(var i=0;i<keys.length;i++){
+                   if(Facebookcontexts[keys[i]]==sender_psid){
+                     FacebookContext.context = value.FacebookContext;
+                      break;
+                   }
+                 }
     // Construct the message body
     // console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
     let request_body = {};
