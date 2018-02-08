@@ -26,7 +26,7 @@ var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
-var Facebookcontexts={};
+var Facebookcontexts=[];
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -229,281 +229,271 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 
 
   
-var contextIndex;
-
- // facebook module starts here
-  app.post('/webhook', (req, res) => {  
-    console.log("Iside Post");
-      // Parse the request body from the POST
-      let body = req.body;
+var facebookapp=require(".//faceBookBot");
+app.use('/webhook',facebookapp)
+//  // facebook module starts here
+//   app.post('/webhook', (req, res) => {  
+//     console.log("Iside Post");
+//       // Parse the request bo,dy from the POST
+//       let body = req.body;
     
-      // Check the webhook event is from a Page subscription
-      if (body.object === 'page') {
+//       // Check the webhook event is from a Page subscription
+//       if (body.object === 'page') {
     
-        // Iterate over each entry - there may be multiple if batched
-        body.entry.forEach(function(entry) {
+//         // Iterate over each entry - there may be multiple if batched
+//         body.entry.forEach(function(entry) {
     
-          // Get the webhook event. entry.messaging is an array, but 
-          // will only ever contain one event, so we get index 0
-          let webhook_event = entry.messaging[0];
-                  //  console.log(webhook_event);
-                   sender_psid=webhook_event.sender.id;
+//           // Get the webhook event. entry.messaging is an array, but 
+//           // will only ever contain one event, so we get index 0
+//           let webhook_event = entry.messaging[0];
+//                    console.log(webhook_event);
+//                    sender_psid=webhook_event.sender.id;
                    
-          if (sender_psid) {
-            handleMessage(sender_psid, webhook_event.message);        
-          }
-          
-        });
-    
-        // Return a '200 OK' response to all events
-        res.status(200).send('EVENT_RECEIVED');
-    
-      } else {
-        // Return a '404 Not Found' if event is not from a page subscription
-        Log.facebookErrorLog('Return a 404 Not Found if event is not from a page subscription');
-        res.sendStatus(404);
-      }
-    
-    });
-    function handleMessage(sender_psid, received_message) {
-      
-        let response;
-        var text='';
-        // Check if the message contains text
-        if (received_message.text) {    
-//         console.log("In watson received_message.text"+received_message.text);
-          var text='';
-          // if(received_message.text=='Test'){
-           
-          // }
-          // if(received_message.text=='quickreply'){
-            
+//           if (sender_psid) {
+//             handleMessage(sender_psid, webhook_event.message);        
 //           }
-          if(received_message.text=='template'){
-            template=true;
-          }
-         else{
-          var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
-          Log.CreatefacebookLog(str);
-          console.log("At line no 288 before call"+JSON.stringify(Facebookcontexts));
-          watson.message({
-            input:{ text: received_message.text },
-            workspace_id: workspaceID,
-           context:FacebookContext.context
-        }, function(err, response) {
-          // console.log("Facebook response"+JSON.stringify(response));
-            if (err) {
-              Log.facebookErrorLog(err);
-              console.error(err);
-            } else {
-            if(Object.keys(Facebookcontexts)==0){
-              console.log("facebook is used for the first time");
-              Facebookcontexts[sender_psid]=response.context;
-            }
-               else if(Object.keys(Facebookcontexts)>0){
-                 var flag=false;
-                 var keys=Object.keys(Facebookcontexts);
-                 for(var i=0;i<keys.length;i++){
-                   if(Facebookcontexts[keys[i]]==sender_psid){
-                      Facebookcontexts[keys[i]]=response.context;
-                      flag=true;
-                      break;
-                   }
-                 }
-                  if(!flag)
-                    {
-                      Facebookcontexts[sender_psid]=response.context;
-                    }
-                  
-            
-            }         
-               else if(response.output.text.length>1){
-                    for(data in response.output.text ){
-                    text=text+'\n'+response.output.text[data];
-                    }
-                }
-                else
-                text=response.output.text[0];
-
-                var Faceaction=response.output.Actions;
-//                console.log(JSON.stringify(action));
-                if(Faceaction!=null||Faceaction!=undefined){
-                  //callAction(action);
-                  var action1=[];
-                  
-                 // var  dataHead=Object.keys(action[0])
-                 
-                  if(Object.keys(Faceaction)[0]=="Quickreply"){
-                    var mainData=Faceaction['Quickreply'];
-//                     console.log("We came to quick reply.");
-                    // var data=action[Object.keys(action[0])];
-                    for(var i=0;i<mainData.length;i++){
-                    var data1={};
-                    data1.content_type="text";
-                    data1.payload=mainData[i];
-                    data1.title=mainData[i];
-                    action1.push(data1);
-                    }
-                    Facebookaction.quickreply=action1;
-//                     console.log("facebook Quick reply"+JSON.stringify(action1));
-                    quickreply=true;
-                  }
-
-                  // else if(response.output.List){
-
-                  // }
-                  else if(Object.keys(Faceaction)[0]=="URL"){
-                    var data=Object.keys(Faceaction)[0];
-                    Facebookaction.URL=Faceaction[data];
-                    Facebookaction.title=Faceaction.title;
-                    flag=true;//for buttons in face book.
-                  }
-//                   console.log("Actions is"+JSON.stringify(Facebookaction));
-                }
-            }
-            //console.log("In Watson text"+text);
-            response = {
-              "text": text
-            }
           
-            callSendAPI(sender_psid, response,Facebookaction);  
-           console.log("In Watson"+JSON.stringify(response));
-        }); 
-         }//test
-          // Create the payload for a basic text message
+//         });
+    
+//         // Return a '200 OK' response to all events
+//         res.status(200).send('EVENT_RECEIVED');
+    
+//       } else {
+//         // Return a '404 Not Found' if event is not from a page subscription
+//         Log.facebookErrorLog('Return a 404 Not Found if event is not from a page subscription');
+//         res.sendStatus(404);
+//       }
+    
+//     });
+//     function handleMessage(sender_psid, received_message) {
+      
+//         let response;
+//         var text='';
+//         // Check if the message contains text
+//         if (received_message.text) {    
+// //         console.log("In watson received_message.text"+received_message.text);
+//           var text='';
+//           // if(received_message.text=='Test'){
+           
+//           // }
+//           // if(received_message.text=='quickreply'){
+            
+// //           }
+//           if(received_message.text=='template'){
+//             template=true;
+//           }
+//          else{
+//           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
+//           Log.CreatefacebookLog(str);
+//           console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
+//           watson.message({
+//             input:{ text: received_message.text },
+//             workspace_id: workspaceID,
+//            context:FacebookContext.context
+//         }, function(err, response) {
+//           console.log("Facebook response"+JSON.stringify(response));
+//             if (err) {
+//               Log.facebookErrorLog(err);
+//               console.error(err);
+//             } else {
+//             if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+//               Facebookcontexts[contextIndex].FacebookContext=response.context;
+//               console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+//               } 
+//              else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+//               Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+//               console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+//               }
+                         
+//                if(response.output.text.length>1){
+//                     for(data in response.output.text ){
+//                     text=text+'\n'+response.output.text[data];
+//                     }
+//                 }
+//                 else
+//                 text=response.output.text[0];
+
+//                 var Faceaction=response.output.Actions;
+// //                console.log(JSON.stringify(action));
+//                 if(Faceaction!=null||Faceaction!=undefined){
+//                   //callAction(action);
+//                   var action1=[];
+                  
+//                  // var  dataHead=Object.keys(action[0])
+                 
+//                   if(Object.keys(Faceaction)[0]=="Quickreply"){
+//                     var mainData=Faceaction['Quickreply'];
+// //                     console.log("We came to quick reply.");
+//                     // var data=action[Object.keys(action[0])];
+//                     for(var i=0;i<mainData.length;i++){
+//                     var data1={};
+//                     data1.content_type="text";
+//                     data1.payload=mainData[i];
+//                     data1.title=mainData[i];
+//                     action1.push(data1);
+//                     }
+//                     Facebookaction.quickreply=action1;
+// //                     console.log("facebook Quick reply"+JSON.stringify(action1));
+//                     quickreply=true;
+//                   }
+
+//                   // else if(response.output.List){
+
+//                   // }
+//                   else if(Object.keys(Faceaction)[0]=="URL"){
+//                     var data=Object.keys(Faceaction)[0];
+//                     Facebookaction.URL=Faceaction[data];
+//                     Facebookaction.title=Faceaction.title;
+//                     flag=true;//for buttons in face book.
+//                   }
+// //                   console.log("Actions is"+JSON.stringify(Facebookaction));
+//                 }
+//             }
+//             //console.log("In Watson text"+text);
+//             response = {
+//               "text": text
+//             }
+          
+//             callSendAPI(sender_psid, response,Facebookaction);  
+//            console.log("In Watson"+JSON.stringify(response));
+//         }); 
+//          }//test
+//           // Create the payload for a basic text message
          
           
-        }  
+//         }  
         
-        // Sends the response message
+//         // Sends the response message
           
-      }
+//       }
 
-app.get('/webhook', (req, res) => {
-//   console.log(req.query);
-if(req.query['hub.verify_token']==='Test')
-res.send(req.query['hub.challenge']);
+// app.get('/webhook', (req, res) => {
+// //   console.log(req.query);
+// if(req.query['hub.verify_token']==='Test')
+// res.send(req.query['hub.challenge']);
     
-  });
+//   });
 
-  function callSendAPI(sender_psid, response,action) {
+//   function callSendAPI(sender_psid, response,action) {
 
-console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
-  var keys=Object.keys(Facebookcontexts);
-                 for(var i=0;i<keys.length;i++){
-                   if(Facebookcontexts[keys[i]]==sender_psid){
-                     FacebookContext.context = value.FacebookContext;
-                      break;
-                   }
-                 }
-    // Construct the message body
-    // console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
-    let request_body = {};
-    if(flag){
-      request_body = { "recipient": {
-        "id": sender_psid
-      },
-    "message":{
-      "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":response.text,
-          "buttons":[
-            {
-              "type":"web_url",
-              "url":action.URL,
-              "title":action.title
-            },
-          ]
-        }
-      }
-    }
-    }
-    flag=false;
+// console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
+//   var index = 0;
+//   Facebookcontexts.forEach(function(value) {
+//     console.log(value.From);
+//     if (value.From == sender_psid) {
+//       FacebookContext.context = value.FacebookContext;
+//       contextIndex = index;
+//     }
+//     index = index + 1;
+//   });
+//     // Construct the message body
+//     console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
+//     let request_body = {};
+//     if(flag){
+//       request_body = { "recipient": {
+//         "id": sender_psid
+//       },
+//     "message":{
+//       "attachment":{
+//         "type":"template",
+//         "payload":{
+//           "template_type":"button",
+//           "text":response.text,
+//           "buttons":[
+//             {
+//               "type":"web_url",
+//               "url":action.URL,
+//               "title":action.title
+//             },
+//           ]
+//         }
+//       }
+//     }
+//     }
+//     flag=false;
 
-    }
-    else if(quickreply){
-      request_body = { "recipient": {
-        "id": sender_psid
-      },
-    "message":{
-      "text": response.text,
-      "quick_replies":action.quickreply
-    }
-    }
-    //console.log("Quickreply response"+JSON.stringify(request_body))
-    quickreply=false;
-    }
+//     }
+//     else if(quickreply){
+//       request_body = { "recipient": {
+//         "id": sender_psid
+//       },
+//     "message":{
+//       "text": response.text,
+//       "quick_replies":action.quickreply
+//     }
+//     }
+//     //console.log("Quickreply response"+JSON.stringify(request_body))
+//     quickreply=false;
+//     }
 
-    else if(template){
-      request_body = { "recipient": {
-        "id": sender_psid
-      },
-      "message":{
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"generic",
-            "elements":[
-               {
-                "title":"Welcome to Peter\'s Hats",
-                // "image_url":"https://petersfancybrownhats.com/company_image.png",
-                "subtitle":"We\'ve got the right hat for everyone.",
-                "default_action": {
-                  "type": "web_url",
-                  "url": "https://ncylcworkspace.slack.com/",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://ncylcworkspace.slack.com/"
-                },
-                "buttons":[
-                  {
-                    "type":"web_url",
-                    "url":"https://ncylcworkspace.slack.com/",
-                    "title":"View Website"
-                  },{
-                    "type":"postback",
-                    "title":"Start Chatting",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                  }              
-                ]      
-              }
-            ]
-          }
-        }
-      }
-    }
-    template=false;
-  }
-    else{ request_body = {"recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  }}
+//     else if(template){
+//       request_body = { "recipient": {
+//         "id": sender_psid
+//       },
+//       "message":{
+//         "attachment":{
+//           "type":"template",
+//           "payload":{
+//             "template_type":"generic",
+//             "elements":[
+//                {
+//                 "title":"Welcome to Peter\'s Hats",
+//                 // "image_url":"https://petersfancybrownhats.com/company_image.png",
+//                 "subtitle":"We\'ve got the right hat for everyone.",
+//                 "default_action": {
+//                   "type": "web_url",
+//                   "url": "https://ncylcworkspace.slack.com/",
+//                   "messenger_extensions": true,
+//                   "webview_height_ratio": "tall",
+//                   "fallback_url": "https://ncylcworkspace.slack.com/"
+//                 },
+//                 "buttons":[
+//                   {
+//                     "type":"web_url",
+//                     "url":"https://ncylcworkspace.slack.com/",
+//                     "title":"View Website"
+//                   },{
+//                     "type":"postback",
+//                     "title":"Start Chatting",
+//                     "payload":"DEVELOPER_DEFINED_PAYLOAD"
+//                   }              
+//                 ]      
+//               }
+//             ]
+//           }
+//         }
+//       }
+//     }
+//     template=false;
+//   }
+//     else{ request_body = {"recipient": {
+//       "id": sender_psid
+//     },
+//     "message": response
+//   }}
     
      
    
-//   console.log(JSON.stringify(request_body )+"\n request body");
-    // Send the HTTP request to the Messenger Platform
-    //error coming here
- request({
-      "uri": "https://graph.facebook.com/v2.6/me/messages",
-      "qs": { "access_token": accesstoken },
-      "method": "POST",
-      "json": request_body
-    }, (err, res, body) => {
-      if (!err) {
-        // console.log('message sent!')
-      } else {
-        Log.facebookErrorLog(err);
-        console.error("Unable to send message:" + err);
-      }
-    }); 
-    var str=new Date()+"   "+"Author : "+ "watson" + "   Message :  "+ response.text+"\r\n" ;
-    Log.CreateLog(str);
-Facebookaction={};//resetting facebookaction
-  }//Messanger post webhook
+// //   console.log(JSON.stringify(request_body )+"\n request body");
+//     // Send the HTTP request to the Messenger Platform
+//     //error coming here
+//  request({
+//       "uri": "https://graph.facebook.com/v2.6/me/messages",
+//       "qs": { "access_token": accesstoken },
+//       "method": "POST",
+//       "json": request_body
+//     }, (err, res, body) => {
+//       if (!err) {
+//         console.log('message sent!')
+//       } else {
+//         Log.facebookErrorLog(err);
+//         console.error("Unable to send message:" + err);
+//       }
+//     }); 
+//     var str=new Date()+"   "+"Author : "+ "watson" + "   Message :  "+ response.text+"\r\n" ;
+//     Log.CreateLog(str);
+// Facebookaction={};//resetting facebookaction
+//   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // console.log(process.env);
@@ -513,7 +503,7 @@ const cluster = require('cluster');
 
 const numCPUs = require('os').cpus().length;
 if (cluster.isMaster) {
-  // console.log(`Master ${process.pid} is running`);
+  console.log(`Master ${process.pid} is running`);
 
   // Fork workers.
   for (let i = 0; i < numCPUs; i++) {
@@ -522,7 +512,7 @@ if (cluster.isMaster) {
 
   cluster.on('exit', (worker, code, signal) => {
     cluster.fork();// if worker dies it will restart
-    // console.log(`worker ${worker.process.pid} died`);
+    console.log(`worker ${worker.process.pid} died`);
 
   });
 } else {
@@ -530,7 +520,7 @@ if (cluster.isMaster) {
   // In this case it is an HTTP server
  
   app.listen(process.env.PORT || 3001);
-  // console.log(`Worker ${process.pid} started`);
+  console.log(`Worker ${process.pid} started`);
 }
 // app.listen(process.env.PORT || 3001);
 //console.log(process.env);
