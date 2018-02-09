@@ -292,7 +292,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             workspace_id: workspaceID,
            context:FacebookContext.context
         }, function(err, response) {
-          console.log("Facebook response"+JSON.stringify(response));
+//           console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
@@ -304,7 +304,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
     if (value == sender_psid) {
       Facebookcontexts[value]=response.context;
               Log.facebookContextmanipulation(Facebookcontexts);
-              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+              console.log("I am at where I know the sender");
              flag=false;
             //  break;
     
@@ -314,7 +314,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
   if(flag){
     Facebookcontexts[sender_psid]=response.context;
     Log.facebookContextmanipulation(Facebookcontexts);
-              console.log("I am at where I don't know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+              console.log("I am at where I don't know the sender");
             
   }
 
