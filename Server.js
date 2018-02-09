@@ -306,7 +306,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
               Log.facebookContextmanipulation(Facebookcontexts);
               console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
              flag=false;
-             break;
+            //  break;
     
     }
     
@@ -405,7 +405,7 @@ console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts
     
     if (value == sender_psid) {
          FacebookContext.context =Facebookcontexts[value];
-             break;
+            //  break;
     
     }
     
