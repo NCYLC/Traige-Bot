@@ -312,7 +312,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
     
   });
   if(flag){
-    FacebookContext[sender_psid]=response.context;
+    Facebookcontexts[sender_psid]=response.context;
     Log.facebookContextmanipulation(Facebookcontexts);
               console.log("I am at where I don't know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
             
