@@ -104,10 +104,6 @@ var  appendFile= util.promisify(fs.appendFile);
                    
                 //   }
                 
-                    //  Log.getJSON();
-         var data=require("./Facebookcontext.json");
-          data["1472198136230847"]={"Success":true};
-          
                
              Log.facebookContextmanipulation=async function(Data){
 console.log(JSON.stringify(Data)+"\n"+typeof(Data)); 
