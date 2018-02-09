@@ -26,7 +26,7 @@ var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
-global.Facebookcontexts=[];
+var Facebookcontexts=[];
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -268,6 +268,8 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
     function handleMessage(sender_psid, received_message) {
       
         let response;
+        var facebook=[];
+        facebook=Facebookcontexts;
         var text='';
         // Check if the message contains text
         if (received_message.text) {    
@@ -285,7 +287,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
          else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          console.log("At line no 282 before call"+JSON.stringify(global.Facebookcontexts));
+          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
           watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
@@ -296,13 +298,13 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-            if(global.Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
-              global.Facebookcontexts[contextIndex].FacebookContext=response.context;
-              console.log("I am at where I know the sender"+JSON.stringify(global.Facebookcontexts)+"\n"+global.Facebookcontexts.length);
+            if(facebook.find(v=>v.From==sender_psid)!=undefined){
+              Facebookcontexts[contextIndex].FacebookContext=response.context;
+              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
               } 
-             else if((FacebookContext.context==null)||(global.Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
-              global.Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log("I am where sender is unknmown"+JSON.stringify(global.Facebookcontexts)+"\n"+global.Facebookcontexts.length);
+             else if((FacebookContext.context==null)||(facebook.find(v=>v.From==sender_psid)==undefined)){
+              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
+              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
               }
                          
                if(response.output.text.length>1){
@@ -373,12 +375,14 @@ if(req.query['hub.verify_token']==='Test')
 res.send(req.query['hub.challenge']);
     
   });
-
+var contextIndex=0;
   function callSendAPI(sender_psid, response,action) {
 
-console.log("At line no 379 before sending data"+JSON.stringify(global.Facebookcontexts));
+console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
   var index = 0;
-  global.Facebookcontexts.forEach(function(value) {
+  var facebook=[];
+        facebook=Facebookcontexts;
+  facebook.forEach(function(value) {
     console.log(value.From);
     if (value.From == sender_psid) {
       FacebookContext.context = value.FacebookContext;
