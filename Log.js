@@ -110,7 +110,7 @@ console.log(JSON.stringify(Data)+"\n"+typeof(Data));
                var  writeFile= util.promisify(fs.writeFile);
                 try{
                     await writeFile("./Facebookcontext.json",JSON.stringify(Data));
-                    console.log("success");
+                   console.log(JSON.stringify(Data));
                     }
                     catch(err){
                         console.log(err);
