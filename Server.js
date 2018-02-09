@@ -303,7 +303,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
     
     if (value == sender_psid) {
       Facebookcontexts[value]=response.context;
-              Log.facebookContextmanipulation(Facebookcontexts);
+              await Log.facebookContextmanipulation(Facebookcontexts);
               console.log("I am at where I know the sender");
              flag=false;
             //  break;
@@ -313,7 +313,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
   });
   if(flag){
     Facebookcontexts[sender_psid]=response.context;
-    Log.facebookContextmanipulation(Facebookcontexts);
+    await Log.facebookContextmanipulation(Facebookcontexts);
               console.log("I am at where I don't know the sender");
             
   }
