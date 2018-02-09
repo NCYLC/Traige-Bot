@@ -503,29 +503,29 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // console.log(process.env);
 
 
-const cluster = require('cluster');
+// const cluster = require('cluster');
 
-const numCPUs = require('os').cpus().length;
-if (cluster.isMaster) {
-  console.log(`Master ${process.pid} is running`);
+// const numCPUs = require('os').cpus().length;
+// if (cluster.isMaster) {
+//   console.log(`Master ${process.pid} is running`);
 
-  // Fork workers.
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+//   // Fork workers.
+//   for (let i = 0; i < numCPUs; i++) {
+//     cluster.fork();
+//   }
 
-  cluster.on('exit', (worker, code, signal) => {
-    cluster.fork();// if worker dies it will restart
-    console.log(`worker ${worker.process.pid} died`);
+//   cluster.on('exit', (worker, code, signal) => {
+//     cluster.fork();// if worker dies it will restart
+//     console.log(`worker ${worker.process.pid} died`);
 
-  });
-} else {
-  // Workers can share any TCP connection
-  // In this case it is an HTTP server
+//   });
+// } else {
+//   // Workers can share any TCP connection
+//   // In this case it is an HTTP server
  
-  app.listen(process.env.PORT || 3001);
-  console.log(`Worker ${process.pid} started`);
-}
-// app.listen(process.env.PORT || 3001);
+//   // app.listen(process.env.PORT || 3001);
+//   console.log(`Worker ${process.pid} started`);
+// }
+app.listen(process.env.PORT || 3001);
 //console.log(process.env);
 module.exports=app;
