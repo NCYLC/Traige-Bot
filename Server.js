@@ -26,7 +26,8 @@ var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
-app.locals.Facebookcontexts=[];
+var Facebookcontexts={};
+
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -265,11 +266,9 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       }
     
     });
-    function handleMessage(sender_psid, received_message) {
-      
+    async function handleMessage(sender_psid, received_message) {
+      Facebookcontexts=await require("./Facebookcontext.json");
         let response;
-        var facebook=[];
-        facebook=app.locals.Facebookcontexts;
         var text='';
         // Check if the message contains text
         if (received_message.text) {    
@@ -287,7 +286,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
          else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          console.log("At line no 282 before call"+JSON.stringify(app.locals.Facebookcontexts));
+          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
           watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
@@ -298,13 +297,15 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-            if(facebook.find(v=>v.From==sender_psid)!=undefined){
-              app.locals.Facebookcontexts[contextIndex].FacebookContext=response.context;
-              console.log("I am at where I know the sender"+JSON.stringify(app.locals.Facebookcontexts)+"\n"+app.locals.Facebookcontexts.length);
+            if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+              Facebookcontexts[contextIndex].FacebookContext=response.context;
+              Log.facebookContextmanipulation(Facebookcontexts);
+              console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
               } 
-             else if((FacebookContext.context==null)||(facebook.find(v=>v.From==sender_psid)==undefined)){
-              app.locals.Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log("I am where sender is unknmown"+JSON.stringify(app.locals.Facebookcontexts)+"\n"+app.locals.Facebookcontexts.length);
+             else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context});
+              Log.facebookContextmanipulation(Facebookcontexts);
+              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
               }
                          
                if(response.output.text.length>1){
@@ -376,12 +377,13 @@ res.send(req.query['hub.challenge']);
     
   });
 var contextIndex=0;
-  function callSendAPI(sender_psid, response,action) {
 
-console.log("At line no 379 before sending data"+JSON.stringify(app.locals.Facebookcontexts));
+  async function callSendAPI(sender_psid, response,action) {
+Facebookcontexts=await require("./Facebookcontext.json");
+console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
   var index = 0;
   var facebook=[];
-        facebook=app.locals.Facebookcontexts;
+        facebook=Facebookcontexts;
   facebook.forEach(function(value) {
     console.log(value.From);
     if (value.From == sender_psid) {
@@ -503,29 +505,29 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // console.log(process.env);
 
 
-// const cluster = require('cluster');
+const cluster = require('cluster');
 
-// const numCPUs = require('os').cpus().length;
-// if (cluster.isMaster) {
-//   console.log(`Master ${process.pid} is running`);
+const numCPUs = require('os').cpus().length;
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
 
-//   // Fork workers.
-//   for (let i = 0; i < numCPUs; i++) {
-//     cluster.fork();
-//   }
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
 
-//   cluster.on('exit', (worker, code, signal) => {
-//     cluster.fork();// if worker dies it will restart
-//     console.log(`worker ${worker.process.pid} died`);
+  cluster.on('exit', (worker, code, signal) => {
+    cluster.fork();// if worker dies it will restart
+    console.log(`worker ${worker.process.pid} died`);
 
-//   });
-// } else {
-//   // Workers can share any TCP connection
-//   // In this case it is an HTTP server
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
  
-//   // app.listen(process.env.PORT || 3001);
-//   console.log(`Worker ${process.pid} started`);
-// }
-app.listen(process.env.PORT || 3001);
+  app.listen(process.env.PORT || 3001);
+  console.log(`Worker ${process.pid} started`);
+}
+// app.listen(process.env.PORT || 3001);
 //console.log(process.env);
 module.exports=app;
