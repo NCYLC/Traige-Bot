@@ -297,16 +297,34 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-            if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
-              Facebookcontexts[contextIndex].FacebookContext=response.context;
+              var flag=true;
+              var keys=Object.keys(Facebookcontexts);
+              keys.forEach(function(value) {
+    
+    if (value == sender_psid) {
+      Facebookcontexts[value]=response.context;
               Log.facebookContextmanipulation(Facebookcontexts);
               console.log("I am at where I know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
-              } 
-             else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
-              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context});
-              Log.facebookContextmanipulation(Facebookcontexts);
-              console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
-              }
+             flag=false;
+             break;
+    
+    }
+    
+  });
+  if(flag){
+    FacebookContext[sender_psid]=response.context;
+    Log.facebookContextmanipulation(Facebookcontexts);
+              console.log("I am at where I don't know the sender"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+            
+  }
+
+            // if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+            //    } 
+            //  else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+            //   Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context});
+            //   Log.facebookContextmanipulation(Facebookcontexts);
+            //   console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+            //   }
                          
                if(response.output.text.length>1){
                     for(data in response.output.text ){
@@ -382,16 +400,24 @@ var contextIndex=0;
 Facebookcontexts=await require("./Facebookcontext.json");
 console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
   var index = 0;
-  var facebook=[];
-        facebook=Facebookcontexts;
-  facebook.forEach(function(value) {
-    console.log(value.From);
-    if (value.From == sender_psid) {
-      FacebookContext.context = value.FacebookContext;
-      contextIndex = index;
+  var keys=Object.keys(Facebookcontexts);
+              keys.forEach(function(value) {
+    
+    if (value == sender_psid) {
+         FacebookContext.context =Facebookcontexts[value];
+             break;
+    
     }
-    index = index + 1;
+    
   });
+  // facebook.forEach(function(value) {
+  //   console.log(value.From);
+  //   if (value.From == sender_psid) {
+  //     FacebookContext.context = value.FacebookContext;
+  //     contextIndex = index;
+  //   }
+  //   index = index + 1;
+  // });
     // Construct the message body
     console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
     let request_body = {};
