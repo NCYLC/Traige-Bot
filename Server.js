@@ -274,10 +274,10 @@ var Facebookcontexts=[];
           // if(received_message.text=='quickreply'){
             
 //           }
-          if(received_message.text=='template'){
-            template=true;
-          }
-         else{
+          // if(received_message.text=='template'){
+          //   template=true;
+          // }
+        //  else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           console.log("At line no 282 before call"+JSON.stringify(FacebookContext));
@@ -356,11 +356,11 @@ var Facebookcontexts=[];
           // Create the payload for a basic text message
          
           
-        }  
+        // }  
         
         // Sends the response message
         callSendAPI(sender_psid, response,Facebookaction);    
-      }
+       }
 
 app.get('/webhook', (req, res) => {
 //   console.log(req.query);
