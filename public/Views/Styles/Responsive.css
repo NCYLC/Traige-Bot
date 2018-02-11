@@ -19,12 +19,12 @@
         background: linear-gradient(45deg, #494963, #6a4e90);
         border-radius: 5px 5px 0 0;
         color: #fff;
-        cursor: pointer;
+        /* cursor: pointer; */
         padding: 16px 24px;
         /* font-size: 1em */
     }
     
-    #live-chat h4:before {
+    /* #live-chat h4:before {
         background: #1a8a34;
         border-radius: 50%;
         content: "";
@@ -32,7 +32,7 @@
         height: 8px;
         margin: 0 8px 0 0;
         width: 8px;
-    }
+    } */
     
     #live-chat h4 {
         /* font-size: 2em; */
@@ -155,12 +155,12 @@
             background: linear-gradient(45deg, #494963, #6a4e90);
             border-radius: 5px 5px 0 0;
             color: #fff;
-            cursor: pointer;
+            /* cursor: pointer; */
             padding: 16px ;
             /* font-size: 1em */
         }
         
-        #live-chat h4:before {
+        /* #live-chat h4:before {
             background: #1a8a34;
             border-radius: 50%;
             content: "";
@@ -168,7 +168,7 @@
             height: 8px;
             margin: 0 8px 0 0;
             width: 8px;
-        }
+        } */
         
         #live-chat h4 {
             /* font-size: 2rem; */
@@ -291,12 +291,12 @@
             background: linear-gradient(45deg, #494963, #6a4e90);
             border-radius: 5px 5px 0 0;
             color: #fff;
-            cursor: pointer;
+            /* cursor: pointer; */
             padding: 1.5vw;
             /* font-size: 1.2em */
         }
         
-        #live-chat h4:before {
+        /* #live-chat h4:before {
             background: #1a8a34;
             border-radius: 50%;
             content: "";
@@ -304,7 +304,7 @@
             height: 8px;
             margin: 0 8px 0 0;
             width: 8px;
-        }
+        } */
         
         #live-chat h4 {
             /* font-size: 2vw; */
@@ -429,11 +429,11 @@
             background: linear-gradient(45deg, #494963, #6a4e90);
             border-radius: 5px 5px 0 0;
             color: #fff;
-            cursor: pointer;
+            /* cursor: pointer; */
             padding: 1vh;
         }
         
-        #live-chat h4:before {
+        /* #live-chat h4:before {
             background: #1a8a34;
             border-radius: 50%;
             content: "";
@@ -441,7 +441,7 @@
             height: 8px;
             margin: 0 8px 0 0;
             width: 8px;
-        }
+        } */
         
         #live-chat h4 {
             /* font-size: 12px; */

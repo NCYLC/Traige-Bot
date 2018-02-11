@@ -93,7 +93,29 @@ var  appendFile= util.promisify(fs.appendFile);
                         // console.log(array)
                      return dataarray;
                     }
+
+                //   Log.getJSON= async function(){
+                //     var data= await require("./Facebookcontext");
+                //     console.log(JSON.stringify(data))
+                //     var a="1472198136230844";
                     
+                //     data[a]={"conversation_id":"3080427d-231c-4fdb-8598-8c5c0f625e23","system":{"dialog_stack":[{"dialog_node":"node_9_1515974507634"}],"dialog_turn_counter":1,"dialog_request_counter":1,"_node_output_map":{"node_9_1515974507634":[0]}},"Unpaid":true};
+                //     console.log(JSON.stringify(data));
+                   
+                //   }
                 
-                //   Log.CreateReport();
+               
+             Log.facebookContextmanipulation=async function(Data){
+console.log(JSON.stringify(Data)+"\n"+typeof(Data)); 
+               var  writeFile= util.promisify(fs.writeFile);
+                try{
+                    await writeFile("./Facebookcontext.json",JSON.stringify(Data));
+                   console.log("at Log \n"+JSON.stringify(Data));
+                    }
+                    catch(err){
+                        console.log(err);
+                    }
+               
+                }; 
+                
     module.exports=Log

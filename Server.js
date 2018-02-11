@@ -25,7 +25,9 @@ var StartOfConv=false; //setting of startofconv flag to false
 var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
-var FacebookContext=null;//context for facebook app
+var FacebookContext={};//context for facebook app
+var Facebookcontexts={};
+
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
@@ -118,7 +120,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       console.error(err);
     } else {
             var text='';
-        sentdata.Author="Watson";//if success set Author
+        sentdata.Author="Ayla";//if success set Author
         sentdata.Type="Received";//set type as received
         if(response.output.text.length>1){// will be triggered if text has more than 1 item 
             for(var data in response.output.text ){
@@ -134,7 +136,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         sentdata.Time=new Date();
         sentdata.Context=Context;//giving user back his context
         // console.log(JSON.stringify(response));
-        var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
+        var str=new Date()+"   "+"Author : "+ "Ayla" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
     
         res.json(sentdata);//sending reponse back to user
@@ -174,7 +176,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                 }
               
                     var text='';
-                sentdata.Author="Watson";
+                sentdata.Author="Ayla";
                 sentdata.Type="Received";
                 if(response.output.text.length>1){
                     for(var data in response.output.text ){
@@ -207,7 +209,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                 sentdata.Text=text;
                 sentdata.Time=new Date();
                 // console.log(JSON.stringify(response));
-                var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
+                var str=new Date()+"   "+"Author : "+ "Ayla" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);//upadting log data
                 console.log(JSON.stringify(sentdata));
                 res.json(sentdata);//sending data back to users
@@ -224,12 +226,16 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
            
 //res.sendStatus;
   });
-var contextIndex;
-var Facebookcontexts=[];
+
+
+
+  
+// var facebookapp=require(".//faceBookBot");
+// app.use('/webhook',facebookapp)
  // facebook module starts here
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");
-      // Parse the request body from the POST
+      // Parse the request bo,dy from the POST
       let body = req.body;
     
       // Check the webhook event is from a Page subscription
@@ -260,8 +266,8 @@ var Facebookcontexts=[];
       }
     
     });
-    function handleMessage(sender_psid, received_message) {
-      
+    async function handleMessage(sender_psid, received_message) {
+      Facebookcontexts=await require("./Facebookcontext.json");
         let response;
         var text='';
         // Check if the message contains text
@@ -280,26 +286,47 @@ var Facebookcontexts=[];
         //  else{
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          console.log("At line no 282 before call"+JSON.stringify(FacebookContext));
+          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
           watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
-           context:FacebookContext
+           context:FacebookContext.context
         }, function(err, response) {
-          console.log("Facebook response"+JSON.stringify(response));
+//           console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-         
-              if((FacebookContext==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
-              Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context})
-              console.log("Null Condition or didn't find ender psid");
-              }
-            else if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
-              Facebookcontexts[contextIndex].FacebookContext=response.context;
-              console.log("Resetting existing context Condition");
-              }                
+              var flag=true;
+              var keys=Object.keys(Facebookcontexts);
+              keys.forEach(function(value) {
+    
+                if (value == sender_psid) {
+                  Facebookcontexts[value]=response.context;
+                         Log.facebookContextmanipulation(Facebookcontexts);
+                          console.log("I am at where I know the sender");
+                        flag=false;
+                        //  break;
+                
+                }
+    
+              });
+  if(flag){
+    Facebookcontexts[sender_psid]=response.context;
+    // Facebookcontexts[sender_psid]=response.context;
+   Log.facebookContextmanipulation(Facebookcontexts);
+              console.log("I am at where I don't know the sender");
+            
+  }
+
+            // if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+            //    } 
+            //  else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+            //   Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context});
+            //   Log.facebookContextmanipulation(Facebookcontexts);
+            //   console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+            //   }
+                         
                if(response.output.text.length>1){
                     for(data in response.output.text ){
                     text=text+'\n'+response.output.text[data];
@@ -349,8 +376,10 @@ var Facebookcontexts=[];
               "text": text
             }
           
-            
-           console.log("In Watson"+JSON.stringify(response));
+            console.log("In Watson jst before calling"+JSON.stringify(response));
+            Facebookcontexts=null;
+        callSendAPI(sender_psid, response,Facebookaction);  
+           
         }); 
          }//test
           // Create the payload for a basic text message
@@ -359,7 +388,7 @@ var Facebookcontexts=[];
         // }  
         
         // Sends the response message
-        callSendAPI(sender_psid, response,Facebookaction);    
+        
        }
 
 app.get('/webhook', (req, res) => {
@@ -368,17 +397,30 @@ if(req.query['hub.verify_token']==='Test')
 res.send(req.query['hub.challenge']);
     
   });
+var contextIndex=0;
 
-  function callSendAPI(sender_psid, response,action) {
+  async function callSendAPI(sender_psid, response,action) {
+Facebookcontexts=await require("./Facebookcontext.json");
+console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
   var index = 0;
-  Facebookcontexts.forEach(function(value) {
-    console.log(value.From);
-    if (value.From == sender_psid) {
-      FacebookContext = value.FacebookContext;
-      contextIndex = index;
+  var keys=Object.keys(Facebookcontexts);
+              keys.forEach(function(value) {
+    
+    if (value == sender_psid) {
+         FacebookContext.context =Facebookcontexts[value];
+            //  break;
+    
     }
-    index = index + 1;
+    
   });
+  // facebook.forEach(function(value) {
+  //   console.log(value.From);
+  //   if (value.From == sender_psid) {
+  //     FacebookContext.context = value.FacebookContext;
+  //     contextIndex = index;
+  //   }
+  //   index = index + 1;
+  // });
     // Construct the message body
     console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
     let request_body = {};
@@ -486,6 +528,7 @@ res.send(req.query['hub.challenge']);
     }); 
     // var str=new Date()+"   "+"Author : "+ "watson" + "   Message :  "+ response.text+"\r\n" ;
     // Log.CreateLog(str);
+    Facebookcontexts=null;
 Facebookaction={};//resetting facebookaction
   }//Messanger post webhook
 app.use('/',router);
