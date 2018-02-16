@@ -284,6 +284,10 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           //   template=true;
           // }
         //  else{
+          if(received_message.text.indexOf('\n')!=-1){
+            var broken=received_message.text.split('\n');
+            received_message.text=broken[0]+broken[1];
+          }
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
