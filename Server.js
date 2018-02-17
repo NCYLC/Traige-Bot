@@ -291,7 +291,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
-          watson.message({
+          await watson.message({
             input:{ text: received_message.text },
             workspace_id: workspaceID,
            context:FacebookContext.context
