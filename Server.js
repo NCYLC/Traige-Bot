@@ -32,6 +32,7 @@ var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
 var Facebookaction={};// storing facebook actions in an object
+var Facebooklist={};
 router.get('/',function(req,res){
     
     res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'Index.html'));//as a reponse sendding index.html to client browser
@@ -341,6 +342,9 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 
                 var Faceaction=response.output.Actions;
 //                console.log(JSON.stringify(action));
+if(response.output.List){
+  Facebooklist=response.output.List;
+}
                 if(Faceaction!=null||Faceaction!=undefined){
                   //callAction(action);
                   var action1=[];
@@ -382,7 +386,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           
             console.log("In Watson jst before calling"+JSON.stringify(response));
             Facebookcontexts=null;
-        callSendAPI(sender_psid, response,Facebookaction);  
+        callSendAPI(sender_psid, response,Facebookaction,Facebooklist);  
            
         }); 
          }//test
@@ -403,7 +407,7 @@ res.send(req.query['hub.challenge']);
   });
 var contextIndex=0;
 
-  async function callSendAPI(sender_psid, response,action) {
+  async function callSendAPI(sender_psid, response,action,Facebooklist) {
 Facebookcontexts=await require("./Facebookcontext.json");
 console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
   var index = 0;
@@ -426,7 +430,7 @@ console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts
   //   index = index + 1;
   // });
     // Construct the message body
-    console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
+    console.log("Inside Send api line2"+JSON.stringify(Facebooklist)+JSON.stringify(action));
     let request_body = {};
     if(flag){
       request_body = { "recipient": {
@@ -465,44 +469,36 @@ console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts
     quickreply=false;
     }
 
-    else if(template){
+    else if(Facebooklist!=={}){
       console.log("Template detected.")
+      var elementsArray=[];
+      for (var i=0;i<Facebooklist.Maindata.length;i++){
+        var obj={};
+        obj={
+          'title': Facebooklist.Maindata[i].Title,
+          'subtitle': Facebooklist.Maindata[i].Text,
+          'image_url': 'http://www.lawstuff.org.au/__data/assets/image/0015/861/home_char2.png',
+          'buttons': [{
+              'type': 'web_url',
+              'url': Facebooklist.Maindata[i].Actions.URL,
+              'title':  Facebooklist.Maindata[i].Actions.title
+          }
+        ]
+      };
+      elementsArray.push(obj);
+      }
       request_body = { "recipient": {
         "id": sender_psid
       },
       "message":{
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"generic",
-            "elements":[
-               {
-                "title":"Welcome to Peter\'s Hats",
-                // "image_url":"https://petersfancybrownhats.com/company_image.png",
-                "subtitle":"We\'ve got the right hat for everyone.",
-                "default_action": {
-                  "type": "web_url",
-                  "url": "https://ncylcworkspace.slack.com/",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://ncylcworkspace.slack.com/"
-                },
-                "buttons":[
-                  {
-                    "type":"web_url",
-                    "url":"https://ncylcworkspace.slack.com/",
-                    "title":"View Website"
-                  },{
-                    "type":"postback",
-                    "title":"Start Chatting",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                  }              
-                ]      
-              }
-            ]
-          }
+        'attachment': {
+            'type': 'template',
+            'payload': {
+                'template_type': 'generic',
+                'elements': elementsArray,
+            }
         }
-      }
+    }
     }
     template=false;
   }
