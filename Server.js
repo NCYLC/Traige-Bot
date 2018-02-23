@@ -1,7 +1,7 @@
 
 
 var express=require('express');//requiring Express to create server
- const Helmet=require ('helmet')
+// var Helmet=require ('helmet')
 var keys=require('./Keys');//requiring Keys file which has all keys like watson creds and all
 const workspaceID=keys.watson.workspaceID //Fetching watson workspaceid from keys file
 //'38282176-f16f-4e2f-bd7d-4969793f9220'
@@ -14,7 +14,7 @@ const request=require('request');//Requering node request module
 const accesstoken=keys.facebook.accesstoken//facebook access token is stored from keys file                                                'EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM';
 //var FacebookMessanger=require('.//messenger-webhook/Webhook')
 app.use(express.static(__dirname + '/public'));//Making public folder visible in browser tree
-app.use(Helmet());
+// app.use(Helmet());
 var router = express.Router();//Initialising express router
 var  message=[{"Type":"Received","Author":"Watson","Text":"This is watson","TimeStamp":new Date()}];
 var CryptoJS =require('crypto-js');
@@ -160,7 +160,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
             } else {
               Context=response.context;//storing output  context into same context variable thus updating context
               sentdata.Context=Context;
-              // console.log(JSON.stringify(Context));
+              console.log(JSON.stringify(Context));
               CleareContext=response.output.CleareContext;//if we detect clearecontext
               if(CleareContext=="true"){//if cleare context is set
                 console.log("Context Cleared.");
@@ -272,10 +272,10 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
           // }
           // if(received_message.text=='quickreply'){
             
-          }
-          if(received_message.text=='template'){
-            template=true;
-          }
+          // }
+          // if(received_message.text=='template'){
+          //   template=true;
+          // }
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
           watson.message({
@@ -408,19 +408,19 @@ res.send(req.query['hub.challenge']);
             "elements":[
                {
                 "title":"Welcome to Peter\'s Hats",
-                // "image_url":"https://petersfancybrownhats.com/company_image.png",
+                "image_url":"https://petersfancybrownhats.com/company_image.png",
                 "subtitle":"We\'ve got the right hat for everyone.",
                 "default_action": {
                   "type": "web_url",
-                  "url": "https://ncylcworkspace.slack.com/",
+                  "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
                   "messenger_extensions": true,
                   "webview_height_ratio": "tall",
-                  "fallback_url": "https://ncylcworkspace.slack.com/"
+                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                 },
                 "buttons":[
                   {
                     "type":"web_url",
-                    "url":"https://ncylcworkspace.slack.com/",
+                    "url":"https://petersfancybrownhats.com",
                     "title":"View Website"
                   },{
                     "type":"postback",
