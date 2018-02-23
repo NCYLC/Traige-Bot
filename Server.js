@@ -26,10 +26,13 @@ var ContextVariable=[];//Capture all context variables
 var CleareContext=false;//setting CleareContext flag to false
 
 var FacebookContext={};//context for facebook app
+var Facebookcontexts={};
+
 var flag=false;//to show up  in facebook URLS
 var quickreply=false;//to show quickreplies in facebook reply
 var template=false;//to show templates
 var Facebookaction={};// storing facebook actions in an object
+var Facebooklist={};
 router.get('/',function(req,res){
     
     res.sendFile(path.join(__dirname, '/', 'public','/','Views', 'Index.html'));//as a reponse sendding index.html to client browser
@@ -118,7 +121,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       console.error(err);
     } else {
             var text='';
-        sentdata.Author="Watson";//if success set Author
+        sentdata.Author="Ayla";//if success set Author
         sentdata.Type="Received";//set type as received
         if(response.output.text.length>1){// will be triggered if text has more than 1 item 
             for(var data in response.output.text ){
@@ -134,7 +137,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
         sentdata.Time=new Date();
         sentdata.Context=Context;//giving user back his context
         // console.log(JSON.stringify(response));
-        var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n" ;
+        var str=new Date()+"   "+"Author : "+ "Ayla" + "   Message :  "+ sentdata.Text+"\r\n" ;
         Log.CreateLog(str);
     
         res.json(sentdata);//sending reponse back to user
@@ -174,7 +177,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                 }
               
                     var text='';
-                sentdata.Author="Watson";
+                sentdata.Author="Ayla";
                 sentdata.Type="Received";
                 if(response.output.text.length>1){
                     for(var data in response.output.text ){
@@ -207,7 +210,7 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                 sentdata.Text=text;
                 sentdata.Time=new Date();
                 // console.log(JSON.stringify(response));
-                var str=new Date()+"   "+"Author : "+ "Watson" + "   Message :  "+ sentdata.Text+"\r\n"; 
+                var str=new Date()+"   "+"Author : "+ "Ayla" + "   Message :  "+ sentdata.Text+"\r\n"; 
                 Log.CreateLog(str);//upadting log data
                 console.log(JSON.stringify(sentdata));
                 res.json(sentdata);//sending data back to users
@@ -225,10 +228,15 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 //res.sendStatus;
   });
 
+
+
+  
+// var facebookapp=require(".//faceBookBot");
+// app.use('/webhook',facebookapp)
  // facebook module starts here
   app.post('/webhook', (req, res) => {  
     console.log("Iside Post");
-      // Parse the request body from the POST
+      // Parse the request bo,dy from the POST
       let body = req.body;
     
       // Check the webhook event is from a Page subscription
@@ -259,38 +267,72 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
       }
     
     });
-    function handleMessage(sender_psid, received_message) {
-      
+    async function handleMessage(sender_psid, received_message) {
+      Facebookcontexts=await require("./Facebookcontext.json");
         let response;
         var text='';
         // Check if the message contains text
         if (received_message.text) {    
-        console.log("In watson received_message.text"+received_message.text);
+//         console.log("In watson received_message.text"+received_message.text);
           var text='';
           // if(received_message.text=='Test'){
            
           // }
           // if(received_message.text=='quickreply'){
             
-          // }
+//           }
           // if(received_message.text=='template'){
           //   template=true;
           // }
+        //  else{
+          if(received_message.text.indexOf('\n')!=-1){
+            var broken=received_message.text.split('\n');
+            received_message.text=broken[0]+broken[1];
+          }
           var str=new Date()+"   "+"Author : "+ sender_psid + "   Message :  "+ received_message.text+"\r\n" ;
           Log.CreatefacebookLog(str);
-          watson.message({
+          console.log("At line no 282 before call"+JSON.stringify(Facebookcontexts));
+          await watson.message({
             input:{ text: received_message.text },
-            context:FacebookContext,
-            workspace_id: workspaceID
+            workspace_id: workspaceID,
+           context:FacebookContext.context
         }, function(err, response) {
-          //console.log("Facebook response"+JSON.stringify(response));
+//           console.log("Facebook response"+JSON.stringify(response));
             if (err) {
               Log.facebookErrorLog(err);
               console.error(err);
             } else {
-              FacebookContext=response.context; 
+              var flag=true;
+              var keys=Object.keys(Facebookcontexts);
+              keys.forEach(function(value) {
+    
+                if (value == sender_psid) {
+                  Facebookcontexts[value]=response.context;
+                         Log.facebookContextmanipulation(Facebookcontexts);
+                          console.log("I am at where I know the sender");
+                        flag=false;
+                        //  break;
                 
-                if(response.output.text.length>1){
+                }
+    
+              });
+  if(flag){
+    Facebookcontexts[sender_psid]=response.context;
+    // Facebookcontexts[sender_psid]=response.context;
+   Log.facebookContextmanipulation(Facebookcontexts);
+              console.log("I am at where I don't know the sender");
+            
+  }
+
+            // if(Facebookcontexts.find(v=>v.From==sender_psid)!=undefined){
+            //    } 
+            //  else if((FacebookContext.context==null)||(Facebookcontexts.find(v=>v.From==sender_psid)==undefined)){
+            //   Facebookcontexts.push({"From":sender_psid,"FacebookContext":response.context});
+            //   Log.facebookContextmanipulation(Facebookcontexts);
+            //   console.log("I am where sender is unknmown"+JSON.stringify(Facebookcontexts)+"\n"+Facebookcontexts.length);
+            //   }
+                         
+               if(response.output.text.length>1){
                     for(data in response.output.text ){
                     text=text+'\n'+response.output.text[data];
                     }
@@ -300,15 +342,18 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
 
                 var Faceaction=response.output.Actions;
 //                console.log(JSON.stringify(action));
+if(response.output.List){
+  Facebooklist=response.output.List;
+}
                 if(Faceaction!=null||Faceaction!=undefined){
                   //callAction(action);
                   var action1=[];
                   
                  // var  dataHead=Object.keys(action[0])
                  
-                  if(Object.keys(Faceaction)[0]=="Quickreply"){
+                  if(Faceaction.Quickreply){
                     var mainData=Faceaction['Quickreply'];
-                    console.log("We came to quick reply.");
+//                     console.log("We came to quick reply.");
                     // var data=action[Object.keys(action[0])];
                     for(var i=0;i<mainData.length;i++){
                     var data1={};
@@ -318,16 +363,20 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
                     action1.push(data1);
                     }
                     Facebookaction.quickreply=action1;
-                    console.log("facebook Quick reply"+JSON.stringify(action1));
+//                     console.log("facebook Quick reply"+JSON.stringify(action1));
                     quickreply=true;
                   }
+
+                  // else if(response.output.List){
+
+                  // }
                   else if(Object.keys(Faceaction)[0]=="URL"){
                     var data=Object.keys(Faceaction)[0];
                     Facebookaction.URL=Faceaction[data];
                     Facebookaction.title=Faceaction.title;
                     flag=true;//for buttons in face book.
                   }
-                  console.log("Actions is"+JSON.stringify(Facebookaction));
+//                   console.log("Actions is"+JSON.stringify(Facebookaction));
                 }
             }
             //console.log("In Watson text"+text);
@@ -335,29 +384,53 @@ if(start=="true"){// will trigger if user ha refresed there browser thus will tr
               "text": text
             }
           
-            callSendAPI(sender_psid, response,Facebookaction);  
-           // console.log("In Watson"+JSON.stringify(response));
+            console.log("In Watson jst before calling"+JSON.stringify(response));
+            Facebookcontexts=null;
+        callSendAPI(sender_psid, response,Facebookaction,Facebooklist);  
+           
         }); 
-      
+         }//test
           // Create the payload for a basic text message
          
           
-        }  
+        // }  
         
         // Sends the response message
-          
-      }
+        
+       }
 
 app.get('/webhook', (req, res) => {
-  console.log(req.query);
+//   console.log(req.query);
 if(req.query['hub.verify_token']==='Test')
 res.send(req.query['hub.challenge']);
     
   });
+var contextIndex=0;
 
-  function callSendAPI(sender_psid, response,action) {
+  async function callSendAPI(sender_psid, response,action,Facebooklist) {
+Facebookcontexts=await require("./Facebookcontext.json");
+console.log("At line no 379 before sending data"+JSON.stringify(Facebookcontexts));
+  var index = 0;
+  var keys=Object.keys(Facebookcontexts);
+              keys.forEach(function(value) {
+    
+    if (value == sender_psid) {
+         FacebookContext.context =Facebookcontexts[value];
+            //  break;
+    
+    }
+    
+  });
+  // facebook.forEach(function(value) {
+  //   console.log(value.From);
+  //   if (value.From == sender_psid) {
+  //     FacebookContext.context = value.FacebookContext;
+  //     contextIndex = index;
+  //   }
+  //   index = index + 1;
+  // });
     // Construct the message body
-    console.log("Inside Send api line2"+JSON.stringify(response)+JSON.stringify(action));
+    console.log("Inside Send api line2"+JSON.stringify(Facebooklist)+JSON.stringify(action));
     let request_body = {};
     if(flag){
       request_body = { "recipient": {
@@ -396,43 +469,36 @@ res.send(req.query['hub.challenge']);
     quickreply=false;
     }
 
-    else if(template){
+    else if(Facebooklist!=={}){
+      console.log("Template detected.")
+      var elementsArray=[];
+      for (var i=0;i<Facebooklist.Maindata.length;i++){
+        var obj={};
+        obj={
+          'title': Facebooklist.Maindata[i].Title,
+          'subtitle': Facebooklist.Maindata[i].Text,
+          'image_url': 'http://www.lawstuff.org.au/__data/assets/image/0015/861/home_char2.png',
+          'buttons': [{
+              'type': 'web_url',
+              'url': Facebooklist.Maindata[i].Actions.URL,
+              'title':  Facebooklist.Maindata[i].Actions.title
+          }
+        ]
+      };
+      elementsArray.push(obj);
+      }
       request_body = { "recipient": {
         "id": sender_psid
       },
       "message":{
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"generic",
-            "elements":[
-               {
-                "title":"Welcome to Peter\'s Hats",
-                "image_url":"https://petersfancybrownhats.com/company_image.png",
-                "subtitle":"We\'ve got the right hat for everyone.",
-                "default_action": {
-                  "type": "web_url",
-                  "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                },
-                "buttons":[
-                  {
-                    "type":"web_url",
-                    "url":"https://petersfancybrownhats.com",
-                    "title":"View Website"
-                  },{
-                    "type":"postback",
-                    "title":"Start Chatting",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                  }              
-                ]      
-              }
-            ]
-          }
+        'attachment': {
+            'type': 'template',
+            'payload': {
+                'template_type': 'generic',
+                'elements': elementsArray,
+            }
         }
-      }
+    }
     }
     template=false;
   }
@@ -444,7 +510,7 @@ res.send(req.query['hub.challenge']);
     
      
    
-  console.log(JSON.stringify(request_body )+"\n request body");
+//   console.log(JSON.stringify(request_body )+"\n request body");
     // Send the HTTP request to the Messenger Platform
     //error coming here
  request({
@@ -454,19 +520,20 @@ res.send(req.query['hub.challenge']);
       "json": request_body
     }, (err, res, body) => {
       if (!err) {
-        console.log('message sent!')
+        console.log('message sent!'+JSON.stringify(request_body));
       } else {
         Log.facebookErrorLog(err);
         console.error("Unable to send message:" + err);
       }
     }); 
-    var str=new Date()+"   "+"Author : "+ "watson" + "   Message :  "+ response.text+"\r\n" ;
-    Log.CreateLog(str);
+    // var str=new Date()+"   "+"Author : "+ "watson" + "   Message :  "+ response.text+"\r\n" ;
+    // Log.CreateLog(str);
+    Facebookcontexts=null;
 Facebookaction={};//resetting facebookaction
   }//Messanger post webhook
 app.use('/',router);
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-console.log(process.env);
+// console.log(process.env);
 
 
 const cluster = require('cluster');

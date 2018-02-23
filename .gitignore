@@ -3,7 +3,7 @@
 node_modules/
 .vscode
 tasks
-package-lock.json
+package-lock.jsons
 public\Views\bower_components
 .bowerrc
 bower.json

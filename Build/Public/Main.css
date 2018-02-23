@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+html{
+    font-family: 'Roboto', sans-serif;
+}
+body 
+{
+	background: #e9e9e9;
+	color: #9a9a9a;
+	font: 100%/1.5em "Droid Sans", sans-serif;
+=======
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 html
 {  
@@ -17,6 +27,7 @@ body
     color:#4d524d;
     font-family: 'Roboto', sans-serif;
 	/* font: 100%/1.5em "Droid Sans", sans-serif; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
 	margin: 0;
 }
 
@@ -58,8 +69,12 @@ input
 {
 	border: 0;
 	color: inherit;
+<<<<<<< HEAD
+    font-size: 100%;
+=======
     font-family: 'Roboto', sans-serif;
     /* font-size: 100%; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     line-height: normal;
     margin: 0;
 }
@@ -76,13 +91,21 @@ p { margin: 0; }
 
 .fa 
 {
+<<<<<<< HEAD
+    font-size: 2rem;
+=======
     /* font-size: 2rem; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     margin: 3px
 }
 .fa:hover 
 {
     cursor: pointer;
+<<<<<<< HEAD
+    font-size:24px;
+=======
     /* font-size:24px; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     color: rgb(233, 212, 106);
 }
 .fa-star
@@ -91,7 +114,11 @@ p { margin: 0; }
 } 
 .ratingText
 {
+<<<<<<< HEAD
+    font-size: 12px;
+=======
     /* font-size: 12px; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     margin-left: 4rem;
 }
 .OpenFeedback
@@ -105,14 +132,22 @@ textarea
     width: 100%;
     min-height: 100%;
     resize :none;
+<<<<<<< HEAD
+    font-size: 11px
+=======
     /* font-size: 11px */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
 }
 .Buttons {
     width: 100%;
     background-color: rgb(240, 241, 237);
     /* min-height: 5vh; */
     padding: 5px;
+<<<<<<< HEAD
+    font-size: 15px;
+=======
     /* font-size: 15px; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     overflow: hidden;
     overflow-x: auto;
    
@@ -129,7 +164,11 @@ button {
     width: 80Px;
     border-radius: 4px;
     box-shadow: inset 1px 1px 2px 0px #c5cebc;
+<<<<<<< HEAD
+    font-size: 15px;
+=======
     /* font-size: 15px; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     border: none;
     outline: none;
     padding: 5px;
@@ -138,6 +177,23 @@ button {
     color: #4e4a4ac2;
     background-color: #fdfdfd;
     box-sizing: content-box;
+<<<<<<< HEAD
+}
+/* Mobile Potrait View */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+  html{
+      font-family: 'Roboto', sans-serif;
+      font-size: 1em;
+      width: 100%;
+      overflow-x: hidden
+  }
+@media screen and (max-width: 450px)and (orientation: portrait){/* ---------- LIVE-CHAT ---------- */
+    .UnlockChat{
+        position: relative;
+        /* float: right; */
+        float: right;
+=======
 }
 .fa-paper-plane{
     font-size: 1.3em;
@@ -159,15 +215,23 @@ button {
         position: relative;
          float: right;
         margin-right:-3vw;
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     }
 
     #live-chat {
         bottom: 0;
         /* font-size: 12px; */
+<<<<<<< HEAD
+        /* right: 5%; */
+        position: fixed;
+        width: 100%;
+        margin-left:-4vw;
+=======
         right: 5%;
         position: fixed;
         width: 90%;
         
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
     }
     
     #live-chat header {
@@ -205,12 +269,20 @@ button {
     
     #live-chat form {
         padding: 20px 10px;
+<<<<<<< HEAD
+    }
+    
+    #live-chat input[type="text"] {
+=======
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         border: 1px solid #ccc;
         border-radius: 3px;
         padding: 8px;
         outline: none;
         height: 50px;
         width: 90%;
+<<<<<<< HEAD
+=======
     }
     
     #live-chat input[type="text"] {
@@ -218,6 +290,7 @@ button {
         position: relative;
         border: none;
         outline: none
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         /* font-size: 2rem; */
     }
     
@@ -239,6 +312,15 @@ button {
     }
     
     .chat-close {
+<<<<<<< HEAD
+        background: #556979;
+        border-radius: 50%;
+        color: #fff;
+        float: right;
+        /* font-size: 2em; */
+        padding: 10px;
+        margin: -8px -15px;
+=======
         background: #1b2126;
         border: 1vw solid #1b2126;
         border-radius: 50%;
@@ -247,6 +329,7 @@ button {
         /* font-size: 2em;
         padding: 1vw;
         margin: -1vw; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         }
     
     .chat {
@@ -282,6 +365,16 @@ button {
         margin: 0 0 0 80px;
     }}  
 
+<<<<<<< HEAD
+
+/* tablet view potrait */
+    @media screen and (min-width: 451px) and (max-width: 750px)and (orientation: portrait){/* ---------- LIVE-CHAT ---------- */
+        
+        .UnlockChat{
+            position: relative;
+            /* float: right; */
+            float: right;
+=======
     /* Mobile landscape view */
     /* (min-width: 300px)and (max-width: 450px)and (min-height: 400px)and (max-height: 767px) */
     /* (min-width: 550px)and (max-width: 800px)and (min-height: 100px)and (max-height: 450px) */
@@ -292,6 +385,7 @@ button {
             float: right;
             margin-right:-3vw;
             /* right: -90vw; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         }
         #live-chat {
             bottom: 0;
@@ -338,12 +432,20 @@ button {
         
         #live-chat form {
             padding: 20px 10px;
+<<<<<<< HEAD
+        }
+        
+        #live-chat input[type="text"] {
+=======
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             height: 50px;
             width: 90%;
+<<<<<<< HEAD
+=======
         }
         
         #live-chat input[type="text"] {
@@ -352,6 +454,7 @@ button {
             border: none;
             outline: none;
 
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
             /* font-size: 16px; */
         }
         
@@ -373,6 +476,15 @@ button {
         }
         
         .chat-close {
+<<<<<<< HEAD
+            background: #556979;
+            border-radius: 50%;
+            color: #fff;
+            float: right;
+            /* font-size: 2rem; */
+            padding: 10px;
+            margin: -5px -5px;
+=======
             background: #1b2126;
             border: 1vw solid #1b2126;
             border-radius: 50%;
@@ -381,6 +493,7 @@ button {
             /* font-size: 2rem;
             padding: 1vw;
             margin: -1vw; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
             }
         
         .chat {
@@ -417,6 +530,14 @@ button {
             margin: 0 0 0 80px;
         }}
 
+<<<<<<< HEAD
+/* large tablet view potrait */
+    @media screen and (min-width: 751px) and (max-width: 1370px)and (orientation: portrait){/* ---------- LIVE-CHAT ---------- */
+        .UnlockChat{
+            position: relative;
+            /* float: right; */
+            float: right;
+=======
 
     /* TabLet View lanscape*/
     /* (min-width: 300px)and (max-width: 450px)and (min-height: 400px)and (max-height: 767px) */
@@ -427,6 +548,7 @@ button {
             float: right;
             margin-right:-3vw;
             /* right: -45vw; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         }
         #live-chat {
             bottom: 0;
@@ -474,19 +596,19 @@ button {
         
         #live-chat form {
             padding: 0.9vw;
+<<<<<<< HEAD
+        }
+        
+        #live-chat input[type="text"] {
+=======
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
             height: 6vh;
             width: 90%;
-        }
-        
-        #live-chat input[type="text"] {
-            width: 90%;
-            position: relative;
-            border: none;
-            outline: none
+<<<<<<< HEAD
             /* font-size: 1.5vw; */
         }
         
@@ -508,14 +630,13 @@ button {
         }
         
         .chat-close {
-            background: #1b2126;
-            border: 1vw solid #1b2126;
-            border-radius: 50%;
+            background: #556979;
+            border-radius: 0%;
             color: #fff;
             float: right;
-            /* font-size: 1.5vw;
-            padding: 1vw;
-            margin: -1vw; */
+            /* font-size: 1.5vw; */
+            padding: 0.5vw;
+            margin: -1vw -1vh;
             }
         
         .chat {
@@ -551,26 +672,161 @@ button {
             margin: 0 0 0 80px;
         }}
 
-   
 
+/* @media screen and (max-height: 200px)and (orientation: landscape){
+    #live-chat input[type="text"] {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 8px;
+        outline: none;
+        height: 6vh;
+        width: 90%;
+        height: 100%;
+        font-size: 1.5vw;
+    }
 
-        /* Laptop View */
-        @media screen and (min-width : 1224px) 
-        {
+} */
 
-            .UnlockChat{
-                position: relative;
-                float: right;
-                margin-right:-3vw;
-                /* right: -87vw; */
-            }
+   /* Mobile landscape View */
+@media screen and (max-width: 450px)and (orientation: landscape){/* ---------- LIVE-CHAT ---------- */
+    .UnlockChat{
+        position: relative;
+        /* float: right; */
+        float: right;
+    }
 
+    #live-chat {
+        /* bottom: 0; */
+        /* font-size: 1vw; */
+        /* right: 5%; */
+        position: fixed;
+        width: 100%;
+        margin-left:-4vw;
+    }
+    
+    #live-chat header {
+        background: #293239;
+        border-radius: 5px 5px 0 0;
+        color: #fff;
+        cursor: pointer;
+        padding: 16px 24px;
+        /* font-size: 1em */
+    }
+    
+    #live-chat h4:before {
+        background: #1a8a34;
+        border-radius: 50%;
+        content: "";
+        display: inline-block;
+        height: 8px;
+        margin: 0 8px 0 0;
+        width: 8px;
+    }
+    
+    #live-chat h4 {
+        /* font-size: 2em; */
+    }
+    
+    #live-chat h5 {
+        /* font-size: 2em; */
+        margin-left: -50px;
+    }
+    #live-chat p {
+        /* font-size: 2rem; */
+        margin-left: -40px;
+        padding-bottom: 10px
+    }
+    
+    #live-chat form {
+        margin-bottom: 30em;
+        padding: 20px 10px;
+    }
+    
+    #live-chat input[type="text"] {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 8px;
+        outline: none;
+        height: 50px;
+        width: 90%;
+        /* font-size: 2rem; */
+    }
+    
+    .chat-message-counter {
+        background: #e62727;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        display: none;
+        /* font-size: 12px; */
+        font-weight: bold;
+        height: 28px;
+        left: 0;
+        line-height: 28px;
+        margin: -15px 0 0 -15px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 28px;
+    }
+    
+    .chat-close {
+        background: #556979;
+        border-radius: 50%;
+        color: #fff;
+        float: right;
+        /* font-size: 2em; */
+        padding: 10px;
+        margin: -8px -15px;
+        }
+    
+    .chat {
+        background: #fff;
+    }
+    
+    .chat-history {
+        height: 65vh;
+        padding: 8px 24px;
+        overflow-y: scroll;
+    }
+    
+    .chat-message {
+        margin: 16px 0;
+    }
+    
+    .chat-message img {
+        border-radius: 50%;
+        float: left;
+    }
+    
+    .chat-message-content {
+        margin-left: 56px;
+    }
+    
+    .chat-time {
+        float: right;
+        /* font-size: 16px; */
+    }
+    
+    .chat-feedback {
+        font-style: italic;	
+        margin: 0 0 0 80px;
+    }}  
+/* tablet view landscape */
+    @media screen and (min-width: 451px) and (max-width: 750px)and (orientation: landscape){/* ---------- LIVE-CHAT ---------- */
+        
+        .UnlockChat{
+            position: relative;
+            /* float: right; */
+            float: right;
+        }
         #live-chat {
             bottom: 0;
             /* font-size: 12px; */
-            right: 24px;
+            top:-5px;
+            right: 5%;
             position: fixed;
-            width:30vw
+            width: 70%;
+            
         }
         
         #live-chat header {
@@ -578,7 +834,305 @@ button {
             border-radius: 5px 5px 0 0;
             color: #fff;
             cursor: pointer;
+            padding: 16px ;
+            /* font-size: 1em */
+        }
+        
+        #live-chat h4:before {
+            background: #1a8a34;
+            border-radius: 50%;
+            content: "";
+            display: inline-block;
+            height: 8px;
+            margin: 0 8px 0 0;
+            width: 8px;
+        }
+        
+        #live-chat h4 {
+            /* font-size: 2rem; */
+        }
+        
+        #live-chat h5 {
+            /* font-size: 18px; */
+            margin-left: -50px;
+        }
+        #live-chat p {
+            /* font-size: 16px; */
+            margin-left: -30px;
+            padding-bottom: 10px
+        }
+        
+        #live-chat form {
+            padding: 20px 10px;
+        }
+        
+        #live-chat input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 8px;
+            outline: none;
+            height: 50px;
+            width: 90%;
+            /* font-size: 16px; */
+        }
+        
+        .chat-message-counter {
+            background: #e62727;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            display: none;
+            /* font-size: 12px; */
+            font-weight: bold;
+            height: 28px;
+            left: 0;
+            line-height: 28px;
+            margin: -15px 0 0 -15px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 28px;
+        }
+        
+        .chat-close {
+            background: #556979;
+            border-radius: 50%;
+            color: #fff;
+            float: right;
+            /* font-size: 2rem; */
+            padding: 10px;
+            margin: -5px -5px;
+            }
+        
+        .chat {
+            background: #fff;
+        }
+        
+        .chat-history {
+            height: 57vh;
+            padding: 8px 24px;
+            overflow-y:auto;
+             align-self: auto;;
+        }
+        
+        .chat-message {
+            margin: 16px 0;
+        }
+        
+        .chat-message img {
+            border-radius: 50%;
+            float: left;
+        }
+        
+        .chat-message-content {
+            margin-left: 56px;
+        }
+        
+        .chat-time {
+            float: right;
+            /* font-size: 16px; */
+        }
+        
+        .chat-feedback {
+            font-style: italic;	
+            margin: 0 0 0 80px;
+        }}
+
+/* large tablet view landscape */
+    @media screen and (min-width: 751px) and (max-width: 1370px)and (orientation: landscape){/* ---------- LIVE-CHAT ---------- */
+        .UnlockChat{
+            position: relative;
+            /* float: right; */
+            float: right;
+        }
+        #live-chat {
+            bottom: 0;
+            /* font-size: .5vw;  */
+            right: 3%;
+            position: fixed;
+            width: 60vw;
+            
+        }
+        
+        #live-chat header {
+            background: #293239;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            cursor: pointer;
+            padding: 1.5vw;
+            /* font-size: 1.2em */
+        }
+        
+        #live-chat h4:before {
+            background: #1a8a34;
+            border-radius: 50%;
+            content: "";
+            display: inline-block;
+            height: 8px;
+            margin: 0 8px 0 0;
+            width: 8px;
+        }
+        
+        #live-chat h4 {
+            /* font-size: 2vw; */
+        }
+        
+        #live-chat h5 {
+            /* font-size: 1.7vw; */
+            margin-left: -50px;
+        }
+        #live-chat p {
+            min-height: 1.2vw;
+            /* font-size: 1.5vw; */
+            margin-left: -40px;
+            font-family:'Roboto', sans-serif;;
+            padding-bottom: 10px
+        }
+        
+        #live-chat form {
+            padding: 0.9vw;
+        }
+        
+        #live-chat input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 8px;
+            outline: none;
+            height: 6vh;
+            width: 90%;
+=======
+        }
+        
+        #live-chat input[type="text"] {
+            width: 90%;
+            position: relative;
+            border: none;
+            outline: none
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
+            /* font-size: 1.5vw; */
+        }
+        
+        .chat-message-counter {
+            background: #e62727;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            display: none;
+            /* font-size: 12px; */
+            font-weight: bold;
+            height: 28px;
+            left: 0;
+            line-height: 28px;
+            margin: -15px 0 0 -15px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 28px;
+        }
+        
+        .chat-close {
+<<<<<<< HEAD
+            background: #556979;
+            border-radius: 0%;
+            color: #fff;
+            float: right;
+            /* font-size: 1.5vw; */
+            padding: 0.5vw;
+            margin: -1vw -1vh;
+=======
+            background: #1b2126;
+            border: 1vw solid #1b2126;
+            border-radius: 50%;
+            color: #fff;
+            float: right;
+            /* font-size: 1.5vw;
+            padding: 1vw;
+            margin: -1vw; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
+            }
+        
+        .chat {
+            background: #fff;
+        }
+        
+        .chat-history {
+            height: 65vh;
+            padding: 8px 24px;
+            overflow-y: scroll;
+        }
+        
+        .chat-message {
+            margin: 16px 0;
+        }
+        
+        .chat-message img {
+            border-radius: 50%;
+            float: left;
+        }
+        
+        .chat-message-content {
+            margin-left: 56px;
+        }
+        
+        .chat-time {
+            float: right;
+            /* font-size: 20px; */
+        }
+        
+        .chat-feedback {
+            font-style: italic;	
+            margin: 0 0 0 80px;
+        }}
+
+<<<<<<< HEAD
+
+    
+  /* TabLet View potrait*/
+    /* (min-width: 300px)and (max-width: 450px)and (min-height: 400px)and (max-height: 767px) */
+    /* (min-width: 550px)and (max-width: 800px)and (min-height: 100px)and (max-height: 450px) */
+   
+
+=======
+   
+
+
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
+        /* Laptop View */
+        @media screen and (min-width : 1224px) 
+        {
+
+            .UnlockChat{
+                position: relative;
+<<<<<<< HEAD
+                /* float: right; */
+                float: right;
+=======
+                float: right;
+                margin-right:-3vw;
+                /* right: -87vw; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
+            }
+
+        #live-chat {
+            bottom: 0;
+            /* font-size: 12px; */
+            right: 24px;
+            position: fixed;
+<<<<<<< HEAD
+            width: 300px;
+=======
+            width:30vw
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
+        }
+        
+        #live-chat header {
+            background: #293239;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            cursor: pointer;
+<<<<<<< HEAD
+            padding: 16px 24px;
+=======
             padding: 1vh;
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         }
         
         #live-chat h4:before {
@@ -601,10 +1155,19 @@ button {
         
         #live-chat form {
             padding: 24px;
+<<<<<<< HEAD
+        }
+        
+        #live-chat input[type="text"] {
+=======
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
             border: 1px solid #ccc;
             border-radius: 3px;
             padding: 8px;
             outline: none;
+<<<<<<< HEAD
+            width: 234px;
+=======
             width: 90%;
         }
         
@@ -613,6 +1176,7 @@ button {
             position: relative;
             border: none;
             outline: none
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         }
         
         .chat-message-counter {
@@ -634,6 +1198,18 @@ button {
         
         .chat-close {
             background: #1b2126;
+<<<<<<< HEAD
+            border-radius: 50%;
+            color: #fff;
+            display: block;
+            float: right;
+            /* font-size: 10px; */
+            height: 16px;
+            line-height: 16px;
+            margin: 2px 0 0 0;
+            text-align: center;
+            width: 16px;
+=======
             border: 0.5vw solid #1b2126;
             border-radius: 40%;
             color: #fff;
@@ -646,6 +1222,7 @@ button {
             margin: -1vw;
             text-align: center;
             width: 16px; */
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
         }
         
         .chat {
@@ -653,7 +1230,11 @@ button {
         }
         
         .chat-history {
+<<<<<<< HEAD
+            height: 252px;
+=======
             height: 60vh;
+>>>>>>> ed5dbad2401be9318d079b7c05566d4989c7c8a8
             padding: 8px 24px;
             overflow-y: scroll;
         }

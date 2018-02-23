@@ -19,7 +19,7 @@ app.controller('ChatController',['$scope','$localStorage','$filter','$location',
     scope.quickreplyflag=false;
     scope.UrlButtonFlag=false;
     scope.form={};
-    scope.form.showall=true;
+    scope.form.showall=false;
     //list view
     scope.listview=false;
     scope.listviewArray=[];
@@ -198,6 +198,35 @@ if (saveWindowHeight = true){
 
 
      }
+    else if(window.orientation="portrait")
+     {
+
+        if(windowHeight/(savedWindowHeight) <=0.65 ){
+            var form=document.getElementById("chat-history");
+            var Header=document.getElementById("Header");
+            Header.style.position='relative';
+            Header.style.top='1vh';
+           
+            // scope.message=scope.message;
+            // var old='';
+            // location.hash(scope.message.length-1)
+          
+            //       anchorScroll();
+            //       timeout(function(){location.hash(old)},100);
+            return;
+
+        }
+        else{
+            var form=document.getElementById("chat-history");
+            var Header=document.getElementById("Header");
+            Header.style.position='relative';
+            Header.style.top='0';
+
+            return;
+        }
+
+
+     }
 
 else{
     var form=document.getElementById("chat-history");
@@ -249,7 +278,7 @@ else{
     if(!StartofConv){
       StartofConv=true;
   
-        http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+'Sandip'+"&t="+new Date()).then(function(request,response){
+        http.post(serverurl+"watson?m="+true+"&y="+''+"&z="+''+"&t="+new Date()).then(function(request,response){
           
          console.log("success",JSON.stringify(request.data));
          scope.receiveddata=request.data;
@@ -336,7 +365,7 @@ scope.Feedback=function(data){
   var date=new Date();
   Timestamp=date.toString();
   var password = "Secret Password";// Will be edited later
-  scope.sendData={"Type":"Sent","Author":"Sandip","Text":scope.Text,"Time":Timestamp}
+  scope.sendData={"Type":"Sent","Author":"","Text":scope.Text,"Time":Timestamp}
   // var Type = encrypt(scope.sendData.Type, password);
   message.Type=scope.sendData.Type;
   // var Text = encrypt(scope.sendData.Text, password);

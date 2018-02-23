@@ -1,12 +1,12 @@
 keys={
 facebook:{
-    accesstoken:'EAAWK2Wgv6DMBAKMYlzmUo10Kg9fLp9ZARYUUGvyxIuIbsoCcsEduZAXesqNOiBdpOieSNbYNaJ1RxZBRgig8kt0RMI4RfdDZCHZC2s7Y5rZBOPmXjZCdLAk0IFJIPqnLW5ZCZC9EmHPZCNg4h9BwvVQUyuhEaiwx1CTNp0ZCSJtYJ3hvPoQVezQW3bM',
+    accesstoken:'EAAWK2Wgv6DMBAIPhq4Qo8x9KJCwkJUefNGqZBSrL4TnMP0NLDVJxeGRQ68cEiRRfueRF4kzm6ZA8E2ceZCAOeowWvZBMO4rMEjW9rkB2J9oGsZAIw2seOa1TKhQ9V9Hfi8iCBZCwui7P8FT7cvafnXVjCHJ4UnkI2NZA97qlwhEwgNQP4jnHts8',
 
 },
 watson:{
-    workspaceID:'b09f238e-b5b1-4b2b-9c02-62a57b51ee21',//'38282176-f16f-4e2f-bd7d-4969793f9220',
-    username:'b53723bb-17ab-4222-97d6-498ff02642dc',//'98cb1a45-715e-4c3c-bdff-2f397a4d6473',
-    password: 'SQb7qzCOUjuF',//'GjSqKInjGtUz',
+    workspaceID:'93cdede9-9260-4e6a-a11a-73d39b91d003',//'38282176-f16f-4e2f-bd7d-4969793f9220',
+    username:'9a5f0b6a-c734-4a65-a3e5-5a1fcd42543a',//'98cb1a45-715e-4c3c-bdff-2f397a4d6473',
+    password: 'pDQ3L04Hx63g',//'GjSqKInjGtUz',
 }
 
 

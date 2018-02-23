@@ -90,7 +90,8 @@
 				  </div>
 				<i class="fa fa-times-circle" aria-hidden="true"  ng-click="LockChat()"></i></span>
 			
-			<h4>Lawstuff BoT</h4>
+			<img class="avatar" title="Ayla" src="Views/Styles/Images/Aylaavatar.png">
+			<h4 class="avatar">Ayla</h4>
 			<span></span>
 			<!-- <span class="chat-message-counter">3</span> -->
 
@@ -107,18 +108,25 @@
 					<div class="chat-message-content clearfix">
 						
 						<!-- <span class="chat-time">{{messages.Time | date:'MM-dd HH:mm'}}</span> -->
-						<div ng-class="messages.Type=='Received'?'received':'sent'">
+						<div ng-class="messages.Type=='Received'?'received':'sent'" ng-mouseenter="form.Showtime[$index]=true" ng-mouseleave="form.Showtime=false">
 						<h5 id={{$index}}>{{messages.Author}}</h5>
-
-						<p >{{messages.Text}}</p>
+							<!-- <p class="time" ng-if="form.Showtime[$index]">{{messages.Type}} at        {{messages.Time|date:"dd.MM.yy HH:mm"}}<p> -->
+						<p>{{messages.Text}}</p>
 						<div class="listArraycontainer" ng-if="messages.List">
 								<div class="ListTemplateTitle">{{messages.List.Title}}</div>
-								<button class="listArrayUrl" ng-if="messages.List.Maindata.length>1" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"Hide options":"Show options"}}</button>
+								<button class="listArrayUrl" ng-if="messages.List.Maindata.length>1" ng-click="form.showall = (form.showall==true?false:true)" >{{form.showall==true?"HideOptions":"ShowOptions"}}</button>
 								<div class="listArray" ng-if="form.showall" ng-repeat="listview in messages.List.Maindata">
 									<div class="ListTitle">{{listview.Title}}</div>
 									<div class="Listbody">{{listview.Text}}
-							<div class="listArrayUrl" ng-if="listview.Actions.URL"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div>
-							<div class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply"><button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button></div></div>
+							<div  ng-if="listview.Actions.URL"><a href={{listview.Actions.URL}} target="_blank">{{listview.Actions.title}}</a></div>
+							<div class="listArrayUrl" ng-if="listview.Actions.Button"><a href={{listview.Actions.Button}} target="_blank">{{listview.Actions.Button}}</a></div>
+							<!-- <div class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply">
+								<button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button>
+							</div>-->
+							<ul>
+								<li class="Buttons" ng-if="listview.Actions.Quickreply" ng-repeat="quickreplies in listview.Actions.Quickreply"><button class="listArrayUrl" ng-click="Feedback(quickreplies)">{{quickreplies}}</button></div></li> 
+							</ul>
+							</div> 
 						</div>
 							</div>
 						<!-- Defining ng class -->
